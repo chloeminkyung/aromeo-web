@@ -1,35 +1,13 @@
-/**
- * This file provided by Facebook is for non-commercial testing and evaluation
- * purposes only. Facebook reserves all rights not expressly granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 "use strict";
 
-var ExampleImage = require('../constants/ExampleImage');
-var FakeObjectDataListStore = require('../constants/FakeObjectDataListStore');
-var FixedDataTable = require('fixed-data-table');
-var React = require('react');
+const ExampleImage = require('./helpers/ExampleImage');
+const FakeObjectDataListStore = require('./helpers/FakeObjectDataListStore');
+const { ImageCell, TextCell } = require('./helpers/cells');
+const { Table, Column, Cell } = require('fixed-data-table-2');
+const React = require('react');
+const Dimensions = require('react-dimensions');
 
-const {Table, Column, Cell} = FixedDataTable;
-
-const ImageCell = ({rowIndex, data, col, ...props}) => (
-    <ExampleImage
-        src={data.getObjectAt(rowIndex)[col]}
-    />
-);
-
-const TextCell = ({rowIndex, data, col, ...props}) => (
-    <Cell {...props}>
-        {data.getObjectAt(rowIndex)[col]}
-    </Cell>
-);
+require('fixed-data-table-2/dist/fixed-data-table.css')
 
 class DataListWrapper {
     constructor(indexMap, data) {
@@ -48,7 +26,7 @@ class DataListWrapper {
     }
 }
 
-class FilterExample extends React.Component {
+class DeviceControlTable extends React.Component {
     constructor(props) {
         super(props);
 
@@ -84,6 +62,8 @@ class FilterExample extends React.Component {
 
     render() {
         var {filteredDataList} = this.state;
+        const {height, width, containerHeight, containerWidth, ...props} = this.props;
+
         return (
             <div>
                 <input
@@ -95,39 +75,45 @@ class FilterExample extends React.Component {
                     rowHeight={50}
                     rowsCount={filteredDataList.getSize()}
                     headerHeight={50}
-                    width={1000}
-                    height={500}
+                    width={containerWidth}
+                    height={containerHeight}
                     {...this.props}>
                     <Column
-                        cell={<ImageCell data={filteredDataList} col="avatar" />}
+                        columnKey="avatar"
+                        cell={<ImageCell data={filteredDataList} />}
                         fixed={true}
                         width={50}
                     />
                     <Column
+                        columnKey="firstName"
                         header={<Cell>First Name</Cell>}
-                        cell={<TextCell data={filteredDataList} col="firstName" />}
+                        cell={<TextCell data={filteredDataList} />}
                         fixed={true}
                         width={100}
                     />
                     <Column
+                        columnKey="lastName"
                         header={<Cell>Last Name</Cell>}
-                        cell={<TextCell data={filteredDataList} col="lastName" />}
+                        cell={<TextCell data={filteredDataList} />}
                         fixed={true}
                         width={100}
                     />
                     <Column
+                        columnKey="city"
                         header={<Cell>City</Cell>}
-                        cell={<TextCell data={filteredDataList} col="city" />}
+                        cell={<TextCell data={filteredDataList} />}
                         width={100}
                     />
                     <Column
+                        columnKey="street"
                         header={<Cell>Street</Cell>}
-                        cell={<TextCell data={filteredDataList} col="street" />}
+                        cell={<TextCell data={filteredDataList} />}
                         width={200}
                     />
                     <Column
+                        columnKey="zipCode"
                         header={<Cell>Zip Code</Cell>}
-                        cell={<TextCell data={filteredDataList} col="zipCode" />}
+                        cell={<TextCell data={filteredDataList} />}
                         width={200}
                     />
                 </Table>
@@ -136,4 +122,14 @@ class FilterExample extends React.Component {
     }
 }
 
-module.exports = FilterExample;
+// See react-dimensions for the best way to configure
+// https://github.com/digidem/react-dimensions
+module.exports = Dimensions({
+    getHeight: function(element) {
+        return window.innerHeight - 200;
+    },
+    getWidth: function(element) {
+        var widthOffset = window.innerWidth < 680 ? 0 : 170;
+        return window.innerWidth - widthOffset;
+    }
+})(DeviceControlTable);

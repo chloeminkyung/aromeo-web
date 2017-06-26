@@ -15,7 +15,7 @@ import {
 } from 'material-ui/Table';
 
 import FilterToolbar from '../components/FilterToolbar'
-import AromeoControlTable from '../components/AromeoControlTable'
+import DeviceControlTable from '../components/DeviceControlTable'
 
 class ControlContainer extends React.Component {
     constructor(props){
@@ -27,7 +27,7 @@ class ControlContainer extends React.Component {
             <div>
                 <Row>
                     <FilterToolbar />
-                    <AromeoControlTable />
+                    <DeviceControlTable />
                 </Row>
             </div>
         );
