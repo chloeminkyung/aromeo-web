@@ -16,15 +16,10 @@ class DeviceControlTable extends React.Component {
     }
 
     render() {
-        var {filteredDataList, _onFilterChange} = this.props;
+        var {filteredDataList} = this.props;
         const {height, width, containerHeight, containerWidth, ...props} = this.props;
         return (
             <div>
-                <input
-                    onChange={(e)=>_onFilterChange(e.target.value.toLowerCase())}
-                    placeholder="Filter by Room No."
-                />
-                <br />
                 <Table
                     rowHeight={50}
                     rowsCount={filteredDataList.length}

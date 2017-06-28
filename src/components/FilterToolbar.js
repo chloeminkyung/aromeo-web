@@ -11,8 +11,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
 import OilStatus from '../components/oilStatus'
+import {filterWithText} from '../actions/controlAction'
 
-export default class FilterToolbar extends React.Component {
+
+class FilterToolbar extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -60,7 +62,11 @@ export default class FilterToolbar extends React.Component {
                             <MenuItem value={3} primaryText="Running Out" />
                         </DropDownMenu>
                         <label style={styles.label}>Room No</label>
-                        <input type="text" className="form-control" placeholder="Search" style={{margin:8, paddingLeft: 5, width: 120}} />
+                        <input type="text" placeholder="Search"
+                               onChange={(e)=>this.props.filterWithText(e.target.value.toLowerCase())}
+                               style={{margin:8, paddingLeft: 5, width: 120}}
+                        />
+
                         <RaisedButton
                             onTouchTap={(event)=>this.handleTouchTap(event)}
                             label="Reset Filter"
@@ -96,6 +102,15 @@ export default class FilterToolbar extends React.Component {
         );
     }
 }
+
+export default connect(
+    state => ({
+        filteredDataList: state.control.filteredDataList
+    }),
+    {
+        filterWithText
+    }
+)(FilterToolbar)
 
 const styles = {
     filterToolbarContainer: {

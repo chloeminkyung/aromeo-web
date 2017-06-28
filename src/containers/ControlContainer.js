@@ -33,7 +33,7 @@ class ControlContainer extends React.Component {
             <div>
                 <Row>
                     <FilterToolbar />
-                    <DeviceControlTable filteredDataList={filteredDataList} _onFilterChange={filterWithText} />
+                    <DeviceControlTable filteredDataList={filteredDataList} filterWithText={filterWithText} />
                 </Row>
             </div>
         );
