@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
-import conversation from './conversationReducer'
+import control from './controlReducer'
 
 export default combineReducers({
-    conversation,
+    control
 });

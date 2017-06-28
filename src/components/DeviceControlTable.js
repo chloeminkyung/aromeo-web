@@ -21,7 +21,7 @@ class DeviceControlTable extends React.Component {
         return (
             <div>
                 <input
-                    onChange={_onFilterChange}
+                    onChange={(e)=>_onFilterChange(e.target.value.toLowerCase())}
                     placeholder="Filter by Room No."
                 />
                 <br />
