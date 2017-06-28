@@ -16,7 +16,7 @@ class DeviceControlTable extends React.Component {
     }
 
     render() {
-        var {filteredDataList} = this.props;
+        var {filteredDataList, isManageMode} = this.props;
         const {height, width, containerHeight, containerWidth, ...props} = this.props;
         return (
             <div>
@@ -31,7 +31,6 @@ class DeviceControlTable extends React.Component {
                         columnKey="index"
                         header={<Cell>Index</Cell>}
                         cell={<IndexCell />}
-                        fixed={true}
                         width={100}
                         align={'center'}
                     />
@@ -39,7 +38,6 @@ class DeviceControlTable extends React.Component {
                         columnKey="roomNo"
                         header={<Cell>Room No.</Cell>}
                         cell={<TextCell data={filteredDataList} />}
-                        fixed={true}
                         width={200}
                         align={'center'}
                     />
@@ -47,7 +45,6 @@ class DeviceControlTable extends React.Component {
                         columnKey="aromeoID"
                         header={<Cell>Aromeo ID</Cell>}
                         cell={<TextCell data={filteredDataList} />}
-                        fixed={true}
                         width={200}
                         align={'center'}
                     />
@@ -61,7 +58,7 @@ class DeviceControlTable extends React.Component {
                     <Column
                         columnKey="device"
                         header={<Cell>Device Status</Cell>}
-                        cell={<DeviceStatusCell data={filteredDataList} />}
+                        cell={<DeviceStatusCell data={filteredDataList} isManageMode={isManageMode}/>}
                         width={200}
                         align={'center'}
                     />

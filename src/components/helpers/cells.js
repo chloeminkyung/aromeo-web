@@ -3,7 +3,7 @@
 const ExampleImage = require('./ExampleImage');
 const { Cell } = require('fixed-data-table-2');
 const React = require('react');
-const ReactTooltip = require('react-tooltip');
+import Toggle from 'material-ui/Toggle';
 
 import OilStatus from '../oilStatus'
 
@@ -107,12 +107,20 @@ module.exports.IndexCell = IndexCell;
 
 class DeviceStatusCell extends React.PureComponent {
     render() {
-        const {data, rowIndex, columnKey, ...props} = this.props;
+        const {data, rowIndex, columnKey, isManageMode, ...props} = this.props;
         const isOn = data[rowIndex][columnKey];
         return (
-            <Cell {...props}>
-                {isOn? "On": "Off"}
-            </Cell>
+            isManageMode?
+                <Cell {...props}>
+                    {isOn? "On": "Off"}
+                </Cell>
+                :
+                <Cell {...props}>
+                    <Toggle
+                        label={isOn? "On": "Off"}
+                        defaultToggled={isOn}
+                    />
+                </Cell>
         );
     }
 };

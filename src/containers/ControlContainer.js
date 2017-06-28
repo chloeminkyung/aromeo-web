@@ -26,14 +26,15 @@ class ControlContainer extends React.Component {
 
     render() {
 
-        const {filteredDataList,
+        const {filteredDataList, isManageMode,
             filterWithText} = this.props;
 
         return (
             <div>
                 <Row>
                     <FilterToolbar />
-                    <DeviceControlTable filteredDataList={filteredDataList} filterWithText={filterWithText} />
+                    <DeviceControlTable filteredDataList={filteredDataList} filterWithText={filterWithText}
+                                        isManageMode={isManageMode}/>
                 </Row>
             </div>
         );
@@ -42,7 +43,8 @@ class ControlContainer extends React.Component {
 
 export default connect(
     state => ({
-        filteredDataList: state.control.filteredDataList
+        filteredDataList: state.control.filteredDataList,
+        isManageMode: state.control.isManageMode,
     }),
     {
         filterWithText
