@@ -5,6 +5,8 @@ const { Cell } = require('fixed-data-table-2');
 const React = require('react');
 const ReactTooltip = require('react-tooltip');
 
+import OilStatus from '../oilStatus'
+
 class CollapseCell extends React.PureComponent {
     render() {
         const {data, rowIndex, columnKey, collapsedRows, callback, ...props} = this.props;
@@ -76,70 +78,55 @@ class LinkCell extends React.PureComponent {
 };
 module.exports.LinkCell = LinkCell;
 
-class PendingCell extends React.PureComponent {
-    render() {
-        const {data, rowIndex, columnKey, dataVersion, ...props} = this.props;
-        const rowObject = data.getObjectAt(rowIndex);
-        return (
-            <Cell {...props}>
-                {rowObject ? rowObject[columnKey] : 'pending'}
-            </Cell>
-        );
-    }
-};
-const PagedCell = ({data, ...props}) => {
-    const dataVersion = data.getDataVersion();
-    return (
-        <PendingCell
-            data={data}
-            dataVersion={dataVersion}
-            {...props}>
-        </PendingCell>
-    );
-};
-module.exports.PagedCell = PagedCell;
-
-class RemovableHeaderCell extends React.PureComponent {
-    render() {
-        const {data, rowIndex, columnKey, callback, children, ...props} = this.props;
-        return (
-            <Cell {...props}>
-                {children}
-                <a style={{float: 'right'}} onClick={() => callback(columnKey)}>
-                    {'\u274C'}
-                </a>
-            </Cell>
-        );
-    }
-};
-module.exports.RemovableHeaderCell = RemovableHeaderCell;
 
 class TextCell extends React.PureComponent {
     render() {
         const {data, rowIndex, columnKey, ...props} = this.props;
+        // console.warn(rowIndex + " " + columnKey + " " + data[rowIndex][columnKey]);
         return (
             <Cell {...props}>
-                {data.getObjectAt(rowIndex)[columnKey]}
+                {data[rowIndex][columnKey].toString()}
             </Cell>
         );
     }
 };
 module.exports.TextCell = TextCell;
 
-class TooltipCell extends React.PureComponent {
+class IndexCell extends React.PureComponent {
     render() {
         const {data, rowIndex, columnKey, ...props} = this.props;
-        const value = data.getObjectAt(rowIndex)[columnKey];
+        // console.warn(rowIndex + " " + columnKey + " " + data[rowIndex][columnKey]);
         return (
-            <Cell
-                {...props}
-                onMouseEnter={() => { ReactTooltip.show(); }}
-                onMouseLeave={() => { ReactTooltip.hide(); }}>
-                <div ref='valueDiv' data-tip={value}>
-                    {value}
-                </div>
+            <Cell {...props}>
+                {rowIndex.toString()}
             </Cell>
         );
     }
 };
-module.exports.TooltipCell = TooltipCell;
+module.exports.IndexCell = IndexCell;
+
+class DeviceStatusCell extends React.PureComponent {
+    render() {
+        const {data, rowIndex, columnKey, ...props} = this.props;
+        const isOn = data[rowIndex][columnKey];
+        return (
+            <Cell {...props}>
+                {isOn? "On": "Off"}
+            </Cell>
+        );
+    }
+};
+module.exports.DeviceStatusCell = DeviceStatusCell;
+
+
+class OilStatusCell extends React.PureComponent {
+    render() {
+        const {data, rowIndex, columnKey, ...props} = this.props;
+        // console.warn(rowIndex + " " + columnKey + " " + data[rowIndex][columnKey]);
+        const rowData = data[rowIndex][columnKey];
+        return (
+            <OilStatus runningOut={rowData.running_out} ranOut={rowData.ran_out} />
+        );
+    }
+};
+module.exports.OilStatusCell = OilStatusCell;

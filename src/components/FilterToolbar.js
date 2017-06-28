@@ -61,7 +61,10 @@ export default class FilterToolbar extends React.Component {
                         </DropDownMenu>
                         <label style={styles.label}>Room No</label>
                         <input type="text" className="form-control" placeholder="Search" style={{margin:8, paddingLeft: 5, width: 120}} />
-                        {/*<TextField hintText="Search" />*/}
+                        <RaisedButton
+                            onTouchTap={(event)=>this.handleTouchTap(event)}
+                            label="Reset Filter"
+                        />
                     </ToolbarGroup>
                     <ToolbarGroup>
                         <ToolbarSeparator />

@@ -2,7 +2,6 @@ import React from 'react';
 import { Router, Route, IndexRoute, IndexRedirect} from 'react-router'
 
 import Appp from './components/Appp';
-import HomeContainer from './containers/ControlContainer';
 import ControlContainer from './containers/ControlContainer';
 import SchedulingContainer from './containers/SchedulingContainer';
 import OrderContainer from './containers/OrderContainer';

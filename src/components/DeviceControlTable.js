@@ -2,119 +2,80 @@
 
 const ExampleImage = require('./helpers/ExampleImage');
 const FakeObjectDataListStore = require('./helpers/FakeObjectDataListStore');
-const { ImageCell, TextCell } = require('./helpers/cells');
+const { IndexCell, DeviceStatusCell, OilStatusCell, TextCell } = require('./helpers/cells');
 const { Table, Column, Cell } = require('fixed-data-table-2');
 const React = require('react');
 const Dimensions = require('react-dimensions');
 
 require('fixed-data-table-2/dist/fixed-data-table.css')
 
-class DataListWrapper {
-    constructor(indexMap, data) {
-        this._indexMap = indexMap;
-        this._data = data;
-    }
-
-    getSize() {
-        return this._indexMap.length;
-    }
-
-    getObjectAt(index) {
-        return this._data.getObjectAt(
-            this._indexMap[index],
-        );
-    }
-}
 
 class DeviceControlTable extends React.Component {
     constructor(props) {
         super(props);
-
-        this._dataList = new FakeObjectDataListStore(2000);
-        this.state = {
-            filteredDataList: this._dataList,
-        };
-
-        this._onFilterChange = this._onFilterChange.bind(this);
-    }
-
-    _onFilterChange(e) {
-        if (!e.target.value) {
-            this.setState({
-                filteredDataList: this._dataList,
-            });
-        }
-
-        var filterBy = e.target.value.toLowerCase();
-        var size = this._dataList.getSize();
-        var filteredIndexes = [];
-        for (var index = 0; index < size; index++) {
-            var {firstName} = this._dataList.getObjectAt(index);
-            if (firstName.toLowerCase().indexOf(filterBy) !== -1) {
-                filteredIndexes.push(index);
-            }
-        }
-
-        this.setState({
-            filteredDataList: new DataListWrapper(filteredIndexes, this._dataList),
-        });
     }
 
     render() {
-        var {filteredDataList} = this.state;
+        var {filteredDataList, _onFilterChange} = this.props;
         const {height, width, containerHeight, containerWidth, ...props} = this.props;
-
         return (
             <div>
                 <input
-                    onChange={this._onFilterChange}
-                    placeholder="Filter by First Name"
+                    onChange={_onFilterChange}
+                    placeholder="Filter by Room No."
                 />
                 <br />
                 <Table
                     rowHeight={50}
-                    rowsCount={filteredDataList.getSize()}
+                    rowsCount={filteredDataList.length}
                     headerHeight={50}
                     width={containerWidth}
                     height={containerHeight}
                     {...this.props}>
                     <Column
-                        columnKey="avatar"
-                        cell={<ImageCell data={filteredDataList} />}
-                        fixed={true}
-                        width={50}
-                    />
-                    <Column
-                        columnKey="firstName"
-                        header={<Cell>First Name</Cell>}
-                        cell={<TextCell data={filteredDataList} />}
+                        columnKey="index"
+                        header={<Cell>Index</Cell>}
+                        cell={<IndexCell />}
                         fixed={true}
                         width={100}
+                        align={'center'}
                     />
                     <Column
-                        columnKey="lastName"
-                        header={<Cell>Last Name</Cell>}
+                        columnKey="roomNo"
+                        header={<Cell>Room No.</Cell>}
                         cell={<TextCell data={filteredDataList} />}
                         fixed={true}
-                        width={100}
-                    />
-                    <Column
-                        columnKey="city"
-                        header={<Cell>City</Cell>}
-                        cell={<TextCell data={filteredDataList} />}
-                        width={100}
-                    />
-                    <Column
-                        columnKey="street"
-                        header={<Cell>Street</Cell>}
-                        cell={<TextCell data={filteredDataList} />}
                         width={200}
+                        align={'center'}
                     />
                     <Column
-                        columnKey="zipCode"
-                        header={<Cell>Zip Code</Cell>}
+                        columnKey="aromeoID"
+                        header={<Cell>Aromeo ID</Cell>}
                         cell={<TextCell data={filteredDataList} />}
+                        fixed={true}
                         width={200}
+                        align={'center'}
+                    />
+                    <Column
+                        columnKey="schedule"
+                        header={<Cell>Schedule Choice</Cell>}
+                        cell={<TextCell data={filteredDataList} />}
+                        width={250}
+                        align={'center'}
+                    />
+                    <Column
+                        columnKey="device"
+                        header={<Cell>Device Status</Cell>}
+                        cell={<DeviceStatusCell data={filteredDataList} />}
+                        width={200}
+                        align={'center'}
+                    />
+                    <Column
+                        columnKey="oil"
+                        header={<Cell>Detailed Oil Status</Cell>}
+                        cell={<OilStatusCell data={filteredDataList} />}
+                        width={300}
+                        align={'center'}
                     />
                 </Table>
             </div>
