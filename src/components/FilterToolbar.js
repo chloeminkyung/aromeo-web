@@ -11,7 +11,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
 import OilStatus from '../components/oilStatus'
-import {filterWithText} from '../actions/controlAction'
+import {filterWithText, startManageAromeo, stopManageAromeo} from '../actions/controlAction'
 
 
 class FilterToolbar extends React.Component {
@@ -43,7 +43,14 @@ class FilterToolbar extends React.Component {
         });
     };
 
+    saveChanges() {
+        this.props.stopManageAromeo();
+    }
+
     render(){
+        const {isManageMode,
+            startManageAromeo} = this.props;
+
         return (
             <div>
                 <Toolbar>
@@ -80,8 +87,8 @@ class FilterToolbar extends React.Component {
                         </div>
                         <ToolbarSeparator />
                         <RaisedButton
-                            onTouchTap={(event)=>this.handleTouchTap(event)}
-                            label="Control"
+                            onTouchTap={(event)=>isManageMode? this.saveChanges(): this.handleTouchTap(event)}
+                            label={isManageMode?"Save":"Control"}
                         />
                         <Popover
                             open={this.state.open}
@@ -90,8 +97,8 @@ class FilterToolbar extends React.Component {
                             targetOrigin={{horizontal: 'left', vertical: 'top'}}
                             onRequestClose={()=>this.handleRequestClose()}
                         >
-                            <Menu>
-                                <MenuItem primaryText="Manage" />
+                            <Menu onItemTouchTap={()=>this.handleRequestClose()}>
+                                <MenuItem primaryText="Manage" onTouchTap={()=>startManageAromeo()} />
                                 <MenuItem primaryText="+ Aromeo" />
                                 <MenuItem primaryText="- Aromeo" />
                             </Menu>
@@ -105,10 +112,11 @@ class FilterToolbar extends React.Component {
 
 export default connect(
     state => ({
-        filteredDataList: state.control.filteredDataList
+        filteredDataList: state.control.filteredDataList,
+        isManageMode: state.control.isManageMode
     }),
     {
-        filterWithText
+        filterWithText, startManageAromeo, stopManageAromeo
     }
 )(FilterToolbar)
 

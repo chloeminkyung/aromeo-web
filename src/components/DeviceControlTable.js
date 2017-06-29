@@ -2,7 +2,7 @@
 
 const ExampleImage = require('./helpers/ExampleImage');
 const FakeObjectDataListStore = require('./helpers/FakeObjectDataListStore');
-const { IndexCell, DeviceStatusCell, OilStatusCell, TextCell } = require('./helpers/cells');
+const { IndexCell, DeviceStatusCell, OilStatusCell, ScheduleCell, TextCell } = require('./helpers/cells');
 const { Table, Column, Cell } = require('fixed-data-table-2');
 const React = require('react');
 const Dimensions = require('react-dimensions');
@@ -51,7 +51,7 @@ class DeviceControlTable extends React.Component {
                     <Column
                         columnKey="schedule"
                         header={<Cell>Schedule Choice</Cell>}
-                        cell={<TextCell data={filteredDataList} />}
+                        cell={<ScheduleCell data={filteredDataList} isManageMode={isManageMode}/>}
                         width={250}
                         align={'center'}
                     />

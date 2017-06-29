@@ -12,6 +12,12 @@ export function startManageAromeo() {
     }
 }
 
+export function stopManageAromeo() {
+    return {
+        type: 'STOP_MANAGE_AROMEO',
+    }
+}
+
 export function addAromeoDevice() {
     return {
         type: 'ADD_AROMEO_DEVICE',

@@ -4,7 +4,8 @@ const ExampleImage = require('./ExampleImage');
 const { Cell } = require('fixed-data-table-2');
 const React = require('react');
 import Toggle from 'material-ui/Toggle';
-
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 import OilStatus from '../oilStatus'
 
 class CollapseCell extends React.PureComponent {
@@ -112,20 +113,20 @@ class DeviceStatusCell extends React.PureComponent {
         return (
             isManageMode?
                 <Cell {...props}>
-                    {isOn? "On": "Off"}
-                </Cell>
-                :
-                <Cell {...props}>
                     <Toggle
                         label={isOn? "On": "Off"}
                         defaultToggled={isOn}
+                        style={{width: '33%', paddingLeft: '33%'}}
                     />
+                </Cell>
+                :
+                <Cell {...props}>
+                    {isOn? "On": "Off"}
                 </Cell>
         );
     }
 };
 module.exports.DeviceStatusCell = DeviceStatusCell;
-
 
 class OilStatusCell extends React.PureComponent {
     render() {
@@ -133,8 +134,34 @@ class OilStatusCell extends React.PureComponent {
         // console.warn(rowIndex + " " + columnKey + " " + data[rowIndex][columnKey]);
         const rowData = data[rowIndex][columnKey];
         return (
-            <OilStatus runningOut={rowData.running_out} ranOut={rowData.ran_out} />
+            <Cell {...props}>
+                <OilStatus runningOut={rowData.running_out} ranOut={rowData.ran_out} />
+            </Cell>
         );
     }
 };
 module.exports.OilStatusCell = OilStatusCell;
+
+class ScheduleCell extends React.PureComponent {
+    render() {
+        const {data, rowIndex, columnKey, isManageMode, ...props} = this.props;
+        const scheduleChoice = data[rowIndex][columnKey];
+        return (
+            isManageMode?
+                <Cell {...props}>
+                    <DropDownMenu value={1}>
+                        <MenuItem value={1} primaryText="Never" />
+                        <MenuItem value={2} primaryText="Every Night" />
+                        <MenuItem value={3} primaryText="Weeknights" />
+                        <MenuItem value={4} primaryText="Weekends" />
+                        <MenuItem value={5} primaryText="Weekly" />
+                    </DropDownMenu>
+                </Cell>
+                :
+                <Cell {...props}>
+                    {scheduleChoice}
+                </Cell>
+        );
+    }
+};
+module.exports.ScheduleCell = ScheduleCell;

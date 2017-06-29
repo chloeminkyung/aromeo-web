@@ -32,6 +32,9 @@ export default function control(state = initialState, action) {
         case 'START_MANAGE_AROMEO':
             return {...state, isManageMode: true};
 
+        case 'STOP_MANAGE_AROMEO':
+            return {...state, isManageMode: false};
+
         case 'ADD_AROMEO_DEVICE':
             return {...state, isAddAromeo: true};
 
