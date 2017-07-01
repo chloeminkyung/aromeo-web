@@ -103,7 +103,7 @@ const dummyScheduleData = [
 const dummyBlendData = [
     {
         "title": 'Energize',
-        "description": "it helps ....",
+        "description": "it helps boost up energy",
         "oils": [
             {
                 "oilName": "Lavender",
@@ -116,7 +116,7 @@ const dummyBlendData = [
         ]
     },{
         "title": 'Sensual',
-        "description": "it helps ....",
+        "description": "it creates romantic mood",
         "oils": [
             {
                 "oilName": "YlangYlang",
