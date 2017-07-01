@@ -107,11 +107,11 @@ const dummyBlendData = [
         "oils": [
             {
                 "oilName": "Lavender",
-                "ratio": 0.5
+                "ratio": 3
             },
             {
                 "oilName": "Lemon",
-                "ratio": 0.5
+                "ratio": 3
             }
         ]
     },{
@@ -120,11 +120,11 @@ const dummyBlendData = [
         "oils": [
             {
                 "oilName": "YlangYlang",
-                "ratio": 0.3
+                "ratio": 1
             },
             {
                 "oilName": "Mandarin",
-                "ratio": 0.7
+                "ratio": 4
             }
         ]
     },
@@ -136,12 +136,6 @@ class SchedulingContainer extends React.Component {
     }
 
     render() {
-
-        // const self = this;
-
-        // dummyBlendData.map(function(blend){
-        //     self.blendRatioDataFormatter(blend.oils);
-        // })
 
         return (
             <div>

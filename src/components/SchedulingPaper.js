@@ -10,7 +10,8 @@ import Moon from 'material-ui/svg-icons/image/brightness-3';
 import Sun from 'material-ui/svg-icons/image/wb-sunny';
 import Cloud from 'material-ui/svg-icons/image/wb-cloudy';
 
-import {OilCompositionChart} from './OilCompositionPie'
+import {OilCompositionPie} from './OilCompositionPie'
+import {OilCompositionBar} from './OilCompositionBar'
 import {Config} from '../config'
 
 class SchedulePaper extends React.PureComponent {
@@ -39,7 +40,7 @@ module.exports.SchedulePaper = SchedulePaper;
 
 
 class BlendPaper extends React.PureComponent {
-    blendRatioDataFormatter(oilData) {
+    blendRatioPieDataFormatter(oilData) {
         var formattedData = [];
 
         oilData.map(function(oil, index){
@@ -52,9 +53,23 @@ class BlendPaper extends React.PureComponent {
         return formattedData;
     }
 
+    blendRatioChartDataFormatter(oilData) {
+
+        let formattedData = [];
+        let obj = {name: 'Blend Ratio'};
+
+        oilData.map(function(oil){
+            obj[oil.oilName] = oil.ratio;
+        });
+        formattedData.push(obj)
+        return formattedData;
+    }
+
     render() {
         const {blend} = this.props;
-        var oilArray = this.blendRatioDataFormatter(blend.oils)
+        // var oilArray = this.blendRatioPieDataFormatter(blend.oils)
+        var oilArray = this.blendRatioChartDataFormatter(blend.oils)
+
         return (
             <Card style={styles.cardContainer}>
                 <CardHeader
@@ -62,7 +77,8 @@ class BlendPaper extends React.PureComponent {
                     subtitle={blend.description}
                 />
                 <CardText style={styles.cardText}>
-                    <OilCompositionChart data={oilArray} />
+                    {/*<OilCompositionPie data={oilArray} />*/}
+                    <OilCompositionBar data={oilArray} />
                 </CardText>
                 <CardActions>
                     <FlatButton label="Edit" />

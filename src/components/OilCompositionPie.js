@@ -30,4 +30,4 @@ class OilCompositionChart extends React.PureComponent {
         );
     }
 };
-module.exports.OilCompositionChart = OilCompositionChart;
+module.exports.OilCompositionPie = OilCompositionChart;
