@@ -103,7 +103,7 @@ const dummyScheduleData = [
 const dummyBlendData = [
     {
         "title": 'Energize',
-        "description": "it helps ....",
+        "description": "it helps boost up energy",
         "oils": [
             {
                 "oilName": "Lavender",
@@ -116,7 +116,7 @@ const dummyBlendData = [
         ]
     },{
         "title": 'Sensual',
-        "description": "it helps ....",
+        "description": "it creates romantic mood",
         "oils": [
             {
                 "oilName": "YlangYlang",
@@ -157,9 +157,7 @@ class SchedulingContainer extends React.Component {
                                 return <Col md={3}><BlendPaper blend={blend}/></Col>
                             })
                         }
-                        <Col md={3}>
-                        </Col>
-                        <CreateButtonPaper onClickHandler="" title={"Create New Blend"} />
+                        <CreateButtonPaper onClickHandler="" title={"Create New Blending"} />
                     </Row>
                 </Panel>
             </div>
