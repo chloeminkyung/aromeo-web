@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 
 import {Row, Col, Panel} from 'react-bootstrap';
 import {SchedulePaper, CreateButtonPaper, BlendPaper} from '../components/SchedulingPaper'
-import {OilCompositionChart} from '../components/oilCompositionChart'
 
 
 const dummyScheduleData = [
@@ -137,6 +136,13 @@ class SchedulingContainer extends React.Component {
     }
 
     render() {
+
+        // const self = this;
+
+        // dummyBlendData.map(function(blend){
+        //     self.blendRatioDataFormatter(blend.oils);
+        // })
+
         return (
             <div>
                 <h1>Scheduling Container</h1>
@@ -154,11 +160,10 @@ class SchedulingContainer extends React.Component {
                     <Row>
                         {
                             dummyBlendData.map(function(blend){
-                                return <Col md={3}><BlendPaper blend={blend} /></Col>
+                                return <Col md={3}><BlendPaper blend={blend}/></Col>
                             })
                         }
                         <Col md={3}>
-                            <OilCompositionChart />
                         </Col>
                         <CreateButtonPaper onClickHandler="" title={"Create New Blend"} />
                     </Row>

@@ -10,7 +10,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
-import OilStatus from '../components/oilStatus'
+import OilStatus from './OilStatus'
 import {filterWithText, startManageAromeo, stopManageAromeo} from '../actions/controlAction'
 
 

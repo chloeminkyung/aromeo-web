@@ -6,7 +6,7 @@ const React = require('react');
 import Toggle from 'material-ui/Toggle';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import OilStatus from '../oilStatus'
+import OilStatus from '../OilStatus'
 
 class CollapseCell extends React.PureComponent {
     render() {
