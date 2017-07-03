@@ -6,26 +6,29 @@ export function filterWithText(text) {
     }
 }
 
-export function startManageAromeo() {
+export function resetFilterOptions(){
     return {
-        type: 'START_MANAGE_AROMEO',
+        type: 'RESET_FILTER_OPTIONS'
     }
 }
 
-export function stopManageAromeo() {
+export function toggleStartManageAromeo(startBool) {
     return {
-        type: 'STOP_MANAGE_AROMEO',
+        type: 'TOGGLE_START_MANAGE_AROMEO',
+        value: startBool
     }
 }
 
-export function addAromeoDevice() {
+export function toggleAddAromeoDevice(addBool) {
     return {
-        type: 'ADD_AROMEO_DEVICE',
+        type: 'TOGGLE_ADD_AROMEO_DEVICE',
+        value: addBool
     }
 }
 
-export function removeAromeoDevice() {
+export function toggleRemoveAromeoDevice(removeBool) {
     return {
-        type: 'REMOVE_AROMEO_DEVICE',
+        type: 'TOGGLE_REMOVE_AROMEO_DEVICE',
+        value: removeBool
     }
 }

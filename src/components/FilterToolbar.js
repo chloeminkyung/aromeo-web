@@ -11,7 +11,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
 import OilStatus from './OilStatus'
-import {filterWithText, startManageAromeo, stopManageAromeo} from '../actions/controlAction'
+import {filterWithText, toggleStartManageAromeo, toggleAddAromeoDevice, toggleRemoveAromeoDevice, resetFilterOptions} from '../actions/controlAction'
 
 
 class FilterToolbar extends React.Component {
@@ -44,12 +44,19 @@ class FilterToolbar extends React.Component {
     };
 
     saveChanges() {
-        this.props.stopManageAromeo();
+        this.props.toggleStartManageAromeo(false);
+    }
+
+    handleResetFilter(){
+        this.props.resetFilterOptions();
+        this.props.filterWithText("");
     }
 
     render(){
-        const {isManageMode,
-            startManageAromeo} = this.props;
+        const {isManageMode, filterOption,
+            toggleStartManageAromeo, toggleAddAromeoDevice, toggleRemoveAromeoDevice} = this.props;
+
+        console.warn(filterOption.text);
 
         return (
             <div>
@@ -70,12 +77,13 @@ class FilterToolbar extends React.Component {
                         </DropDownMenu>
                         <label style={styles.label}>Room No</label>
                         <input type="text" placeholder="Search"
+                               value={filterOption.text}
                                onChange={(e)=>this.props.filterWithText(e.target.value.toLowerCase())}
                                style={{margin:8, paddingLeft: 5, width: 120}}
                         />
 
                         <RaisedButton
-                            onTouchTap={(event)=>this.handleTouchTap(event)}
+                            onTouchTap={()=>this.handleResetFilter()}
                             label="Reset Filter"
                         />
                     </ToolbarGroup>
@@ -98,9 +106,9 @@ class FilterToolbar extends React.Component {
                             onRequestClose={()=>this.handleRequestClose()}
                         >
                             <Menu onItemTouchTap={()=>this.handleRequestClose()}>
-                                <MenuItem primaryText="Manage" onTouchTap={()=>startManageAromeo()} />
-                                <MenuItem primaryText="+ Aromeo" />
-                                <MenuItem primaryText="- Aromeo" />
+                                <MenuItem primaryText="Manage" onTouchTap={()=>toggleStartManageAromeo(true)} />
+                                <MenuItem primaryText="+ Aromeo" onTouchTap={()=>toggleAddAromeoDevice(true)} />
+                                <MenuItem primaryText="- Aromeo" onTouchTap={()=>toggleRemoveAromeoDevice(true)} />
                             </Menu>
                         </Popover>
                     </ToolbarGroup>
@@ -112,11 +120,13 @@ class FilterToolbar extends React.Component {
 
 export default connect(
     state => ({
+        filterOption: state.control.filterOption,
         filteredDataList: state.control.filteredDataList,
         isManageMode: state.control.isManageMode
     }),
     {
-        filterWithText, startManageAromeo, stopManageAromeo
+        filterWithText, resetFilterOptions,
+        toggleStartManageAromeo, toggleAddAromeoDevice, toggleRemoveAromeoDevice
     }
 )(FilterToolbar)
 

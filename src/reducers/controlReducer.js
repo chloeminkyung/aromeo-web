@@ -4,11 +4,11 @@ import {fakeControlData} from '../constants/dummy'
 const defaultFilterOptions = {
     device: 1,
     oil: 1,
-    text: ""
+    text: ''
 }
 
 const initialState = {
-    filterOption: defaultFilterOptions,
+    filterOption: Object.assign({}, defaultFilterOptions),
     _dataList: fakeControlData,
     filteredDataList: fakeControlData, //TODO filtereDataList must be derived from dataList. using Filter. easier to do reset? or not?
     isManageMode: false,
@@ -19,7 +19,7 @@ const initialState = {
 export default function control(state = initialState, action) {
     switch(action.type){
         case 'FILTER_WITH_TEXT':
-            var size = state._dataList.length;
+            let size = state._dataList.length;
             var filteredList = [];
             for (var index = 0; index < size; index++) {
                 var {roomNo} = state._dataList[index];
@@ -27,19 +27,28 @@ export default function control(state = initialState, action) {
                     filteredList.push(state._dataList[index]);
                 }
             }
-            return {...state, text: action.value, filteredDataList: filteredList};
 
-        case 'START_MANAGE_AROMEO':
-            return {...state, isManageMode: true};
+            var newFilterOption = Object.assign({}, state.filterOption);
+            newFilterOption['text'] = action.value;
 
-        case 'STOP_MANAGE_AROMEO':
-            return {...state, isManageMode: false};
+            return {...state, filterOption: newFilterOption, filteredDataList: filteredList};
 
-        case 'ADD_AROMEO_DEVICE':
-            return {...state, isAddAromeo: true};
+        case 'RESET_FILTER_OPTIONS':
+            console.warn("default option" + JSON.stringify(defaultFilterOptions));
 
-        case 'REMOVE_AROMEO_DEVICE':
-            return {...state, isRemoveAromeo: true};
+            const defaultFilter = Object.assign({}, defaultFilterOptions);
+            console.warn("new default option" + JSON.stringify(defaultFilter));
+
+            return {...state, filterOption: defaultFilter}
+
+        case 'TOGGLE_START_MANAGE_AROMEO':
+            return {...state, isManageMode: action.value};
+
+        case 'TOGGLE_ADD_AROMEO_DEVICE':
+            return {...state, isAddAromeo: action.value};
+
+        case 'TOGGLE_REMOVE_AROMEO_DEVICE':
+            return {...state, isRemoveAromeo: action.value};
 
         default:
             return state;
