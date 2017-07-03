@@ -10,6 +10,8 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
+import AromeoAddModal from '../components/AromeoAddModal'
+
 import OilStatus from './OilStatus'
 import {filterWithText, toggleStartManageAromeo, toggleAddAromeoDevice, toggleRemoveAromeoDevice, resetFilterOptions} from '../actions/controlAction'
 
@@ -113,6 +115,7 @@ class FilterToolbar extends React.Component {
                         </Popover>
                     </ToolbarGroup>
                 </Toolbar>
+                <AromeoAddModal />
             </div>
         );
     }

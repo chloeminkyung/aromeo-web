@@ -16,12 +16,17 @@ import {
 
 import FilterToolbar from '../components/FilterToolbar'
 import DeviceControlTable from '../components/DeviceControlTable'
+
 const FakeObjectDataListStore = require('../components/helpers/FakeObjectDataListStore');
 import {filterWithText} from '../actions/controlAction'
 
 class ControlContainer extends React.Component {
     constructor(props){
         super(props);
+
+        this.state = {
+            isOpen: props.isOpen,
+        };
     }
 
     render() {
@@ -50,7 +55,6 @@ export default connect(
         filterWithText
     }
 )(ControlContainer)
-
 
 const styles = {
     textCentered: {
