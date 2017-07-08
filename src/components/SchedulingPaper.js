@@ -122,7 +122,8 @@ class CreateButtonPaper extends  React.PureComponent {
         return (
             <Col md={3}>
                 <div style={{height: 270, paddingTop:'33%', paddingLeft: '25%'}}>
-                    <IconButton style={{height: 40, width: 40, marginLeft: 40}} iconStyle={{height: 40, width: 40}}>
+                    <IconButton onTouchTap={()=>onClickHandler(true)}
+                        style={{height: 40, width: 40, marginLeft: 40}} iconStyle={{height: 40, width: 40}}>
                         <AddCircle />
                     </IconButton>
                     <p>{title}</p>

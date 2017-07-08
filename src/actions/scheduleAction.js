@@ -1,65 +1,59 @@
 var axios = require('axios');
-const getFoodDetailRoute = '/api/menu/(foodid)';
 
-
-export function getFoodDetail(foodid) {
-    const api = getFoodDetailRoute.replace('(foodid)',foodid);
-    return dispatch=>{
-        dispatch(fetchingData());
-        return axios.get(api).then(json=>dispatch(receiveFoodDetailData(json))).catch(err=>dispatch(requestFail(err)))
-    }
-}
-
-function receiveFoodDetailData(json){
-    return{
-        type: 'RECIEVED_FOOD_DETAIL_DATA',
-        data: json.data
-    }
-}
-
-function fetchingData(){
-    return{
-        type:'FETCHING_DATA'
-    }
-}
-
-function requestFail(error){
-    return{
-        type: 'REQUEST_ERROR',
-        error: error
-    }
-}
-
-export function filterWithText(text) {
+export function toggleCreateDefaultSchedule(isOpen) {
     return {
-        type: 'FILTER_WITH_TEXT',
-        value: text
+        type: 'TOGGLE_CREATE_DEFAULT_SCHEDULE',
+        isOpen: isOpen
     }
 }
 
-export function resetFilterOptions(){
+export function createDefaultSchedule(scheduleDetail) {
     return {
-        type: 'RESET_FILTER_OPTIONS'
+        type: 'CREATE_DEFAULT_SCHEDULE',
+        scheduleDetail: scheduleDetail
     }
 }
 
-export function toggleStartManageAromeo(startBool) {
+export function editDefaultSchedule(scheduleId, scheduleDetail) {
     return {
-        type: 'TOGGLE_START_MANAGE_AROMEO',
-        value: startBool
+        type: 'EDIT_DEFAULT_SCHEDULE',
+        scheduleId: scheduleId,
+        scheduleDetail: scheduleDetail
     }
 }
 
-export function toggleAddAromeoDevice(addBool) {
+export function removeDefaultSchedule(scheduleId) {
     return {
-        type: 'TOGGLE_ADD_AROMEO_DEVICE',
-        value: addBool
+        type: 'REMOVE_DEFAULT_SCHEDULE',
+        scheduleId: scheduleId
     }
 }
 
-export function toggleRemoveAromeoDevice(removeBool) {
+export function toggleCreateBlend(isOpen) {
     return {
-        type: 'TOGGLE_REMOVE_AROMEO_DEVICE',
-        value: removeBool
+        type: 'TOGGLE_CREATE_BLEND',
+        isOpen: isOpen
+    }
+}
+
+export function createBlend(blendDetail) {
+    return {
+        type: 'CREATE_BLEND',
+        blendDetail: blendDetail
+    }
+}
+
+export function editBlend(blendId, blendDetail) {
+    return {
+        type: 'EDIT_BLEND',
+        blendId: blendId,
+        blendDetail: blendDetail
+    }
+}
+
+export function removeBlend(blendId) {
+    return {
+        type: 'REMOVE_BLEND',
+        blendId: blendId
     }
 }

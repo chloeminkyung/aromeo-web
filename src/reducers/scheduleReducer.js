@@ -1,50 +1,36 @@
 var _ = require('underscore');
-import {fakeControlData} from '../constants/dummy'
-
-const defaultFilterOptions = {
-    device: 1,
-    oil: 1,
-    text: ''
-}
 
 const initialState = {
-    filterOption: Object.assign({}, defaultFilterOptions),
-    _dataList: fakeControlData,
-    filteredDataList: fakeControlData, //TODO filtereDataList must be derived from dataList. using Filter. easier to do reset? or not?
-    isManageMode: false,
-    isAddAromeo: false,
-    isRemoveAromeo: false
+    isCreateScheduleModalOpen: false,
+    isCreateBlendModalOpen: false,
 };
 
-export default function control(state = initialState, action) {
+export default function schedule(state = initialState, action) {
     switch(action.type){
-        case 'FILTER_WITH_TEXT':
-            let size = state._dataList.length;
-            var filteredList = [];
-            for (var index = 0; index < size; index++) {
-                var {roomNo} = state._dataList[index];
-                if (roomNo.toLowerCase().indexOf(action.value) !== -1) {
-                    filteredList.push(state._dataList[index]);
-                }
-            }
+        case 'TOGGLE_CREATE_DEFAULT_SCHEDULE':
+            return {...state, isCreateScheduleModalOpen: action.isOpen};
 
-            var newFilterOption = Object.assign({}, state.filterOption);
-            newFilterOption['text'] = action.value;
-
-            return {...state, filterOption: newFilterOption, filteredDataList: filteredList};
-
-        case 'RESET_FILTER_OPTIONS':
+        case 'CREATE_DEFAULT_SCHEDULE':
             const defaultFilter = Object.assign({}, defaultFilterOptions);
             return {...state, filterOption: defaultFilter}
 
-        case 'TOGGLE_START_MANAGE_AROMEO':
-            return {...state, isManageMode: action.value};
+        case 'EDIT_DEFAULT_SCHEDULE':
+            return state;
 
-        case 'TOGGLE_ADD_AROMEO_DEVICE':
-            return {...state, isAddAromeo: action.value};
+        case 'REMOVE_DEFAULT_SCHEDULE':
+            return state;
 
-        case 'TOGGLE_REMOVE_AROMEO_DEVICE':
-            return {...state, isRemoveAromeo: action.value};
+        case 'TOGGLE_CREATE_BLEND':
+            return {...state, isCreateBlendModalOpen: action.isOpen};
+
+        case 'CREATE_BLEND':
+            return state;
+
+        case 'EDIT_BLEND':
+            return state;
+
+        case 'REMOVE_BLEND':
+            return state;
 
         default:
             return state;

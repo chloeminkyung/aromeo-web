@@ -4,7 +4,9 @@ import {connect} from 'react-redux';
 
 import {Row, Col, Panel} from 'react-bootstrap';
 import {SchedulePaper, CreateButtonPaper, BlendPaper} from '../components/SchedulingPaper'
-
+import CreateNewScheduleModal from '../components/CreateNewScheduleModal'
+import CreateNewBlendModal from '../components/createNewBlendModal'
+import {toggleCreateDefaultSchedule, toggleCreateBlend} from '../actions/scheduleAction'
 
 const dummyScheduleData = [
     {
@@ -147,7 +149,8 @@ class SchedulingContainer extends React.Component {
                                 return <Col md={3}><SchedulePaper schedule={schedule} /></Col>
                             })
                         }
-                        <CreateButtonPaper onClickHandler="" title={"Create New Schedule"} />
+                        <CreateButtonPaper onClickHandler={this.props.toggleCreateDefaultSchedule} title={"Create New Schedule"} />
+                        <CreateNewScheduleModal />
                     </Row>
                 </Panel>
                 <Panel header={<h3>Blends</h3>}>
@@ -157,7 +160,8 @@ class SchedulingContainer extends React.Component {
                                 return <Col md={3}><BlendPaper blend={blend}/></Col>
                             })
                         }
-                        <CreateButtonPaper onClickHandler="" title={"Create New Blending"} />
+                        <CreateButtonPaper onClickHandler={this.props.toggleCreateBlend} title={"Create New Blending"} />
+                        <CreateNewBlendModal />
                     </Row>
                 </Panel>
             </div>
@@ -170,7 +174,7 @@ export default connect(
 
     }),
     {
-
+        toggleCreateDefaultSchedule, toggleCreateBlend
     }
 )(SchedulingContainer)
 
