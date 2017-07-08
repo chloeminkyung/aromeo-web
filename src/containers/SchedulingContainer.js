@@ -116,7 +116,7 @@ const dummyBlendData = [
         ]
     },{
         "title": 'Sensual',
-        "description": "it creates romantic mood",
+        "description": "creates romantic mood",
         "oils": [
             {
                 "oilName": "YlangYlang",
