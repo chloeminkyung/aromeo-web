@@ -1,4 +1,37 @@
 var axios = require('axios');
+const createBlendRoute = 'https://aromeo-backend.herokuapp.com/api/createBlend';
+const localCreateBlendRoute = 'http://localhost:5000/api/createBlend';
+
+
+
+export function createBlend(body) {
+    return dispatch=>{
+        dispatch(fetchingData());
+        return axios.post(localCreateBlendRoute, body)
+            .then((json)=>dispatch(successCreatingBlend(json)))
+            .catch(err=>dispatch(requestFail(err)))
+    }
+}
+
+function successCreatingBlend(){
+    return{
+        type: 'SUCCESS_CREATING_BLEND',
+    }
+}
+
+function fetchingData(){
+    return{
+        type:'FETCHING_DATA'
+    }
+}
+
+function requestFail(error){
+    return{
+        type: 'REQUEST_ERROR',
+        error: error
+    }
+}
+
 
 export function toggleCreateDefaultSchedule(isOpen) {
     return {
@@ -33,13 +66,6 @@ export function toggleCreateBlend(isOpen) {
     return {
         type: 'TOGGLE_CREATE_BLEND',
         isOpen: isOpen
-    }
-}
-
-export function createBlend(blendDetail) {
-    return {
-        type: 'CREATE_BLEND',
-        blendDetail: blendDetail
     }
 }
 

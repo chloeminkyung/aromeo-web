@@ -7,7 +7,7 @@ import {Row, Col, Panel} from 'react-bootstrap';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
-import {toggleCreateBlend} from '../actions/scheduleAction';
+import {toggleCreateBlend, createBlend} from '../actions/scheduleAction';
 import OilRatioSlider from '../components/OilRatioSlider'
 import {oilListForBlend} from '../constants/dummy';
 
@@ -16,12 +16,55 @@ class CreateNewBlendModal extends React.Component {
         super(props);
 
         this.state = {
-            oil1: 0,
-            oil2: 0,
-            oil3: 0,
-            oil4: 0,
-            oil5: 0,
+            name: '',
+            description: '',
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
         };
+    }
+
+    reset(){
+        this.props.toggleCreateBlend(false);
+        this.setState({1:0,2:0,3:0,4:0,5:0});
+    }
+
+    createBlend() {
+        //blend_id, hotel_id, blend_name, description, oils
+
+        var body = {
+            "hotel_id": 1,
+            "blend_name": this.state.name,
+            "description": this.state.description,
+            "oils": [
+                {
+                    "oil_product_id": 1,
+                    "ratio": this.state[1]
+                },
+                {
+                    "oil_product_id": 2,
+                    "ratio": this.state[2]
+                },
+                {
+                    "oil_product_id": 3,
+                    "ratio": this.state[3]
+                },
+                {
+                    "oil_product_id": 4,
+                    "ratio": this.state[4]
+                },
+                {
+                    "oil_product_id": 5,
+                    "ratio": this.state[5]
+                }
+            ]
+        };
+
+        //TODO make API call here.
+        this.props.createBlend(body);
+        // this.reset();
     }
 
     render() {
@@ -30,13 +73,12 @@ class CreateNewBlendModal extends React.Component {
             <FlatButton
                 label="Cancel"
                 primary={true}
-                onTouchTap={()=>this.props.toggleCreateBlend(false)}
+                onTouchTap={()=>this.reset()}
             />,
             <FlatButton
                 label="Create"
                 primary={true}
-                disabled={true}
-                onTouchTap={()=>this.props.toggleCreateBlend(false)}
+                onTouchTap={()=>this.createBlend()}
             />,
         ];
 
@@ -45,6 +87,12 @@ class CreateNewBlendModal extends React.Component {
             update[oilName] = value;
             this.setState(update);
         };
+
+        function handleTextInputs(name, event){
+            var update = {};
+            update[name] = event.target.value;
+            this.setState(update);
+        }
 
         return (
             <div>
@@ -60,7 +108,7 @@ class CreateNewBlendModal extends React.Component {
                         </Col>
                         <Col md={10}>
                             <input className={"form-control"} type="text" placeholder="Blend Name"
-                                   onChange={()=>console.warn("test")}
+                                   onChange={handleTextInputs.bind(this, 'name')}
                             />
                         </Col>
                     </Row>
@@ -69,7 +117,7 @@ class CreateNewBlendModal extends React.Component {
                             Description
                         </Col>
                         <Col md={10}>
-                            <textarea className={"form-control"} />
+                            <textarea className={"form-control"} onChange={handleTextInputs.bind(this,'description')} />
                         </Col>
                     </Row>
                     <Row style={styles.row}>
@@ -80,8 +128,8 @@ class CreateNewBlendModal extends React.Component {
                             {
                                 oilListForBlend.map(function(oil){
                                     return (
-                                        <OilRatioSlider oilName={oil.name} oilValue={self.state['oil'+oil.oil_position]}
-                                                        onChangeHandler={handleFirstSlider.bind(self, 'oil'+ oil.oil_position)} />
+                                        <OilRatioSlider key={oil.name} oilName={oil.name} oilValue={self.state[oil.oil_position]}
+                                                        onChangeHandler={handleFirstSlider.bind(self, oil.oil_position)} />
                                     )
                                 })
                             }
@@ -98,7 +146,7 @@ export default connect(
         isCreateBlendModalOpen: state.schedule.isCreateBlendModalOpen,
     }),
     {
-        toggleCreateBlend
+        toggleCreateBlend, createBlend
     }
 )(CreateNewBlendModal)
 

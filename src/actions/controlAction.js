@@ -1,7 +1,6 @@
 var axios = require('axios');
 const getFoodDetailRoute = '/api/menu/(foodid)';
 
-
 export function getFoodDetail(foodid) {
     const api = getFoodDetailRoute.replace('(foodid)',foodid);
     return dispatch=>{

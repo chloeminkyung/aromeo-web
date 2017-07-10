@@ -35,7 +35,7 @@ class OilCompositionTally extends React.PureComponent {
                 {
                     Object.keys(data).map(function(key){
                         return (
-                            <Row>
+                            <Row key={key}>
                                 <Col md={5}>
                                     {key}
                                 </Col>

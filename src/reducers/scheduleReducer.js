@@ -1,12 +1,22 @@
 var _ = require('underscore');
 
 const initialState = {
+    isNetworking: false,
     isCreateScheduleModalOpen: false,
     isCreateBlendModalOpen: false,
 };
 
 export default function schedule(state = initialState, action) {
     switch(action.type){
+        case 'FETCHING_DATA':
+            return {...state, isNetworking: true};
+
+        case 'REQUEST_ERROR':
+            return {...state, isNetworking: false};
+
+        case 'SUCCESS_CREATING_BLEND':
+            return {...state, isNetworking: false};
+
         case 'TOGGLE_CREATE_DEFAULT_SCHEDULE':
             return {...state, isCreateScheduleModalOpen: action.isOpen};
 
@@ -22,9 +32,6 @@ export default function schedule(state = initialState, action) {
 
         case 'TOGGLE_CREATE_BLEND':
             return {...state, isCreateBlendModalOpen: action.isOpen};
-
-        case 'CREATE_BLEND':
-            return state;
 
         case 'EDIT_BLEND':
             return state;
