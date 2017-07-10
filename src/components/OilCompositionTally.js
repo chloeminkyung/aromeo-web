@@ -4,7 +4,7 @@ const React = require('react');
 import {Row, Col, Panel} from 'react-bootstrap';
 import CircleFull from 'material-ui/svg-icons/image/lens';
 import CircleEmpty from 'material-ui/svg-icons/image/panorama-fish-eye';
-
+import {Config} from '../config'
 
 class Tally extends React.PureComponent {
     render() {
@@ -33,14 +33,14 @@ class OilCompositionTally extends React.PureComponent {
         return (
             <div>
                 {
-                    data.map(function(d){
+                    Object.keys(data).map(function(key){
                         return (
                             <Row>
                                 <Col md={5}>
-                                    {d.name}
+                                    {key}
                                 </Col>
                                 <Col md={7}>
-                                    <Tally dropCount={d.dropCount} />
+                                    <Tally dropCount={data[key]} />
                                 </Col>
                             </Row>
                         )
@@ -55,6 +55,7 @@ module.exports.OilCompositionTally = OilCompositionTally;
 const styles = {
     icon: {
         height: 15,
-        width: 15
+        width: 15,
+        color: Config.lightPurple
     }
 }

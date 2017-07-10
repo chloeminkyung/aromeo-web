@@ -51,48 +51,34 @@ module.exports.SchedulePaper = SchedulePaper;
 
 
 class BlendPaper extends React.PureComponent {
-    blendRatioPieDataFormatter(oilData) {
-        var formattedData = [];
-
-        oilData.map(function(oil, index){
-            var obj = {};
-            obj.name = oil.oilName;
-            obj.value = oil.ratio;
-            obj.fill = Config.oilColor[index];
-            formattedData.push(obj)
-        })
-        return formattedData;
-    }
-
-    blendRatioChartDataFormatter(oilData) {
-
-        let formattedData = [];
-        let obj = {name: 'Blend Ratio'};
-
-        oilData.map(function(oil){
-            obj[oil.oilName] = oil.ratio;
-        });
-        formattedData.push(obj)
-        return formattedData;
-    }
-
     // TODO produce a data array that has all 5/7 oils - so that the size of the paper is consistent.
     blendRatioChartTallyFormatter(oilData) {
-        var formattedData = [];
+        // var formattedData = [];
+        //
+        // oilData.map(function(oil, index){
+        //     var obj = {};
+        //     obj.name = oil.oilName;
+        //     obj.dropCount = oil.ratio;
+        //     formattedData.push(obj)
+        // })
+
+        var formattedData = {
+            Lavender: 0,
+            Peppermint: 0,
+            Lemon: 0,
+            YlangYlang: 0,
+            Bergamot: 0,
+        }
 
         oilData.map(function(oil, index){
-            var obj = {};
-            obj.name = oil.oilName;
-            obj.dropCount = oil.ratio;
-            formattedData.push(obj)
+            formattedData[oil.oilName] = oil.ratio;
         })
+
         return formattedData;
     }
 
     render() {
         const {blend} = this.props;
-        // var oilArray = this.blendRatioPieDataFormatter(blend.oils)
-        // var oilArray = this.blendRatioChartDataFormatter(blend.oils)
         var oilArray = this.blendRatioChartTallyFormatter(blend.oils)
 
         return (
@@ -102,8 +88,6 @@ class BlendPaper extends React.PureComponent {
                     subtitle={blend.description}
                 />
                 <CardText style={styles.cardText}>
-                    {/*<OilCompositionPie data={oilArray} />*/}
-                    {/*<OilCompositionBar data={oilArray} />*/}
                     <OilCompositionTally data={oilArray} />
                 </CardText>
                 <CardActions>

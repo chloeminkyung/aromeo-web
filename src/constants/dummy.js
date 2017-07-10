@@ -50,4 +50,152 @@ export const fakeControlData = [
             "ran_out": 0
         }
     }
-]
+];
+
+export const dummyScheduleData = [
+    {
+        "title": 'Romantic',
+        "description": "couples, honeymoon",
+        "timeline": {
+            "AM": "Energizing Blend",
+            "PM": "Sensational Blend",
+            "Night": "Relax Blend",
+        }
+    },
+    {
+        "title": 'Executive',
+        "description": "business man/woman",
+        "timeline": {
+            "AM": "Uplift Blend",
+            "PM": "Focus Blend",
+            "Night": "Refresh Blend",
+        }
+    },
+    {
+        "title": 'Romantic',
+        "description": "couples, honeymoon",
+        "timeline": {
+            "AM": "Energizing Blend",
+            "PM": "Sensational Blend",
+            "Night": "Relax Blend",
+        }
+    },
+    {
+        "title": 'Executive',
+        "description": "business man/woman",
+        "timeline": {
+            "AM": "Uplift Blend",
+            "PM": "Focus Blend",
+            "Night": "Refresh Blend",
+        }
+    },
+    {
+        "title": 'Romantic',
+        "description": "couples, honeymoon",
+        "timeline": {
+            "AM": "Energizing Blend",
+            "PM": "Sensational Blend",
+            "Night": "Relax Blend",
+        }
+    },
+    {
+        "title": 'Executive',
+        "description": "business man/woman",
+        "timeline": {
+            "AM": "Uplift Blend",
+            "PM": "Focus Blend",
+            "Night": "Refresh Blend",
+        }
+    },
+    {
+        "title": 'Romantic',
+        "description": "couples, honeymoon",
+        "timeline": {
+            "AM": "Energizing Blend",
+            "PM": "Sensational Blend",
+            "Night": "Relax Blend",
+        }
+    },
+    {
+        "title": 'Executive',
+        "description": "business man/woman",
+        "timeline": {
+            "AM": "Uplift Blend",
+            "PM": "Focus Blend",
+            "Night": "Refresh Blend",
+        }
+    },
+    {
+        "title": 'Romantic',
+        "description": "couples, honeymoon",
+        "timeline": {
+            "AM": "Energizing Blend",
+            "PM": "Sensational Blend",
+            "Night": "Relax Blend",
+        }
+    },
+    {
+        "title": 'Executive',
+        "description": "business man/woman",
+        "timeline": {
+            "AM": "Uplift Blend",
+            "PM": "Focus Blend",
+            "Night": "Refresh Blend",
+        }
+    },
+
+];
+
+export const dummyBlendData = [
+    {
+        "title": 'Energize',
+        "description": "it helps boost up energy",
+        "oils": [
+            {
+                "oilName": "Lavender",
+                "ratio": 3
+            },
+            {
+                "oilName": "Lemon",
+                "ratio": 3
+            }
+        ]
+    },{
+        "title": 'Sensual',
+        "description": "creates romantic mood",
+        "oils": [
+            {
+                "oilName": "YlangYlang",
+                "ratio": 1
+            },
+            {
+                "oilName": "Bergamot",
+                "ratio": 4
+            }
+        ]
+    },
+];
+
+// join deviceOil with Oil -> oil_position, oil_name
+export const oilListForBlend = [
+    {
+        name: 'Lavender',
+        oil_position: 1,
+    },
+    {
+        name: 'Peppermint',
+        oil_position: 2,
+    },
+    {
+        name: 'Lemon',
+        oil_position: 3,
+    },
+    {
+        name: 'Ylang ylang',
+        oil_position: 4,
+    },
+    {
+        name: 'Bergamot',
+        oil_position: 5,
+    },
+];
