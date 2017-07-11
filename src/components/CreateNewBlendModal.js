@@ -62,9 +62,8 @@ class CreateNewBlendModal extends React.Component {
             ]
         };
 
-        //TODO make API call here.
         this.props.createBlend(body);
-        // this.reset();
+        this.reset();
     }
 
     render() {

@@ -1,6 +1,6 @@
 var axios = require('axios');
 const createBlendRoute = 'https://aromeo-backend.herokuapp.com/api/createBlend';
-const localCreateBlendRoute = 'http://localhost:5000/api/createBlend';
+const localCreateBlendRoute = '/api/createBlend';
 
 
 
