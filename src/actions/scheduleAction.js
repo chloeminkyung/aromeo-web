@@ -1,23 +1,7 @@
 var axios = require('axios');
-const createBlendRoute = 'https://aromeo-backend.herokuapp.com/api/createBlend';
-const localCreateBlendRoute = '/api/createBlend';
-
-
-
-export function createBlend(body) {
-    return dispatch=>{
-        dispatch(fetchingData());
-        return axios.post(localCreateBlendRoute, body)
-            .then((json)=>dispatch(successCreatingBlend(json)))
-            .catch(err=>dispatch(requestFail(err)))
-    }
-}
-
-function successCreatingBlend(){
-    return{
-        type: 'SUCCESS_CREATING_BLEND',
-    }
-}
+const createBlendRoute = '/api/createBlend';
+const getAllBlendsRoute = '/api/getAllBlends';
+const deleteBlendRoute = '/api/deleteBlend/(blendId)';
 
 function fetchingData(){
     return{
@@ -32,11 +16,66 @@ function requestFail(error){
     }
 }
 
+function successCreatingBlend(json){
+    return{
+        type: 'SUCCESS_CREATING_BLEND',
+    }
+}
+function receiveAllBlends(json){
+    return{
+        type: 'RECEIVE_ALL_BLENDS',
+        blends: json.data
+    }
+}
+function successDeletingBlend(json){
+    return{
+        type: 'SUCCESS_DELETING_BLEND',
+    }
+}
+
+export function createBlend(body) {
+    return dispatch=>{
+        dispatch(fetchingData());
+        return axios.post(createBlendRoute, body)
+            .then((json)=>dispatch(successCreatingBlend(json)))
+            .catch(err=>dispatch(requestFail(err)))
+    }
+}
+export function getAllBlends() {
+    return dispatch=>{
+        dispatch(fetchingData());
+        return axios.get(getAllBlendsRoute)
+            .then((json)=>dispatch(receiveAllBlends(json)))
+            .catch(err=>dispatch(requestFail(err)))
+    }
+}
+export function removeBlend(blendId) {
+    var api = deleteBlendRoute.replace('(blendId)', blendId);
+    return dispatch=>{
+        dispatch(fetchingData());
+        return axios.get(api).then((json)=>dispatch(successDeletingBlend(json))).catch(err=>dispatch(requestFail(err)))
+    }
+}
+
 
 export function toggleCreateDefaultSchedule(isOpen) {
     return {
         type: 'TOGGLE_CREATE_DEFAULT_SCHEDULE',
         isOpen: isOpen
+    }
+}
+export function toggleCreateBlend(isOpen) {
+    return {
+        type: 'TOGGLE_CREATE_BLEND',
+        isOpen: isOpen
+    }
+}
+export function toggleRemoveBlend(isOpen, targetId) {
+    console.warn(targetId);
+    return {
+        type: 'TOGGLE_REMOVE_BLEND',
+        isOpen: isOpen,
+        targetId: targetId
     }
 }
 
@@ -62,13 +101,6 @@ export function removeDefaultSchedule(scheduleId) {
     }
 }
 
-export function toggleCreateBlend(isOpen) {
-    return {
-        type: 'TOGGLE_CREATE_BLEND',
-        isOpen: isOpen
-    }
-}
-
 export function editBlend(blendId, blendDetail) {
     return {
         type: 'EDIT_BLEND',
@@ -77,9 +109,3 @@ export function editBlend(blendId, blendDetail) {
     }
 }
 
-export function removeBlend(blendId) {
-    return {
-        type: 'REMOVE_BLEND',
-        blendId: blendId
-    }
-}

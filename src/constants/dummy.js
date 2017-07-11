@@ -148,7 +148,7 @@ export const dummyScheduleData = [
 
 export const dummyBlendData = [
     {
-        "title": 'Energize',
+        "blend_name": 'Energize',
         "description": "it helps boost up energy",
         "oils": [
             {
@@ -161,7 +161,7 @@ export const dummyBlendData = [
             }
         ]
     },{
-        "title": 'Sensual',
+        "blend_name": 'Sensual',
         "description": "creates romantic mood",
         "oils": [
             {

@@ -5,8 +5,10 @@ import {connect} from 'react-redux';
 import {Row, Col, Panel} from 'react-bootstrap';
 import {SchedulePaper, CreateButtonPaper, BlendPaper} from '../components/SchedulingPaper'
 import CreateNewScheduleModal from '../components/CreateNewScheduleModal'
-import CreateNewBlendModal from '../components/createNewBlendModal'
-import {toggleCreateDefaultSchedule, toggleCreateBlend} from '../actions/scheduleAction'
+import CreateNewBlendModal from '../components/CreateNewBlendModal'
+import RemoveModal from '../components/RemoveModal'
+import {toggleCreateDefaultSchedule, toggleCreateBlend, getAllBlends,
+    toggleRemoveBlend, removeBlend} from '../actions/scheduleAction'
 
 import {dummyScheduleData, dummyBlendData} from '../constants/dummy'
 
@@ -15,7 +17,12 @@ class SchedulingContainer extends React.Component {
         super(props);
     }
 
+    componentWillMount(){
+        this.props.getAllBlends();
+    }
+
     render() {
+        const {blends, targetId, toggleRemoveBlend} = this.props;
 
         return (
             <div>
@@ -34,12 +41,15 @@ class SchedulingContainer extends React.Component {
                 <Panel header={<h3>Blends</h3>}>
                     <Row>
                         {
-                            dummyBlendData.map(function(blend){
-                                return <Col md={3}><BlendPaper blend={blend}/></Col>
-                            })
+                            blends!=null?
+                                blends.map(function(blend){
+                                    return <Col md={3}><BlendPaper blend={blend} toggleRemoveBlend={toggleRemoveBlend}/></Col>
+                                })
+                                :<p>Fetching...</p>
                         }
                         <CreateButtonPaper onClickHandler={this.props.toggleCreateBlend} title={"Create New Blending"} />
                         <CreateNewBlendModal />
+                        <RemoveModal targetId={targetId} isOpen={this.props.isRemoveBlendModalOpen} item="this blend" toggleFunction={toggleRemoveBlend} removeFunction={this.props.removeBlend} />
                     </Row>
                 </Panel>
             </div>
@@ -49,10 +59,14 @@ class SchedulingContainer extends React.Component {
 
 export default connect(
     state => ({
-
+        blends: state.schedule.blends,
+        targetId: state.schedule.targetId,
+        isRemoveBlendModalOpen: state.schedule.isRemoveBlendModalOpen,
     }),
     {
-        toggleCreateDefaultSchedule, toggleCreateBlend
+        toggleCreateDefaultSchedule, toggleCreateBlend, getAllBlends,
+        toggleRemoveBlend, removeBlend
+
     }
 )(SchedulingContainer)
 

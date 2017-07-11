@@ -1,15 +1,24 @@
-export const oilToId = {
+const idToOil = {
     1: 'Lavender',
     2: 'Peppermint',
     3: 'Lemon',
     4: 'YlangYlang',
-    5: 'Begamot'
+    5: 'Bergamot'
 }
 
-export const idToOil = {
+const oilToId = {
     'Lavender': 1,
     'Peppermint': 2,
     'Lemon': 3,
     'YlangYlang': 4,
-    'Begamot': 5
+    'Bergamot': 5
+}
+
+
+export function oilToIdMapper(oilName){
+    return oilToId[oilName];
+}
+
+export function idToOilNameMapper(id){
+    return idToOil[id];
 }

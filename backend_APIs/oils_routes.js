@@ -71,6 +71,23 @@ var init = function(app, pool) {
       });
     });
   })
+
+  app.get('/api/deleteBlend/:blendId', function(req, result, next) {
+    pool.connect(function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query('DELETE FROM blends WHERE blend_id = $1;', [req.params.blendId], function(err, res) {
+        if(err) {
+          done(err);
+          return console.error('error running query', err);
+        }
+      }).on('end', (res) => {
+        return result.json(res.rows);
+        done();
+      });
+    });
+  })
 }
 
 module.exports.init = init;

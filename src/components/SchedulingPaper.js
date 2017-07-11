@@ -10,10 +10,8 @@ import Moon from 'material-ui/svg-icons/image/brightness-3';
 import Sun from 'material-ui/svg-icons/image/wb-sunny';
 import Cloud from 'material-ui/svg-icons/image/wb-cloudy';
 
-import {OilCompositionPie} from './OilCompositionPie'
-// import {OilCompositionBar} from './OilCompositionBar'
 import {OilCompositionTally} from './OilCompositionTally'
-import {Config} from '../config'
+import {idToOilNameMapper} from '../constants/mapper'
 
 class SchedulePaper extends React.PureComponent {
     render() {
@@ -70,21 +68,21 @@ class BlendPaper extends React.PureComponent {
             Bergamot: 0,
         }
 
-        oilData.map(function(oil, index){
-            formattedData[oil.oilName] = oil.ratio;
+        oilData.map(function(oil){
+            formattedData[idToOilNameMapper(oil.oil_product_id)] = oil.ratio;
         })
 
         return formattedData;
     }
 
     render() {
-        const {blend} = this.props;
+        const {blend,toggleRemoveBlend} = this.props;
         var oilArray = this.blendRatioChartTallyFormatter(blend.oils)
 
         return (
             <Card style={styles.cardContainer}>
                 <CardHeader
-                    title={blend.title}
+                    title={blend.blend_name}
                     subtitle={blend.description}
                 />
                 <CardText style={styles.cardText}>
@@ -92,7 +90,7 @@ class BlendPaper extends React.PureComponent {
                 </CardText>
                 <CardActions>
                     <FlatButton label="Edit" />
-                    <FlatButton label="Delete" />
+                    <FlatButton label="Delete" onTouchTap={()=>toggleRemoveBlend(true, blend.blend_id)} />
                 </CardActions>
             </Card>
         );
