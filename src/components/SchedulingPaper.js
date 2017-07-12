@@ -11,7 +11,7 @@ import Sun from 'material-ui/svg-icons/image/wb-sunny';
 import Cloud from 'material-ui/svg-icons/image/wb-cloudy';
 
 import {OilCompositionTally} from './OilCompositionTally'
-import {idToOilNameMapper} from '../constants/mapper'
+import {idToOilNameMapper} from '../constants/mapperAndConstants'
 
 class SchedulePaper extends React.PureComponent {
     render() {

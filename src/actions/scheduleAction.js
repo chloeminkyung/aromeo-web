@@ -1,7 +1,10 @@
 var axios = require('axios');
+/* blends */
 const createBlendRoute = '/api/createBlend';
 const getAllBlendsRoute = '/api/getAllBlends';
 const deleteBlendRoute = '/api/deleteBlend/(blendId)';
+/* schedules */
+const createScheduleRoute = '/api/createSchedule';
 
 function fetchingData(){
     return{
@@ -16,20 +19,15 @@ function requestFail(error){
     }
 }
 
-function successCreatingBlend(json){
-    return{
-        type: 'SUCCESS_CREATING_BLEND',
-    }
-}
 function receiveAllBlends(json){
     return{
         type: 'RECEIVE_ALL_BLENDS',
         blends: json.data
     }
 }
-function successDeletingBlend(json){
+function success(json){
     return{
-        type: 'SUCCESS_DELETING_BLEND',
+        type: 'SUCCESS',
     }
 }
 
@@ -37,7 +35,7 @@ export function createBlend(body) {
     return dispatch=>{
         dispatch(fetchingData());
         return axios.post(createBlendRoute, body)
-            .then((json)=>dispatch(successCreatingBlend(json)))
+            .then((json)=>dispatch(success(json)))
             .catch(err=>dispatch(requestFail(err)))
     }
 }
@@ -53,7 +51,16 @@ export function removeBlend(blendId) {
     var api = deleteBlendRoute.replace('(blendId)', blendId);
     return dispatch=>{
         dispatch(fetchingData());
-        return axios.get(api).then((json)=>dispatch(successDeletingBlend(json))).catch(err=>dispatch(requestFail(err)))
+        return axios.get(api).then((json)=>dispatch(success(json))).catch(err=>dispatch(requestFail(err)))
+    }
+}
+
+export function createSchedule(body) {
+    return dispatch=>{
+        dispatch(fetchingData());
+        return axios.post(createScheduleRoute, body)
+            .then((json)=>dispatch(success(json)))
+            .catch(err=>dispatch(requestFail(err)))
     }
 }
 
@@ -76,13 +83,6 @@ export function toggleRemoveBlend(isOpen, targetId) {
         type: 'TOGGLE_REMOVE_BLEND',
         isOpen: isOpen,
         targetId: targetId
-    }
-}
-
-export function createDefaultSchedule(scheduleDetail) {
-    return {
-        type: 'CREATE_DEFAULT_SCHEDULE',
-        scheduleDetail: scheduleDetail
     }
 }
 

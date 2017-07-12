@@ -17,12 +17,9 @@ export default function schedule(state = initialState, action) {
 
         case 'REQUEST_ERROR':
             return {...state, isNetworking: false};
-
-        case 'SUCCESS_CREATING_BLEND':
-            return {...state, isNetworking: false};
         case 'RECEIVE_ALL_BLENDS':
             return {...state, blends: action.blends, isNetworking: false};
-        case 'SUCCESS_DELETING_BLEND':
+        case 'SUCCESS':
             return {...state, isNetworking: false};
 
         case 'TOGGLE_CREATE_DEFAULT_SCHEDULE':
@@ -31,10 +28,6 @@ export default function schedule(state = initialState, action) {
             return {...state, isCreateBlendModalOpen: action.isOpen};
         case 'TOGGLE_REMOVE_BLEND':
             return {...state, isRemoveBlendModalOpen: action.isOpen, targetId: action.targetId};
-
-        case 'CREATE_DEFAULT_SCHEDULE':
-            const defaultFilter = Object.assign({}, defaultFilterOptions);
-            return {...state, filterOption: defaultFilter}
 
         case 'EDIT_DEFAULT_SCHEDULE':
             return state;
@@ -47,6 +40,8 @@ export default function schedule(state = initialState, action) {
             return state;
 
         case 'REMOVE_BLEND':
+            const defaultFilter = Object.assign({}, defaultFilterOptions);
+
             return state;
 
         default:

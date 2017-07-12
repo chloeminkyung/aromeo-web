@@ -9,24 +9,36 @@ var init = function(app, pool) {
         return console.error('error fetching client from pool', err);
       }
 
-      // 1. Create timeslot
-      client.query('INSERT INTO timeslot(blend_id, start_time, duration, isCustom) values($1, $2, $3, $4) RETURNING timeslot_id',
-        [req.body.blend_id, req.body.start_time, req.body.duration, req.body.isCustom], function(err, res){
+      client.query('INSERT INTO schedules(hotel_id, schedule_name, description, timeslots) values($1, $2, $3, $4) RETURNING schedule_name',
+        [req.body.hotel_id, req.body.schedule_name, req.body.description, req.body.timeslots], function(err, res){
           if(err) {
             done(err);
             return console.error('error running query', err);
           }
         }).on('end', (res) => {
-          // 2. Create Schedule with the created timeslot
-          console.log(res.rows[0].timeslot_id)
-          client.query('INSERT INTO schedule(hotel_id, timeslot_id, schedule_name) values($1, $2, $3)',
-            [req.body.hotel_id, res.rows[0].timeslot_id, req.body.schedule_name])
+          console.log("Successfully created " + res.rows[0].schedule_name + " schedule");
           done();
         });
     });
   })
 
-  // TODO Q: if we delete a schedule, should it also be deletected from all the devices?
+  app.get('/api/getAllSchedules', function(req, result, next) {
+    pool.connect(function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query('SELECT * FROM schedules', [], function(err, res) {
+        if(err) {
+          done(err);
+          return console.error('error running query', err);
+        }
+      }).on('end', (res) => {
+        return result.json(res.rows);
+        done();
+      });
+    });
+  })
+
   app.get('/api/deleteSchedule/:scheduleID', function(req, res, next) {
     pool.connect(function(err, client, done) {
       if(err) {
@@ -34,17 +46,14 @@ var init = function(app, pool) {
       }
 
       // 1. delete schedule and obtain timeslot id
-      client.query('DELETE FROM schedule WHERE schedule_id = $1 RETURNING timeslot_id',
+      client.query('DELETE FROM schedules WHERE schedule_id = $1 RETURNING schedule_name',
         [req.params.scheduleID], function(err, res){
           if(err) {
             done(err);
             return console.error('error running query', err);
           }
         }).on('end', (res) => {
-          console.log(res.rows[0].timeslot_id)
-          // 2. delete corresponding timeslot
-          client.query('DELETE FROM timeslot WHERE timeslot_id = $1',
-            [res.rows[0].timeslot_id])
+          console.log("Successfully deleted " + res.rows[0].timeslot_id);
           done();
         });
     });

@@ -8,18 +8,55 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TimePicker from 'material-ui/TimePicker';
 
-import Moon from 'material-ui/svg-icons/image/brightness-3';
-import Sun from 'material-ui/svg-icons/image/wb-sunny';
-import Cloud from 'material-ui/svg-icons/image/wb-cloudy';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
-import {toggleCreateDefaultSchedule} from '../actions/scheduleAction';
+import TimeSlotSelector from './TimeSlotSelector'
+import {toggleCreateDefaultSchedule, createSchedule} from '../actions/scheduleAction';
 
 class CreateNewScheduleModal extends React.Component {
     constructor(props){
         super(props);
+
+        this.state = {
+            schedule_name: "",
+            description: "",
+            AM: {
+                startTime: null,
+                blend: 0,
+                duration: 0
+            },
+            PM: {
+                startTime: null,
+                blend: 0,
+                duration: 0
+            },
+            Night: {
+                startTime: null,
+                blend: 0,
+                duration: 0
+            }
+        }
+    }
+
+    createButton(){
+        this.props.toggleCreateDefaultSchedule(false);
+        this.requestBodyGenerate()
+    }
+
+    requestBodyGenerate() {
+        let body = {
+            schedule_name: this.state.schedule_name,
+            description: this.state.description,
+            timeslots: [this.state.AM, this.state.PM, this.state.Night]
+        }
+
+        this.props.createSchedule(body);
+        console.warn(body)
     }
 
     render() {
+        const {blends} = this.props;
         const action = [
             <FlatButton
                 label="Cancel"
@@ -29,13 +66,27 @@ class CreateNewScheduleModal extends React.Component {
             <FlatButton
                 label="Create"
                 primary={true}
-                onTouchTap={()=>this.props.toggleCreateDefaultSchedule(false)}
+                onTouchTap={()=>this.createButton()}
             />,
         ];
 
         function handleTextInputs(name, event){
             var update = {};
             update[name] = event.target.value;
+            this.setState(update);
+        }
+        function handleTimeSlotChoices(period, choiceType, event, key, payload){
+            let update = {};
+            let updateContent = Object.assign({}, this.state[period]);
+            updateContent[choiceType] = payload;
+            update[period] = updateContent;
+            this.setState(update);
+        }
+        function handleTimeSelector(period, date) {
+            let update = {};
+            let updateContent = Object.assign({}, this.state[period]);
+            updateContent['startTime'] = date;
+            update[period] = updateContent;
             this.setState(update);
         }
 
@@ -53,7 +104,7 @@ class CreateNewScheduleModal extends React.Component {
                         </Col>
                         <Col md={10}>
                             <input className={"form-control"} type="text" placeholder="Schedule Name"
-                                   onChange={handleTextInputs.bind(this, 'name')}
+                                   onChange={handleTextInputs.bind(this, 'schedule_name')}
                             />
                         </Col>
                     </Row>
@@ -69,19 +120,13 @@ class CreateNewScheduleModal extends React.Component {
                         <Col md={12}>
                             Timeslot
                         </Col>
-                        <Col mdOffset={2} md={10}>
-                            <Row>
-                                <Col mdOffset={2} md={2}>{<Sun />} <b>AM</b>: </Col>
-                                <Col md={8}><TimePicker style={styles.timepicker} hintText="Select Time" /></Col>
-                            </Row>
-                            <Row>
-                                <Col mdOffset={2} md={2}> {<Cloud />} <b>PM</b>: </Col>
-                                <Col md={8}><TimePicker hintText="Select Time" /></Col>
-                            </Row>
-                            <Row>
-                                <Col mdOffset={2} md={2}> {<Moon />} <b>Night</b>: </Col>
-                                <Col md={8}><TimePicker hintText="Select Time" /></Col>
-                            </Row>
+                        <Col md={12}>
+                            <TimeSlotSelector period="AM" timeChoice={this.state.AM.startTime} blendChoice={this.state.AM.blend} durationChoice={this.state.AM.duration}
+                                              blends={blends} handleTimeSlotChoices={handleTimeSlotChoices.bind(this)} handleTimeSelector={handleTimeSelector.bind(this)} />
+                            <TimeSlotSelector period="PM" timeChoice={this.state.PM.startTime} blendChoice={this.state.PM.blend} durationChoice={this.state.PM.duration}
+                                              blends={blends} handleTimeSlotChoices={handleTimeSlotChoices.bind(this)} handleTimeSelector={handleTimeSelector.bind(this)} />
+                            <TimeSlotSelector period="Night" timeChoice={this.state.Night.startTime} blendChoice={this.state.Night.blend} durationChoice={this.state.Night.duration}
+                                              blends={blends} handleTimeSlotChoices={handleTimeSlotChoices.bind(this)} handleTimeSelector={handleTimeSelector.bind(this)} />
                         </Col>
                     </Row>
                 </Dialog>
@@ -95,13 +140,18 @@ export default connect(
         isCreateScheduleModalOpen: state.schedule.isCreateScheduleModalOpen,
     }),
     {
-        toggleCreateDefaultSchedule
+        toggleCreateDefaultSchedule, createSchedule
     }
 )(CreateNewScheduleModal)
 
 const styles = {
     row: {marginTop: 10},
-    timepicker: {
-        color: 'red'
+    timePicker: {
+        width: '100%'
+    },
+    selectField: {
+        width: '100%',
+        marginTop:-24,
+        padding:0,
     }
 }

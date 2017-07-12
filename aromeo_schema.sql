@@ -1,9 +1,9 @@
 DROP TABLE if exists oils cascade;
 DROP TABLE if exists aromeos cascade;
 DROP TABLE if exists blends cascade;
-DROP TABLE if exists deviceOil cascade;
-DROP TABLE if exists schedule cascade;
-DROP TABLE if exists timeslot cascade;
+DROP TABLE if exists deviceoils cascade;
+DROP TABLE if exists schedules cascade;
+DROP TABLE if exists customschedules cascade;
 DROP TABLE if exists deviceScheduling cascade;
 -- DROP TABLE if exists hotel cascade;
 -- DROP TABLE if exists hotelManager cascade;
@@ -35,7 +35,7 @@ CREATE TABLE blends (
   oils JSON[]
 );
 
-CREATE TABLE deviceOil (
+CREATE TABLE deviceOils (
   hotel_id INTEGER,
   aromeo_id TEXT,
   oil_product_id INTEGER,
@@ -44,7 +44,7 @@ CREATE TABLE deviceOil (
   oil_quantity SMALLINT
 );
 
-CREATE TABLE schedule (
+CREATE TABLE schedules (
   schedule_id SERIAL PRIMARY KEY,
   hotel_id INTEGER,
   schedule_name VARCHAR(40),
@@ -52,7 +52,7 @@ CREATE TABLE schedule (
   timeslots JSON[]
 );
 
-CREATE TABLE customSchedule (
+CREATE TABLE customSchedules (
   schedule_id SERIAL PRIMARY KEY,
   schedule_name VARCHAR(40),
   timeslots JSON[]

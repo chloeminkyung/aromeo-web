@@ -35,7 +35,7 @@ class SchedulingContainer extends React.Component {
                             })
                         }
                         <CreateButtonPaper onClickHandler={this.props.toggleCreateDefaultSchedule} title={"Create New Schedule"} />
-                        <CreateNewScheduleModal />
+                        <CreateNewScheduleModal blends={blends} />
                     </Row>
                 </Panel>
                 <Panel header={<h3>Blends</h3>}>
