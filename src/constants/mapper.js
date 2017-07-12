@@ -15,6 +15,7 @@ const oilToId = {
 }
 
 
+
 export function oilToIdMapper(oilName){
     return oilToId[oilName];
 }

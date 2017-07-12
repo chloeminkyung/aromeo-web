@@ -47,24 +47,37 @@ CREATE TABLE deviceOil (
 CREATE TABLE schedule (
   schedule_id SERIAL PRIMARY KEY,
   hotel_id INTEGER,
-  timeslot_id INTEGER,
-  schedule_name VARCHAR(40)
+  schedule_name VARCHAR(40),
+  description TEXT,
+  timeslots JSON[]
 );
 
-CREATE TABLE timeslot (
-  timeslot_id SERIAL PRIMARY KEY,
-  blend_id INTEGER,
-  start_time TIME,
-  duration SMALLINT,
-  isCustom BOOLEAN
+CREATE TABLE customSchedule (
+  schedule_id SERIAL PRIMARY KEY,
+  schedule_name VARCHAR(40),
+  timeslots JSON[]
 );
+
+-- CREATE TABLE timeslot (
+--   schedule_id INTEGER,
+--   blend_id INTEGER,
+--   start_time TIME,
+--   duration SMALLINT
+-- );
+--
+-- CREATE TABLE customTimeslot (
+--   schedule_id INTEGER,
+--   blend_id INTEGER,
+--   start_time TIME,
+--   duration SMALLINT
+-- );
 
 CREATE TABLE deviceScheduling (
   aromeo_id TEXT,
   schedule_id INTEGER,
-  timeslot_id INTEGER,
   repeatability BOOLEAN,
-  strength SMALLINT
+  strength SMALLINT,
+  isCustom BOOLEAN
 );
 
 -- CREATE TABLE hotel (

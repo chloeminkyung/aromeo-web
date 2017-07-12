@@ -9,6 +9,7 @@ import NavigationComponent from './NavigationBar.js';
 const aromeoTheme = getMuiTheme({
     palette: {
         primary1Color: '#351d49',
+        pickerHeaderColor: '#351d49',
         darkPurple: '#170231',
         lightPurple: '#351d49',
     },
