@@ -7,10 +7,8 @@ import {SchedulePaper, CreateButtonPaper, BlendPaper} from '../components/Schedu
 import CreateNewScheduleModal from '../components/CreateNewScheduleModal'
 import CreateNewBlendModal from '../components/CreateNewBlendModal'
 import RemoveModal from '../components/RemoveModal'
-import {toggleCreateDefaultSchedule, toggleCreateBlend, getAllBlends,
+import {toggleCreateDefaultSchedule, toggleCreateBlend, getAllBlends, getAllSchedules,
     toggleRemoveBlend, removeBlend} from '../actions/scheduleAction'
-
-import {dummyScheduleData, dummyBlendData} from '../constants/dummy'
 
 class SchedulingContainer extends React.Component {
     constructor(props){
@@ -18,11 +16,13 @@ class SchedulingContainer extends React.Component {
     }
 
     componentWillMount(){
+        // this.props.getAllSchedules();
         this.props.getAllBlends();
     }
-
     render() {
-        const {blends, targetId, toggleRemoveBlend} = this.props;
+        const {blends, schedules, targetId, toggleRemoveBlend} = this.props;
+        console.warn(blends)
+        console.warn(schedules)
 
         return (
             <div>
@@ -30,9 +30,11 @@ class SchedulingContainer extends React.Component {
                 <Panel header={<h3>Default Schedules</h3>}>
                     <Row>
                         {
-                            dummyScheduleData.map(function(schedule){
-                                return <Col md={3}><SchedulePaper schedule={schedule} /></Col>
-                            })
+                            schedules!=null?
+                                schedules.map(function(schedule){
+                                    return <Col md={3}><SchedulePaper schedule={schedule} /></Col>
+                                })
+                                :<p>Fetching...</p>
                         }
                         <CreateButtonPaper onClickHandler={this.props.toggleCreateDefaultSchedule} title={"Create New Schedule"} />
                         <CreateNewScheduleModal blends={blends} />
@@ -60,11 +62,12 @@ class SchedulingContainer extends React.Component {
 export default connect(
     state => ({
         blends: state.schedule.blends,
+        schedules: state.schedule.schedules,
         targetId: state.schedule.targetId,
         isRemoveBlendModalOpen: state.schedule.isRemoveBlendModalOpen,
     }),
     {
-        toggleCreateDefaultSchedule, toggleCreateBlend, getAllBlends,
+        toggleCreateDefaultSchedule, toggleCreateBlend, getAllBlends, getAllSchedules,
         toggleRemoveBlend, removeBlend
 
     }

@@ -19,7 +19,7 @@ class SchedulePaper extends React.PureComponent {
         return (
             <Card style={styles.cardContainer}>
                 <CardHeader
-                    title={schedule.title}
+                    title={schedule.schedule_name}
                     subtitle={schedule.description}
                 />
                 <CardText style={styles.cardText}>

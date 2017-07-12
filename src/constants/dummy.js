@@ -54,7 +54,7 @@ export const fakeControlData = [
 
 export const dummyScheduleData = [
     {
-        "title": 'Romantic',
+        "schedule_name": 'Romantic',
         "description": "couples, honeymoon",
         "timeline": {
             "AM": "Energizing Blend",
@@ -63,7 +63,7 @@ export const dummyScheduleData = [
         }
     },
     {
-        "title": 'Executive',
+        "schedule_name": 'Executive',
         "description": "business man/woman",
         "timeline": {
             "AM": "Uplift Blend",
@@ -72,7 +72,7 @@ export const dummyScheduleData = [
         }
     },
     {
-        "title": 'Romantic',
+        "schedule_name": 'Romantic',
         "description": "couples, honeymoon",
         "timeline": {
             "AM": "Energizing Blend",
@@ -81,7 +81,7 @@ export const dummyScheduleData = [
         }
     },
     {
-        "title": 'Executive',
+        "schedule_name": 'Executive',
         "description": "business man/woman",
         "timeline": {
             "AM": "Uplift Blend",
@@ -90,7 +90,7 @@ export const dummyScheduleData = [
         }
     },
     {
-        "title": 'Romantic',
+        "schedule_name": 'Romantic',
         "description": "couples, honeymoon",
         "timeline": {
             "AM": "Energizing Blend",
@@ -99,7 +99,7 @@ export const dummyScheduleData = [
         }
     },
     {
-        "title": 'Executive',
+        "schedule_name": 'Executive',
         "description": "business man/woman",
         "timeline": {
             "AM": "Uplift Blend",
@@ -108,7 +108,7 @@ export const dummyScheduleData = [
         }
     },
     {
-        "title": 'Romantic',
+        "schedule_name": 'Romantic',
         "description": "couples, honeymoon",
         "timeline": {
             "AM": "Energizing Blend",
@@ -117,7 +117,7 @@ export const dummyScheduleData = [
         }
     },
     {
-        "title": 'Executive',
+        "schedule_name": 'Executive',
         "description": "business man/woman",
         "timeline": {
             "AM": "Uplift Blend",
@@ -126,7 +126,7 @@ export const dummyScheduleData = [
         }
     },
     {
-        "title": 'Romantic',
+        "schedule_name": 'Romantic',
         "description": "couples, honeymoon",
         "timeline": {
             "AM": "Energizing Blend",
@@ -135,7 +135,7 @@ export const dummyScheduleData = [
         }
     },
     {
-        "title": 'Executive',
+        "schedule_name": 'Executive',
         "description": "business man/woman",
         "timeline": {
             "AM": "Uplift Blend",

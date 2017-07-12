@@ -19,6 +19,7 @@ import DeviceControlTable from '../components/DeviceControlTable'
 
 const FakeObjectDataListStore = require('../components/helpers/FakeObjectDataListStore');
 import {filterWithText} from '../actions/controlAction'
+import {getAllSchedules} from '../actions/scheduleAction'
 
 class ControlContainer extends React.Component {
     constructor(props){
@@ -27,6 +28,10 @@ class ControlContainer extends React.Component {
         this.state = {
             isOpen: props.isOpen,
         };
+    }
+
+    componentDidMount(){
+        this.props.getAllSchedules();
     }
 
     render() {
@@ -52,7 +57,7 @@ export default connect(
         isManageMode: state.control.isManageMode,
     }),
     {
-        filterWithText
+        filterWithText, getAllSchedules
     }
 )(ControlContainer)
 

@@ -5,24 +5,29 @@ const getAllBlendsRoute = '/api/getAllBlends';
 const deleteBlendRoute = '/api/deleteBlend/(blendId)';
 /* schedules */
 const createScheduleRoute = '/api/createSchedule';
+const getAllSchedulesRoute = '/api/getAllSchedules';
 
 function fetchingData(){
     return{
         type:'FETCHING_DATA'
     }
 }
-
 function requestFail(error){
     return{
         type: 'REQUEST_ERROR',
         error: error
     }
 }
-
 function receiveAllBlends(json){
     return{
         type: 'RECEIVE_ALL_BLENDS',
         blends: json.data
+    }
+}
+function receiveAllSchedules(json){
+    return{
+        type: 'RECEIVE_ALL_SCHEDULES',
+        schedules: json.data
     }
 }
 function success(json){
@@ -63,7 +68,14 @@ export function createSchedule(body) {
             .catch(err=>dispatch(requestFail(err)))
     }
 }
-
+export function getAllSchedules() {
+    return dispatch=>{
+        dispatch(fetchingData());
+        return axios.get(getAllSchedulesRoute)
+            .then((json)=>dispatch(receiveAllSchedules(json)))
+            .catch(err=>dispatch(requestFail(err)))
+    }
+}
 
 export function toggleCreateDefaultSchedule(isOpen) {
     return {

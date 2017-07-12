@@ -46,6 +46,7 @@ class CreateNewScheduleModal extends React.Component {
 
     requestBodyGenerate() {
         let body = {
+            hotel_id: "1",
             schedule_name: this.state.schedule_name,
             description: this.state.description,
             timeslots: [this.state.AM, this.state.PM, this.state.Night]

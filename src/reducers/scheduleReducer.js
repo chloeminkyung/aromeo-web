@@ -6,19 +6,21 @@ const initialState = {
     isCreateScheduleModalOpen: false,
     isCreateBlendModalOpen: false,
     isRemoveBlendModalOpen: false,
-    blends: null
+    blends: null,
+    schedules: null,
 };
 
 export default function schedule(state = initialState, action) {
     switch(action.type){
         case 'FETCHING_DATA':
-            console.warn("networkinggg")
             return {...state, isNetworking: true};
 
         case 'REQUEST_ERROR':
             return {...state, isNetworking: false};
         case 'RECEIVE_ALL_BLENDS':
             return {...state, blends: action.blends, isNetworking: false};
+        case 'RECEIVE_ALL_SCHEDULES':
+            return {...state, schedules: action.schedules, isNetworking: false};
         case 'SUCCESS':
             return {...state, isNetworking: false};
 
@@ -35,12 +37,11 @@ export default function schedule(state = initialState, action) {
         case 'REMOVE_DEFAULT_SCHEDULE':
             return state;
 
-
         case 'EDIT_BLEND':
             return state;
 
         case 'REMOVE_BLEND':
-            const defaultFilter = Object.assign({}, defaultFilterOptions);
+            const defaultFilter = Object.assign({}, {});
 
             return state;
 
