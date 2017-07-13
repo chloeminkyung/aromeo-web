@@ -12,6 +12,16 @@ function fetchingData(){
         type:'FETCHING_DATA'
     }
 }
+function fetchingBlendData(){
+    return{
+        type:'FETCHING_BLENDS'
+    }
+}
+function fetchingScheduleData(){
+    return{
+        type:'FETCHING_SCHEDULES'
+    }
+}
 function requestFail(error){
     return{
         type: 'REQUEST_ERROR',
@@ -46,7 +56,7 @@ export function createBlend(body) {
 }
 export function getAllBlends() {
     return dispatch=>{
-        dispatch(fetchingData());
+        dispatch(fetchingBlendData());
         return axios.get(getAllBlendsRoute)
             .then((json)=>dispatch(receiveAllBlends(json)))
             .catch(err=>dispatch(requestFail(err)))
@@ -70,7 +80,7 @@ export function createSchedule(body) {
 }
 export function getAllSchedules() {
     return dispatch=>{
-        dispatch(fetchingData());
+        dispatch(fetchingScheduleData());
         return axios.get(getAllSchedulesRoute)
             .then((json)=>dispatch(receiveAllSchedules(json)))
             .catch(err=>dispatch(requestFail(err)))

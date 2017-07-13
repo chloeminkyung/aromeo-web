@@ -16,11 +16,11 @@ class SchedulingContainer extends React.Component {
     }
 
     componentWillMount(){
-        // this.props.getAllSchedules();
+        this.props.getAllSchedules();
         this.props.getAllBlends();
     }
     render() {
-        const {blends, schedules, targetId, toggleRemoveBlend} = this.props;
+        const {blends, schedules, targetId, toggleRemoveBlend, isFetchingBlends, isFetchingSchedules} = this.props;
         console.warn(blends)
         console.warn(schedules)
 
@@ -30,7 +30,7 @@ class SchedulingContainer extends React.Component {
                 <Panel header={<h3>Default Schedules</h3>}>
                     <Row>
                         {
-                            schedules!=null?
+                            schedules!=null && !isFetchingSchedules?
                                 schedules.map(function(schedule){
                                     return <Col md={3}><SchedulePaper schedule={schedule} /></Col>
                                 })
@@ -43,7 +43,7 @@ class SchedulingContainer extends React.Component {
                 <Panel header={<h3>Blends</h3>}>
                     <Row>
                         {
-                            blends!=null?
+                            blends!=null && !isFetchingBlends?
                                 blends.map(function(blend){
                                     return <Col md={3}><BlendPaper blend={blend} toggleRemoveBlend={toggleRemoveBlend}/></Col>
                                 })
@@ -65,6 +65,8 @@ export default connect(
         schedules: state.schedule.schedules,
         targetId: state.schedule.targetId,
         isRemoveBlendModalOpen: state.schedule.isRemoveBlendModalOpen,
+        isFetchingBlends: state.schedule.isFetchingBlends,
+        isFetchingSchedules: state.schedule.isFetchingSchedules
     }),
     {
         toggleCreateDefaultSchedule, toggleCreateBlend, getAllBlends, getAllSchedules,

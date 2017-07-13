@@ -14,7 +14,13 @@ import {OilCompositionTally} from './OilCompositionTally'
 import {idToOilNameMapper} from '../constants/mapperAndConstants'
 
 class SchedulePaper extends React.PureComponent {
+    timestampToClockTimeFormat(timestamp){
+        var timeDate = new Date(timestamp);
+        return timeDate.getHours() + ":" + timeDate.getMinutes();
+    }
+
     render() {
+        const self = this;
         const {schedule} = this.props;
         return (
             <Card style={styles.cardContainer}>
@@ -23,19 +29,16 @@ class SchedulePaper extends React.PureComponent {
                     subtitle={schedule.description}
                 />
                 <CardText style={styles.cardText}>
-                    <Row>
-                        <Col md={5}>{<Sun />} <b>AM</b>: </Col>
-                        <Col md={7}><p> {schedule.timeline.AM}</p></Col>
-                    </Row>
-                    <Row>
-                        <Col md={5}> {<Cloud />} <b>PM</b>: </Col>
-                        <Col md={7}><p> {schedule.timeline.PM} </p></Col>
-                    </Row>
-                    <Row>
-                        <Col md={5}> {<Moon />} <b>Night</b>: </Col>
-                        <Col md={7}><p> {schedule.timeline.Night} </p></Col>
-                    </Row>
-
+                    {
+                        schedule.timeslots.map(function(timeslot){
+                            return (
+                                <Row>
+                                    <Col md={5}><b>{self.timestampToClockTimeFormat(timeslot.startTime)}</b>: </Col>
+                                    <Col md={7}><p> {timeslot.blend}</p></Col>
+                                </Row>
+                            )
+                        })
+                    }
                 </CardText>
                 <CardActions>
                     <FlatButton label="Edit" />

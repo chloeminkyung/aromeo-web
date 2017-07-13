@@ -2,6 +2,8 @@ var _ = require('underscore');
 
 const initialState = {
     isNetworking: false,
+    isFetchingBlends: false,
+    isFetchingSchedules: false,
     targetId: null,
     isCreateScheduleModalOpen: false,
     isCreateBlendModalOpen: false,
@@ -14,13 +16,16 @@ export default function schedule(state = initialState, action) {
     switch(action.type){
         case 'FETCHING_DATA':
             return {...state, isNetworking: true};
-
+        case 'FETCHING_BLENDS':
+            return {...state, isFetchingBlends: true};
+        case 'FETCHING_SCHEDULES':
+            return {...state, isFetchingSchedules: true};
         case 'REQUEST_ERROR':
             return {...state, isNetworking: false};
         case 'RECEIVE_ALL_BLENDS':
-            return {...state, blends: action.blends, isNetworking: false};
+            return {...state, blends: action.blends, isFetchingBlends: false};
         case 'RECEIVE_ALL_SCHEDULES':
-            return {...state, schedules: action.schedules, isNetworking: false};
+            return {...state, schedules: action.schedules, isFetchingSchedules: false};
         case 'SUCCESS':
             return {...state, isNetworking: false};
 
