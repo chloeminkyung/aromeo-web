@@ -18,12 +18,8 @@ class DeviceControlTable extends React.Component {
         }
     }
 
-    setScheduleValue(event, index, value){
-
-    }
-
     render() {
-        var {filteredDataList, isManageMode, schedules, updateAromeoStatusValue} = this.props;
+        var {filteredDataList, isManageMode, schedules, updateAromeoStatusValue, updateAromeoScheduleValue} = this.props;
         const {height, width, containerHeight, containerWidth, ...props} = this.props;
         return (
             <div>
@@ -59,7 +55,7 @@ class DeviceControlTable extends React.Component {
                         columnKey="schedule_id"
                         header={<Cell>Schedule Choice</Cell>}
                         cell={<ScheduleCell schedules={schedules}
-                                            onSelectHandler={updateAromeoStatusValue}
+                                            onSelectHandler={updateAromeoScheduleValue}
                                             data={filteredDataList} isManageMode={isManageMode}/>}
                         width={250}
                         align={'center'}

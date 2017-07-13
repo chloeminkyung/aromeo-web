@@ -30,13 +30,20 @@ function requestFail(error){
 }
 
 export function updateAromeoStatusValue(index, columnKey, value){
-    console.warn("index "+ index + "columnKey " + columnKey);
-    console.warn(value);
     return {
         type: 'UPDATE_AROMEO_STATUS_VALUE',
         index: index,
         columnKey: columnKey,
         value: value,
+    }
+}
+
+export function updateAromeoScheduleValue(index, schedule_id, schedule_name){
+    return {
+        type: 'UPDATE_AROMEO_SCHEDULE_VALUE',
+        index: index,
+        schedule_id: schedule_id,
+        schedule_name: schedule_name,
     }
 
 }

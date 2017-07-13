@@ -18,7 +18,7 @@ import FilterToolbar from '../components/FilterToolbar'
 import DeviceControlTable from '../components/DeviceControlTable'
 
 const FakeObjectDataListStore = require('../components/helpers/FakeObjectDataListStore');
-import {filterWithText, getAromeoStatus, updateAromeoStatusValue} from '../actions/controlAction'
+import {filterWithText, getAromeoStatus, updateAromeoStatusValue, updateAromeoScheduleValue} from '../actions/controlAction'
 import {getAllSchedules} from '../actions/scheduleAction'
 
 class ControlContainer extends React.Component {
@@ -38,7 +38,7 @@ class ControlContainer extends React.Component {
 
     render() {
         const {aromeoStatus, schedules, filteredDataList, isManageMode,
-            filterWithText, updateAromeoStatusValue} = this.props;
+            filterWithText, updateAromeoStatusValue, updateAromeoScheduleValue} = this.props;
 
         console.warn(filteredDataList)
 
@@ -48,8 +48,8 @@ class ControlContainer extends React.Component {
                     <FilterToolbar />
                     {
                         filteredDataList!=null?
-                            <DeviceControlTable filteredDataList={filteredDataList} filterWithText={filterWithText}
-                                                isManageMode={isManageMode} schedules={schedules} updateAromeoStatusValue={updateAromeoStatusValue} />
+                            <DeviceControlTable filteredDataList={filteredDataList} filterWithText={filterWithText} isManageMode={isManageMode} schedules={schedules}
+                                                updateAromeoStatusValue={updateAromeoStatusValue} updateAromeoScheduleValue={updateAromeoScheduleValue} />
                             :<p>Fetching...</p>
                     }
                 </Row>
@@ -66,7 +66,7 @@ export default connect(
         isManageMode: state.control.isManageMode,
     }),
     {
-        filterWithText, getAromeoStatus, updateAromeoStatusValue,
+        filterWithText, getAromeoStatus, updateAromeoStatusValue, updateAromeoScheduleValue,
         getAllSchedules
     }
 )(ControlContainer)

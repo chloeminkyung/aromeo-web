@@ -46,15 +46,17 @@ export default function control(state = initialState, action) {
 
         case 'UPDATE_AROMEO_STATUS_VALUE':
             let newFilteredDataList = state.filteredDataList.slice();
-
-            console.warn(newFilteredDataList)
-
             newFilteredDataList[action.index][action.columnKey] = action.value;
 
-            console.warn(newFilteredDataList)
-
-            // return {...state}
             return {...state, filteredDataList: newFilteredDataList}
+
+        case 'UPDATE_AROMEO_SCHEDULE_VALUE':
+            let newFilteredDataWithNewSchedule = state.filteredDataList.slice();
+            newFilteredDataWithNewSchedule[action.index]["schedule_id"] = action.schedule_id;
+            newFilteredDataWithNewSchedule[action.index]["schedule_name"] = action.schedule_name;
+
+            // console.warn(newFilteredDataWithNewSchedule)
+            return {...state, filteredDataList: newFilteredDataWithNewSchedule};
 
         case 'RESET_FILTER_OPTIONS':
             const defaultFilter = Object.assign({}, defaultFilterOptions);

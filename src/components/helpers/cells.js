@@ -175,19 +175,23 @@ module.exports.DiffusionStrengthCell = DiffusionStrengthCell;
 class ScheduleCell extends React.PureComponent {
     render() {
         const {schedules, data, onSelectHandler, rowIndex, columnKey, isManageMode, ...props} = this.props;
-        const scheduleChoice = data[rowIndex][columnKey];
+        let schedule_id = data[rowIndex][columnKey];
+        let schedule_name = data[rowIndex]['schedule_name'];
 
-        let aromeo_id = data[rowIndex]['aromeoID'];
+        let scheduleNameList = {};
 
+        //onSelectHandler(rowIndex, value, schedule_name)
         return (
             isManageMode?
                 <Cell {...props}>
-                    <DropDownMenu style={styles.dropdown} value={scheduleChoice} onChange={(event, index, value)=>onSelectHandler(rowIndex, columnKey, value)} >
+                    <DropDownMenu style={styles.dropdown} value={schedule_id}
+                                  onChange={(event, index, value)=>onSelectHandler(rowIndex, value, scheduleNameList[value])} >
                         <MenuItem key={0} value={-1} primaryText="Select Schedule" />
                         {
                             schedules.map(function(schedule, index){
+                                scheduleNameList[schedule.schedule_id] = schedule.schedule_name;
                                 return (
-                                    <MenuItem key={index+1} value={schedule.schedule_id} primaryText={schedule.schedule_name}/>
+                                    <MenuItem key={schedule.schedule_name} value={schedule.schedule_id} primaryText={schedule.schedule_name}/>
                                 )
                             })
                         }
@@ -195,7 +199,7 @@ class ScheduleCell extends React.PureComponent {
                 </Cell>
                 :
                 <Cell {...props}>
-                    {scheduleChoice==-1? "Not Selected" : scheduleChoice}
+                    {schedule_id==-1? "Not Selected" : schedule_name}
                 </Cell>
         );
     }

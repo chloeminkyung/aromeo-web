@@ -47,6 +47,7 @@ class FilterToolbar extends React.Component {
 
     saveChanges() {
         this.props.toggleStartManageAromeo(false);
+        // TODO
     }
 
     handleResetFilter(){
