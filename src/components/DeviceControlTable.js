@@ -2,7 +2,7 @@
 
 const ExampleImage = require('./helpers/ExampleImage');
 const FakeObjectDataListStore = require('./helpers/FakeObjectDataListStore');
-const { IndexCell, DeviceStatusCell, OilStatusCell, ScheduleCell, TextCell } = require('./helpers/cells');
+const { IndexCell, DeviceStatusCell, DiffusionStrengthCell, OilStatusCell, ScheduleCell, TextCell } = require('./helpers/cells');
 const { Table, Column, Cell } = require('fixed-data-table-2');
 const React = require('react');
 const Dimensions = require('react-dimensions');
@@ -45,14 +45,14 @@ class DeviceControlTable extends React.Component {
                         columnKey="roomNo"
                         header={<Cell>Room No.</Cell>}
                         cell={<TextCell data={filteredDataList} />}
-                        width={200}
+                        width={150}
                         align={'center'}
                     />
                     <Column
                         columnKey="aromeoID"
                         header={<Cell>Aromeo ID</Cell>}
                         cell={<TextCell data={filteredDataList} />}
-                        width={200}
+                        width={150}
                         align={'center'}
                     />
                     <Column
@@ -62,6 +62,13 @@ class DeviceControlTable extends React.Component {
                                             onSelectHandler={this.setScheduleValue.bind(this)}
                                             data={filteredDataList} isManageMode={isManageMode}/>}
                         width={250}
+                        align={'center'}
+                    />
+                    <Column
+                        columnKey="strength"
+                        header={<Cell>Diffusion Strength</Cell>}
+                        cell={<DiffusionStrengthCell data={filteredDataList} isManageMode={isManageMode}/>}
+                        width={200}
                         align={'center'}
                     />
                     <Column
@@ -75,7 +82,7 @@ class DeviceControlTable extends React.Component {
                         columnKey="oil"
                         header={<Cell>Detailed Oil Status</Cell>}
                         cell={<OilStatusCell data={filteredDataList} />}
-                        width={300}
+                        width={200}
                         align={'center'}
                     />
                 </Table>

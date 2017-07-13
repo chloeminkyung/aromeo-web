@@ -3,8 +3,8 @@ var pg = require('pg');
 var init = function(app, pool) {
   /*****************Device Register ***************/
   app.post('/api/registerAromeo', function(req, res, next) {
-    pool.query('INSERT INTO aromeos(hotel_id, aromeo_id, name, power_on) values($1, $2, $3, $4)',
-    [req.body.hotel_id, req.body.aromeo_id, req.body.name, FALSE]);
+    pool.query('INSERT INTO aromeos(hotel_id, aromeo_id, name, power_on, diffusion_strength, schedule_id) values($1, $2, $3, $4, $5, $6)',
+    [req.body.hotel_id, req.body.aromeo_id, req.body.name, false, 2, -1]);
     res.send('Register Aromeo')
   })
 
@@ -36,11 +36,11 @@ var init = function(app, pool) {
   })
 
   /***************** Status Tracking *****************/
-  app.get('/api/getAllAromeoStatus', function(req, res, next) {
+  app.get('/api/getAllAromeoStatus/:hotelId', function(req, result, next) {
     pool.connect(function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }
       // TODO not considering Oil Status yet......
-      client.query('SELECT a.name, a.aromeo_id, a.power_on, ds.schedule_id FROM aromeos a INNER JOIN deviceScheduling ds ON a.aromeo_id = ds.aromeo_id;', [], function(err, res) {
+      client.query('select aromeo_id,name,power_on,diffusion_strength, a.schedule_id, schedule_name from aromeos a LEFT OUTER JOIN schedules s ON a.schedule_id=s.schedule_id WHERE a.hotel_id=$1', [req.params.hotelId], function(err, res) {
         if(err) { done(err); return console.error('error running query', err); }
       }).on('end', (res) => {
         return result.json(res.rows);

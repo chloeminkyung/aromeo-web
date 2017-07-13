@@ -62,8 +62,8 @@ var init = function(app, pool) {
 
   /*****************Aromeo Scheduling *****************/
   app.post('/api/applyScheduleToOne', function(req, res, next) {
-    pool.query('INSERT INTO deviceScheduling(aromeo_id, schedule_id, strength) values($1, $2, $3)',
-    [req.body.aromeo_id, req.body.schedule_id, req.body.strength]);
+    pool.query('INSERT INTO deviceScheduling(aromeo_id, schedule_id, schedulingInfo) values($1, $2, $3)',
+    [req.body.aromeo_id, req.body.schedule_id, req.body.schedulingInfo]);
     res.send('Apply Schedule Successful!')
   })
 

@@ -3,8 +3,9 @@ DROP TABLE if exists aromeos cascade;
 DROP TABLE if exists blends cascade;
 DROP TABLE if exists deviceoils cascade;
 DROP TABLE if exists schedules cascade;
-DROP TABLE if exists customschedules cascade;
-DROP TABLE if exists deviceScheduling cascade;
+-- DROP TABLE if exists customschedules cascade;
+-- DROP TABLE if exists deviceScheduling cascade;
+
 -- DROP TABLE if exists hotel cascade;
 -- DROP TABLE if exists hotelManager cascade;
 -- DROP TABLE if exists order cascade;
@@ -25,7 +26,9 @@ CREATE TABLE aromeos (
   aromeo_id TEXT,
   name TEXT,
   power_on BOOLEAN,
-  diffusion_strength SMALLINT
+  diffusion_strength SMALLINT,
+  schedule_id INTEGER,
+  schedulingInfo JSON[]
 );
 
 CREATE TABLE blends (
@@ -57,14 +60,6 @@ CREATE TABLE schedules (
 --   schedule_name VARCHAR(40),
 --   timeslots JSON[]
 -- );
-
-CREATE TABLE deviceScheduling (
-  aromeo_id TEXT,
-  schedulingInfo JSON[]
---   schedule_id INTEGER
-  --   isCustom BOOLEAN
-);
-
 
 -- CREATE TABLE timeslot (
 --   schedule_id INTEGER,
