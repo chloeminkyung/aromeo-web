@@ -18,22 +18,24 @@ class CreateNewScheduleModal extends React.Component {
     constructor(props){
         super(props);
 
+        var defaultDate = Date.now()
+
         this.state = {
             schedule_name: "",
             description: "",
             AM: {
-                startTime: null,
-                blend: 0,
+                startTime: defaultDate,
+                blend: "Not Selected",
                 duration: 0
             },
             PM: {
-                startTime: null,
-                blend: 0,
+                startTime: defaultDate,
+                blend: "Not Selected",
                 duration: 0
             },
             Night: {
-                startTime: null,
-                blend: 0,
+                startTime: defaultDate,
+                blend: "Not Selected",
                 duration: 0
             }
         }

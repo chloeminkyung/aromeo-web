@@ -53,10 +53,11 @@ var init = function(app, pool) {
             return console.error('error running query', err);
           }
         }).on('end', (res) => {
-          console.log("Successfully deleted " + res.rows[0].timeslot_id);
+          console.log("Successfully deleted " + res.rows[0].schedule_name);
           done();
         });
     });
+    res.send("Done");
   })
 
   /*****************Aromeo Scheduling *****************/

@@ -6,6 +6,7 @@ const deleteBlendRoute = '/api/deleteBlend/(blendId)';
 /* schedules */
 const createScheduleRoute = '/api/createSchedule';
 const getAllSchedulesRoute = '/api/getAllSchedules';
+const deleteScheduleRoute = '/api/deleteSchedule/(scheduleId)';
 
 function fetchingData(){
     return{
@@ -86,6 +87,14 @@ export function getAllSchedules() {
             .catch(err=>dispatch(requestFail(err)))
     }
 }
+export function removeSchedule(scheduleId) {
+    var api = deleteScheduleRoute.replace('(scheduleId)', scheduleId);
+    return dispatch=>{
+        dispatch(fetchingData());
+        return axios.get(api).then((json)=>dispatch(success(json))).catch(err=>dispatch(requestFail(err)))
+    }
+}
+
 
 export function toggleCreateDefaultSchedule(isOpen) {
     return {
@@ -100,9 +109,15 @@ export function toggleCreateBlend(isOpen) {
     }
 }
 export function toggleRemoveBlend(isOpen, targetId) {
-    console.warn(targetId);
     return {
         type: 'TOGGLE_REMOVE_BLEND',
+        isOpen: isOpen,
+        targetId: targetId
+    }
+}
+export function toggleRemoveSchedule(isOpen, targetId) {
+    return {
+        type: 'TOGGLE_REMOVE_SCHEDULE',
         isOpen: isOpen,
         targetId: targetId
     }

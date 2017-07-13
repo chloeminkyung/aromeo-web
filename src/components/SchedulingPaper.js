@@ -21,10 +21,12 @@ class SchedulePaper extends React.PureComponent {
 
     render() {
         const self = this;
-        const {schedule} = this.props;
+        const {schedule, toggleRemoveSchedule} = this.props;
         return (
             <Card style={styles.cardContainer}>
                 <CardHeader
+                    style={{width:'100%', paddingRight: 0, margin: 0}}
+                    titleStyle={{padding:0}}
                     title={schedule.schedule_name}
                     subtitle={schedule.description}
                 />
@@ -42,7 +44,7 @@ class SchedulePaper extends React.PureComponent {
                 </CardText>
                 <CardActions>
                     <FlatButton label="Edit" />
-                    <FlatButton label="Delete" />
+                    <FlatButton label="Delete" onTouchTap={()=>toggleRemoveSchedule(true, schedule.schedule_id)} />
                 </CardActions>
             </Card>
         );

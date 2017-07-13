@@ -8,6 +8,7 @@ const initialState = {
     isCreateScheduleModalOpen: false,
     isCreateBlendModalOpen: false,
     isRemoveBlendModalOpen: false,
+    isRemoveScheduleModalOpen: false,
     blends: null,
     schedules: null,
 };
@@ -35,6 +36,8 @@ export default function schedule(state = initialState, action) {
             return {...state, isCreateBlendModalOpen: action.isOpen};
         case 'TOGGLE_REMOVE_BLEND':
             return {...state, isRemoveBlendModalOpen: action.isOpen, targetId: action.targetId};
+        case 'TOGGLE_REMOVE_SCHEDULE':
+            return {...state, isRemoveScheduleModalOpen: action.isOpen, targetId: action.targetId};
 
         case 'EDIT_DEFAULT_SCHEDULE':
             return state;

@@ -8,7 +8,7 @@ import CreateNewScheduleModal from '../components/CreateNewScheduleModal'
 import CreateNewBlendModal from '../components/CreateNewBlendModal'
 import RemoveModal from '../components/RemoveModal'
 import {toggleCreateDefaultSchedule, toggleCreateBlend, getAllBlends, getAllSchedules,
-    toggleRemoveBlend, removeBlend} from '../actions/scheduleAction'
+    toggleRemoveBlend, toggleRemoveSchedule, removeBlend, removeSchedule} from '../actions/scheduleAction'
 
 class SchedulingContainer extends React.Component {
     constructor(props){
@@ -20,10 +20,7 @@ class SchedulingContainer extends React.Component {
         this.props.getAllBlends();
     }
     render() {
-        const {blends, schedules, targetId, toggleRemoveBlend, isFetchingBlends, isFetchingSchedules} = this.props;
-        console.warn(blends)
-        console.warn(schedules)
-
+        const {blends, schedules, targetId, toggleRemoveBlend, toggleRemoveSchedule, isFetchingBlends, isFetchingSchedules} = this.props;
         return (
             <div>
                 <h1>Scheduling Container</h1>
@@ -32,12 +29,13 @@ class SchedulingContainer extends React.Component {
                         {
                             schedules!=null && !isFetchingSchedules?
                                 schedules.map(function(schedule){
-                                    return <Col md={3}><SchedulePaper schedule={schedule} /></Col>
+                                    return <Col md={3}><SchedulePaper schedule={schedule} toggleRemoveSchedule={toggleRemoveSchedule} /></Col>
                                 })
                                 :<p>Fetching...</p>
                         }
                         <CreateButtonPaper onClickHandler={this.props.toggleCreateDefaultSchedule} title={"Create New Schedule"} />
                         <CreateNewScheduleModal blends={blends} />
+                        <RemoveModal targetId={targetId} isOpen={this.props.isRemoveScheduleModalOpen} item="this schedule" toggleFunction={toggleRemoveSchedule} removeFunction={this.props.removeSchedule} />
                     </Row>
                 </Panel>
                 <Panel header={<h3>Blends</h3>}>
@@ -65,12 +63,13 @@ export default connect(
         schedules: state.schedule.schedules,
         targetId: state.schedule.targetId,
         isRemoveBlendModalOpen: state.schedule.isRemoveBlendModalOpen,
+        isRemoveScheduleModalOpen: state.schedule.isRemoveScheduleModalOpen,
         isFetchingBlends: state.schedule.isFetchingBlends,
         isFetchingSchedules: state.schedule.isFetchingSchedules
     }),
     {
         toggleCreateDefaultSchedule, toggleCreateBlend, getAllBlends, getAllSchedules,
-        toggleRemoveBlend, removeBlend
+        toggleRemoveBlend, toggleRemoveSchedule, removeBlend, removeSchedule
 
     }
 )(SchedulingContainer)
