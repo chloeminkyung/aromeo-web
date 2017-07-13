@@ -29,6 +29,18 @@ function requestFail(error){
     }
 }
 
+export function updateAromeoStatusValue(index, columnKey, value){
+    console.warn("index "+ index + "columnKey " + columnKey);
+    console.warn(value);
+    return {
+        type: 'UPDATE_AROMEO_STATUS_VALUE',
+        index: index,
+        columnKey: columnKey,
+        value: value,
+    }
+
+}
+
 export function filterWithText(text) {
     return {
         type: 'FILTER_WITH_TEXT',

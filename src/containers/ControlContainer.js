@@ -18,7 +18,7 @@ import FilterToolbar from '../components/FilterToolbar'
 import DeviceControlTable from '../components/DeviceControlTable'
 
 const FakeObjectDataListStore = require('../components/helpers/FakeObjectDataListStore');
-import {filterWithText, getAromeoStatus} from '../actions/controlAction'
+import {filterWithText, getAromeoStatus, updateAromeoStatusValue} from '../actions/controlAction'
 import {getAllSchedules} from '../actions/scheduleAction'
 
 class ControlContainer extends React.Component {
@@ -38,7 +38,7 @@ class ControlContainer extends React.Component {
 
     render() {
         const {aromeoStatus, schedules, filteredDataList, isManageMode,
-            filterWithText} = this.props;
+            filterWithText, updateAromeoStatusValue} = this.props;
 
         console.warn(filteredDataList)
 
@@ -49,7 +49,7 @@ class ControlContainer extends React.Component {
                     {
                         filteredDataList!=null?
                             <DeviceControlTable filteredDataList={filteredDataList} filterWithText={filterWithText}
-                                                isManageMode={isManageMode} schedules={schedules} />
+                                                isManageMode={isManageMode} schedules={schedules} updateAromeoStatusValue={updateAromeoStatusValue} />
                             :<p>Fetching...</p>
                     }
                 </Row>
@@ -66,7 +66,7 @@ export default connect(
         isManageMode: state.control.isManageMode,
     }),
     {
-        filterWithText, getAromeoStatus,
+        filterWithText, getAromeoStatus, updateAromeoStatusValue,
         getAllSchedules
     }
 )(ControlContainer)

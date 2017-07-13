@@ -44,6 +44,18 @@ export default function control(state = initialState, action) {
         case 'RECEIVED_AROMEO_STATUS_DATA':
             return {...state, isFetching:false, filteredDataList: action.data};
 
+        case 'UPDATE_AROMEO_STATUS_VALUE':
+            let newFilteredDataList = state.filteredDataList.slice();
+
+            console.warn(newFilteredDataList)
+
+            newFilteredDataList[action.index][action.columnKey] = action.value;
+
+            console.warn(newFilteredDataList)
+
+            // return {...state}
+            return {...state, filteredDataList: newFilteredDataList}
+
         case 'RESET_FILTER_OPTIONS':
             const defaultFilter = Object.assign({}, defaultFilterOptions);
             return {...state, filterOption: defaultFilter}

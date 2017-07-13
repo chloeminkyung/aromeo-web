@@ -155,7 +155,7 @@ class DiffusionStrengthCell extends React.PureComponent {
         return (
             isManageMode?
                 <Cell {...props}>
-                    <DropDownMenu style={styles.dropdown} value={2} primary={true}>
+                    <DropDownMenu style={styles.dropdown} value={rowData} primary={true}>
                         <MenuItem key={1} value={1} primaryText={powerMapper[1]} />
                         <MenuItem key={2} value={2} primaryText={powerMapper[2]} />
                         <MenuItem key={3} value={3} primaryText={powerMapper[3]} />
@@ -180,7 +180,7 @@ class ScheduleCell extends React.PureComponent {
         return (
             isManageMode?
                 <Cell {...props}>
-                    <DropDownMenu style={styles.dropdown} value={scheduleChoice} onChange={(event, index, value)=>onSelectHandler(event, index, value)}>
+                    <DropDownMenu style={styles.dropdown} value={scheduleChoice} onChange={(event, index, value)=>onSelectHandler(rowIndex, "schedule_id", value)}>
                         <MenuItem key={0} value={-1} primaryText="Select Schedule" />
                         {
                             schedules.map(function(schedule, index){
