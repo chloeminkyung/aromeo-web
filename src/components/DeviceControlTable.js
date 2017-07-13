@@ -13,10 +13,17 @@ require('fixed-data-table-2/dist/fixed-data-table.css')
 class DeviceControlTable extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+        }
+    }
+
+    setScheduleValue(event, index, value){
+
     }
 
     render() {
-        var {filteredDataList, isManageMode} = this.props;
+        var {filteredDataList, isManageMode, schedules} = this.props;
         const {height, width, containerHeight, containerWidth, ...props} = this.props;
         return (
             <div>
@@ -51,7 +58,9 @@ class DeviceControlTable extends React.Component {
                     <Column
                         columnKey="schedule"
                         header={<Cell>Schedule Choice</Cell>}
-                        cell={<ScheduleCell data={filteredDataList} isManageMode={isManageMode}/>}
+                        cell={<ScheduleCell schedules={schedules}
+                                            onSelectHandler={this.setScheduleValue.bind(this)}
+                                            data={filteredDataList} isManageMode={isManageMode}/>}
                         width={250}
                         align={'center'}
                     />

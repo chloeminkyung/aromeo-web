@@ -3,7 +3,7 @@ export const fakeControlData = [
     {
         roomNo: "101B",
         aromeoID: "0000001",
-        schedule: "schedule name",
+        schedule: -1,
         device: true,
         oil: {
             "running_out": 1,
@@ -13,7 +13,7 @@ export const fakeControlData = [
     {
         roomNo: "101C",
         aromeoID: "0000001",
-        schedule: "schedule name",
+        schedule: -1,
         device: true,
         oil: {
             "running_out": 3,
@@ -23,7 +23,7 @@ export const fakeControlData = [
     {
         roomNo: "101D",
         aromeoID: "0000001",
-        schedule: "schedule name",
+        schedule: -1,
         device: false,
         oil: {
             "running_out": 0,
@@ -33,7 +33,7 @@ export const fakeControlData = [
     {
         roomNo: "105B",
         aromeoID: "0000001",
-        schedule: "schedule name",
+        schedule: -1,
         device: true,
         oil: {
             "running_out": 1,
@@ -43,7 +43,7 @@ export const fakeControlData = [
     {
         roomNo: "201B",
         aromeoID: "0000001",
-        schedule: "schedule name",
+        schedule: -1,
         device: false,
         oil: {
             "running_out": 0,

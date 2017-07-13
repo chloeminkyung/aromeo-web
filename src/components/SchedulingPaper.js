@@ -43,7 +43,7 @@ class SchedulePaper extends React.PureComponent {
                     }
                 </CardText>
                 <CardActions>
-                    <FlatButton label="Edit" />
+                    <FlatButton label="Edit" disabled={true} />
                     <FlatButton label="Delete" onTouchTap={()=>toggleRemoveSchedule(true, schedule.schedule_id)} />
                 </CardActions>
             </Card>
@@ -94,7 +94,7 @@ class BlendPaper extends React.PureComponent {
                     <OilCompositionTally data={oilArray} />
                 </CardText>
                 <CardActions>
-                    <FlatButton label="Edit" />
+                    <FlatButton label="Edit" disabled={true} />
                     <FlatButton label="Delete" onTouchTap={()=>toggleRemoveBlend(true, blend.blend_id)} />
                 </CardActions>
             </Card>

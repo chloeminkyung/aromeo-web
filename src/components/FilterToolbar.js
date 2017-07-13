@@ -57,9 +57,6 @@ class FilterToolbar extends React.Component {
     render(){
         const {isManageMode, filterOption,
             toggleStartManageAromeo, toggleAddAromeoDevice, toggleRemoveAromeoDevice} = this.props;
-
-        console.warn(filterOption.text);
-
         return (
             <div>
                 <Toolbar>

@@ -36,7 +36,7 @@ class ControlContainer extends React.Component {
 
     render() {
 
-        const {filteredDataList, isManageMode,
+        const {schedules, filteredDataList, isManageMode,
             filterWithText} = this.props;
 
         return (
@@ -44,7 +44,7 @@ class ControlContainer extends React.Component {
                 <Row>
                     <FilterToolbar />
                     <DeviceControlTable filteredDataList={filteredDataList} filterWithText={filterWithText}
-                                        isManageMode={isManageMode}/>
+                                        isManageMode={isManageMode} schedules={schedules} />
                 </Row>
             </div>
         );
@@ -53,6 +53,7 @@ class ControlContainer extends React.Component {
 
 export default connect(
     state => ({
+        schedules: state.schedule.schedules,
         filteredDataList: state.control.filteredDataList,
         isManageMode: state.control.isManageMode,
     }),

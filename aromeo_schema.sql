@@ -39,7 +39,6 @@ CREATE TABLE deviceOils (
   hotel_id INTEGER,
   aromeo_id TEXT,
   oil_product_id INTEGER,
-  power_status BOOLEAN,
   oil_position SMALLINT,
   oil_quantity SMALLINT
 );
@@ -75,7 +74,6 @@ CREATE TABLE customSchedules (
 CREATE TABLE deviceScheduling (
   aromeo_id TEXT,
   schedule_id INTEGER,
-  repeatability BOOLEAN,
   strength SMALLINT,
   isCustom BOOLEAN
 );

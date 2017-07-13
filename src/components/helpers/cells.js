@@ -144,17 +144,23 @@ module.exports.OilStatusCell = OilStatusCell;
 
 class ScheduleCell extends React.PureComponent {
     render() {
-        const {data, rowIndex, columnKey, isManageMode, ...props} = this.props;
+        const {schedules, data, onSelectHandler, rowIndex, columnKey, isManageMode, ...props} = this.props;
         const scheduleChoice = data[rowIndex][columnKey];
+
+        console.warn("rowIndex " + rowIndex + " columnKey " + columnKey)
+
         return (
             isManageMode?
                 <Cell {...props}>
-                    <DropDownMenu value={1}>
-                        <MenuItem value={1} primaryText="Never" />
-                        <MenuItem value={2} primaryText="Every Night" />
-                        <MenuItem value={3} primaryText="Weeknights" />
-                        <MenuItem value={4} primaryText="Weekends" />
-                        <MenuItem value={5} primaryText="Weekly" />
+                    <DropDownMenu value={scheduleChoice} onChange={(event, index, value)=>onSelectHandler(event, index, value)}>
+                        <MenuItem key={0} value={-1} primaryText="Select Schedule" />
+                        {
+                            schedules.map(function(schedule, index){
+                                return (
+                                    <MenuItem key={index+1} value={schedule.schedule_id} primaryText={schedule.schedule_name}/>
+                                )
+                            })
+                        }
                     </DropDownMenu>
                 </Cell>
                 :
