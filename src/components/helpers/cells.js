@@ -86,7 +86,7 @@ class TextCell extends React.PureComponent {
         // console.warn(rowIndex + " " + columnKey + " " + data[rowIndex][columnKey]);
         return (
             <Cell {...props}>
-                {data[rowIndex][columnKey].toString()}
+                {data[rowIndex][columnKey]}
             </Cell>
         );
     }
@@ -135,7 +135,8 @@ class OilStatusCell extends React.PureComponent {
         const rowData = data[rowIndex][columnKey];
         return (
             <Cell {...props}>
-                <OilStatus runningOut={rowData.running_out} ranOut={rowData.ran_out} />
+                {/*<OilStatus runningOut={rowData.running_out} ranOut={rowData.ran_out} />*/}
+                <OilStatus runningOut={2} ranOut={1} />
             </Cell>
         );
     }
@@ -151,11 +152,10 @@ class DiffusionStrengthCell extends React.PureComponent {
         }
         const {data, rowIndex, columnKey, isManageMode, ...props} = this.props;
         const rowData = data[rowIndex][columnKey];
-        console.warn(rowData)
         return (
             isManageMode?
                 <Cell {...props}>
-                    <DropDownMenu value={2} primary={true}>
+                    <DropDownMenu style={styles.dropdown} value={2} primary={true}>
                         <MenuItem key={1} value={1} primaryText={powerMapper[1]} />
                         <MenuItem key={2} value={2} primaryText={powerMapper[2]} />
                         <MenuItem key={3} value={3} primaryText={powerMapper[3]} />
@@ -175,13 +175,12 @@ class ScheduleCell extends React.PureComponent {
         const {schedules, data, onSelectHandler, rowIndex, columnKey, isManageMode, ...props} = this.props;
         const scheduleChoice = data[rowIndex][columnKey];
 
-        console.warn(schedules);
         let aromeo_id = data[rowIndex]['aromeoID'];
 
         return (
             isManageMode?
                 <Cell {...props}>
-                    <DropDownMenu value={scheduleChoice} onChange={(event, index, value)=>onSelectHandler(event, index, value)}>
+                    <DropDownMenu style={styles.dropdown} value={scheduleChoice} onChange={(event, index, value)=>onSelectHandler(event, index, value)}>
                         <MenuItem key={0} value={-1} primaryText="Select Schedule" />
                         {
                             schedules.map(function(schedule, index){
@@ -194,9 +193,15 @@ class ScheduleCell extends React.PureComponent {
                 </Cell>
                 :
                 <Cell {...props}>
-                    {scheduleChoice}
+                    {scheduleChoice==-1? "Not Selected" : scheduleChoice}
                 </Cell>
         );
     }
 };
 module.exports.ScheduleCell = ScheduleCell;
+
+const styles = {
+    dropdown: {
+        marginTop: -15
+    }
+}

@@ -18,7 +18,7 @@ import FilterToolbar from '../components/FilterToolbar'
 import DeviceControlTable from '../components/DeviceControlTable'
 
 const FakeObjectDataListStore = require('../components/helpers/FakeObjectDataListStore');
-import {filterWithText} from '../actions/controlAction'
+import {filterWithText, getAromeoStatus} from '../actions/controlAction'
 import {getAllSchedules} from '../actions/scheduleAction'
 
 class ControlContainer extends React.Component {
@@ -27,24 +27,31 @@ class ControlContainer extends React.Component {
 
         this.state = {
             isOpen: props.isOpen,
+            tempHotelId: 1,
         };
     }
 
     componentDidMount(){
+        this.props.getAromeoStatus(this.state.tempHotelId);
         this.props.getAllSchedules();
     }
 
     render() {
-
-        const {schedules, filteredDataList, isManageMode,
+        const {aromeoStatus, schedules, filteredDataList, isManageMode,
             filterWithText} = this.props;
+
+        console.warn(filteredDataList)
 
         return (
             <div>
                 <Row>
                     <FilterToolbar />
-                    <DeviceControlTable filteredDataList={filteredDataList} filterWithText={filterWithText}
-                                        isManageMode={isManageMode} schedules={schedules} />
+                    {
+                        filteredDataList!=null?
+                            <DeviceControlTable filteredDataList={filteredDataList} filterWithText={filterWithText}
+                                                isManageMode={isManageMode} schedules={schedules} />
+                            :<p>Fetching...</p>
+                    }
                 </Row>
             </div>
         );
@@ -54,11 +61,13 @@ class ControlContainer extends React.Component {
 export default connect(
     state => ({
         schedules: state.schedule.schedules,
+        aromeoStatus: state.control.aromeoStatus,
         filteredDataList: state.control.filteredDataList,
         isManageMode: state.control.isManageMode,
     }),
     {
-        filterWithText, getAllSchedules
+        filterWithText, getAromeoStatus,
+        getAllSchedules
     }
 )(ControlContainer)
 

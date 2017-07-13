@@ -42,21 +42,21 @@ class DeviceControlTable extends React.Component {
                         align={'center'}
                     />
                     <Column
-                        columnKey="roomNo"
+                        columnKey="name"
                         header={<Cell>Room No.</Cell>}
                         cell={<TextCell data={filteredDataList} />}
                         width={150}
                         align={'center'}
                     />
                     <Column
-                        columnKey="aromeoID"
+                        columnKey="aromeo_id"
                         header={<Cell>Aromeo ID</Cell>}
                         cell={<TextCell data={filteredDataList} />}
                         width={150}
                         align={'center'}
                     />
                     <Column
-                        columnKey="schedule"
+                        columnKey="schedule_id"
                         header={<Cell>Schedule Choice</Cell>}
                         cell={<ScheduleCell schedules={schedules}
                                             onSelectHandler={this.setScheduleValue.bind(this)}
@@ -65,14 +65,14 @@ class DeviceControlTable extends React.Component {
                         align={'center'}
                     />
                     <Column
-                        columnKey="strength"
+                        columnKey="diffusion_strength"
                         header={<Cell>Diffusion Strength</Cell>}
                         cell={<DiffusionStrengthCell data={filteredDataList} isManageMode={isManageMode}/>}
                         width={200}
                         align={'center'}
                     />
                     <Column
-                        columnKey="device"
+                        columnKey="power_on"
                         header={<Cell>Device Status</Cell>}
                         cell={<DeviceStatusCell data={filteredDataList} isManageMode={isManageMode}/>}
                         width={200}

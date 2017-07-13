@@ -1,56 +1,66 @@
 
 export const fakeControlData = [
     {
-        roomNo: "101B",
-        aromeoID: "0000001",
-        schedule: -1,
-        device: true,
-        oil: {
-            "running_out": 1,
-            "ran_out": 2
-        }
+        "aromeo_id": "2",
+        "name": "201A",
+        "power_on": false,
+        "diffusion_strength": 2,
+        "schedule_id": -1,
+        "schedule_name": null
     },
     {
-        roomNo: "101C",
-        aromeoID: "0000001",
-        schedule: -1,
-        device: true,
-        oil: {
-            "running_out": 3,
-            "ran_out": 0
-        }
+        "aromeo_id": "1",
+        "name": "101A",
+        "power_on": false,
+        "diffusion_strength": 2,
+        "schedule_id": -1,
+        "schedule_name": null
+    }
+]
+
+export const fakeControlDataaaaaaa = [
+    {
+        name: "101B",
+        aromeo_id: "0000001",
+        schedule_id: -1,
+        schedule_name: null,
+        power_on: true,
+        diffusion_strength: 2
     },
     {
-        roomNo: "101D",
-        aromeoID: "0000001",
-        schedule: -1,
-        device: false,
-        oil: {
-            "running_out": 0,
-            "ran_out": 0
-        }
+        name: "101C",
+        aromeo_id: "0000001",
+        schedule_id: -1,
+        schedule_name: null,
+        power_on: true,
+        diffusion_strength: 2
     },
     {
-        roomNo: "105B",
-        aromeoID: "0000001",
-        schedule: -1,
-        device: true,
-        oil: {
-            "running_out": 1,
-            "ran_out": 2
-        }
+        name: "101D",
+        aromeo_id: "0000001",
+        schedule_id: -1,
+        schedule_name: null,
+        power_on: false,
+        diffusion_strength: 2
     },
     {
-        roomNo: "201B",
-        aromeoID: "0000001",
-        schedule: -1,
-        device: false,
-        oil: {
-            "running_out": 0,
-            "ran_out": 0
-        }
+        name: "105B",
+        aromeo_id: "0000001",
+        schedule_id: -1,
+        schedule_name: null,
+        power_on: true,
+        diffusion_strength: 2
     }
 ];
+
+/*
+
+ ,
+ oil: {
+ "running_out": 1,
+ "ran_out": 2
+ }
+ */
 
 export const dummyScheduleData = [
     {

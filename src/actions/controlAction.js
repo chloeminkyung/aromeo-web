@@ -1,17 +1,17 @@
 var axios = require('axios');
-const getFoodDetailRoute = '/api/menu/(foodid)';
+const getAllAromeoStatusRoute = '/api/getAllAromeoStatus/(hotelId)';
 
-export function getFoodDetail(foodid) {
-    const api = getFoodDetailRoute.replace('(foodid)',foodid);
+export function getAromeoStatus(hotelId) {
+    const api = getAllAromeoStatusRoute.replace('(hotelId)',hotelId);
     return dispatch=>{
         dispatch(fetchingData());
-        return axios.get(api).then(json=>dispatch(receiveFoodDetailData(json))).catch(err=>dispatch(requestFail(err)))
+        return axios.get(api).then(json=>dispatch(receiveAromeoStatusData(json))).catch(err=>dispatch(requestFail(err)))
     }
 }
 
-function receiveFoodDetailData(json){
+function receiveAromeoStatusData(json){
     return{
-        type: 'RECIEVED_FOOD_DETAIL_DATA',
+        type: 'RECEIVED_AROMEO_STATUS_DATA',
         data: json.data
     }
 }

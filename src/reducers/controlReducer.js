@@ -10,10 +10,12 @@ const defaultFilterOptions = {
 const initialState = {
     filterOption: Object.assign({}, defaultFilterOptions),
     _dataList: fakeControlData,
-    filteredDataList: fakeControlData, //TODO filtereDataList must be derived from dataList. using Filter. easier to do reset? or not?
+    // filteredDataList: fakeControlData, //TODO filtereDataList must be derived from dataList. using Filter. easier to do reset? or not?
+    filteredDataList: null,
     isManageMode: false,
     isAddAromeo: false,
-    isRemoveAromeo: false
+    isRemoveAromeo: false,
+    aromeoStatus: [],
 };
 
 export default function control(state = initialState, action) {
@@ -32,6 +34,15 @@ export default function control(state = initialState, action) {
             newFilterOption['text'] = action.value;
 
             return {...state, filterOption: newFilterOption, filteredDataList: filteredList};
+
+        case 'FETCHING_DATA':
+            return {...state, isFetching: true};
+
+        case 'REQUEST_ERROR':
+            return {...state, isFetching: false};
+
+        case 'RECEIVED_AROMEO_STATUS_DATA':
+            return {...state, isFetching:false, filteredDataList: action.data};
 
         case 'RESET_FILTER_OPTIONS':
             const defaultFilter = Object.assign({}, defaultFilterOptions);
