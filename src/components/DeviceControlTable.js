@@ -67,7 +67,8 @@ class DeviceControlTable extends React.Component {
                     <Column
                         columnKey="diffusion_strength"
                         header={<Cell>Diffusion Strength</Cell>}
-                        cell={<DiffusionStrengthCell data={filteredDataList} isManageMode={isManageMode}/>}
+                        cell={<DiffusionStrengthCell onSelectHandler={updateAromeoStatusValue}
+                                                     data={filteredDataList} isManageMode={isManageMode}/>}
                         width={200}
                         align={'center'}
                     />
