@@ -108,7 +108,7 @@ module.exports.IndexCell = IndexCell;
 
 class DeviceStatusCell extends React.PureComponent {
     render() {
-        const {data, rowIndex, columnKey, isManageMode, ...props} = this.props;
+        const {data, onSelectHandler, rowIndex, columnKey, isManageMode, ...props} = this.props;
         const isOn = data[rowIndex][columnKey];
         return (
             isManageMode?
@@ -117,6 +117,7 @@ class DeviceStatusCell extends React.PureComponent {
                         label={isOn? "On": "Off"}
                         defaultToggled={isOn}
                         style={{width: '33%', paddingLeft: '33%'}}
+                        onToggle={(event, isInputChecked)=>onSelectHandler(rowIndex, columnKey, isInputChecked)}
                     />
                 </Cell>
                 :

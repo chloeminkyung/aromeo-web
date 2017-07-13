@@ -75,7 +75,8 @@ class DeviceControlTable extends React.Component {
                     <Column
                         columnKey="power_on"
                         header={<Cell>Device Status</Cell>}
-                        cell={<DeviceStatusCell data={filteredDataList} isManageMode={isManageMode}/>}
+                        cell={<DeviceStatusCell onSelectHandler={updateAromeoStatusValue}
+                                                data={filteredDataList} isManageMode={isManageMode}/>}
                         width={200}
                         align={'center'}
                     />
