@@ -62,8 +62,8 @@ var init = function(app, pool) {
 
   /*****************Aromeo Scheduling *****************/
   app.post('/api/applyScheduleToOne', function(req, res, next) {
-    pool.query('INSERT INTO deviceScheduling(aromeo_id, schedule_id, timeslot_id, repeatability, strength) values($1, $2, $3, $4, $5)',
-    [req.body.aromeo_id, req.body.schedule_id, req.body.timeslot_id, req.body.repeatability, req.body.strength, {}]);
+    pool.query('INSERT INTO deviceScheduling(aromeo_id, schedule_id, strength) values($1, $2, $3)',
+    [req.body.aromeo_id, req.body.schedule_id, req.body.strength]);
     res.send('Apply Schedule Successful!')
   })
 
@@ -71,8 +71,18 @@ var init = function(app, pool) {
 
   })
 
-  app.get('/api/getDeviceSchedule/:aromeo_id', function(req, res, next) {
+  app.get('/api/getDeviceSchedule/:aromeo_id', function(req, result, next) {
 
+    pool.connect(function(err, client, done) {
+      if(err) { return console.error('error fetching client from pool', err); }
+
+      client.query('SELECT schedule_name, strength, timeslots FROM deviceScheduling WHERE aromeo_id = $1', [req.params.aromeo_id], function(err, res) {
+        if(err) { done(err); return console.error('error running query', err); }
+      }).on('end', (res) => {
+        return result.json(res.rows);
+        done();
+      });
+    });
   })
 
   app.get('/api/resetSchedule/:aromeo_id', function(req, res, next) {
@@ -83,5 +93,6 @@ var init = function(app, pool) {
 
   })
 }
+
 
 module.exports.init = init;

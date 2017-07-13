@@ -24,7 +24,8 @@ CREATE TABLE aromeos (
   hotel_id INTEGER,
   aromeo_id TEXT,
   name TEXT,
-  power_on BOOLEAN
+  power_on BOOLEAN,
+  diffusion_strength SMALLINT
 );
 
 CREATE TABLE blends (
@@ -51,11 +52,19 @@ CREATE TABLE schedules (
   timeslots JSON[]
 );
 
-CREATE TABLE customSchedules (
-  schedule_id SERIAL PRIMARY KEY,
-  schedule_name VARCHAR(40),
-  timeslots JSON[]
+-- CREATE TABLE customSchedules (
+--   schedule_id SERIAL PRIMARY KEY,
+--   schedule_name VARCHAR(40),
+--   timeslots JSON[]
+-- );
+
+CREATE TABLE deviceScheduling (
+  aromeo_id TEXT,
+  schedulingInfo JSON[]
+--   schedule_id INTEGER
+  --   isCustom BOOLEAN
 );
+
 
 -- CREATE TABLE timeslot (
 --   schedule_id INTEGER,
@@ -71,12 +80,6 @@ CREATE TABLE customSchedules (
 --   duration SMALLINT
 -- );
 
-CREATE TABLE deviceScheduling (
-  aromeo_id TEXT,
-  schedule_id INTEGER,
-  strength SMALLINT,
-  isCustom BOOLEAN
-);
 
 -- CREATE TABLE hotel (
 -- );
