@@ -26,7 +26,7 @@ export default class TimeSlotSelector extends React.Component {
                             <SelectField
                                 floatingLabelText="Blend"
                                 value={blendChoice}
-                                onChange={(event, key, payload)=>handleTimeSlotChoices(period, 'blend', event, key, payload)}
+                                onChange={(event, key, payload)=>handleTimeSlotChoices(period, 'blendName', event, key, payload)}
                                 style={styles.selectField}
                             >
 

@@ -25,41 +25,48 @@ class CreateNewScheduleModal extends React.Component {
             description: "",
             AM: {
                 startTime: defaultDate,
-                blend: "Not Selected",
+                blendName: "Not Selected",
+                blend: -1,
                 duration: 0
             },
             PM: {
                 startTime: defaultDate,
-                blend: "Not Selected",
+                blendName: "Not Selected",
+                blend: -1,
                 duration: 0
             },
             Night: {
                 startTime: defaultDate,
-                blend: "Not Selected",
+                blendName: "Not Selected",
+                blend: -1,
                 duration: 0
             }
         }
     }
 
-    createButton(){
-        this.props.toggleCreateDefaultSchedule(false);
-        this.requestBodyGenerate()
-    }
 
-    requestBodyGenerate() {
-        let body = {
-            hotel_id: "1",
-            schedule_name: this.state.schedule_name,
-            description: this.state.description,
-            timeslots: [this.state.AM, this.state.PM, this.state.Night]
-        }
-
-        this.props.createSchedule(body);
-        console.warn(body)
-    }
 
     render() {
         const {blends} = this.props;
+        const self = this;
+        function createButton(){
+            this.props.toggleCreateDefaultSchedule(false);
+            requestBodyGenerate();
+        }
+
+        function requestBodyGenerate() {
+            console.warn("called body generation")
+            let body = {
+                hotel_id: "1",
+                schedule_name: self.state.schedule_name,
+                description: self.state.description,
+                timeslots: [self.state.AM, self.state.PM, self.state.Night]
+            }
+
+            self.props.createSchedule(body);
+            console.warn(body)
+        }
+
         const action = [
             <FlatButton
                 label="Cancel"
@@ -69,7 +76,7 @@ class CreateNewScheduleModal extends React.Component {
             <FlatButton
                 label="Create"
                 primary={true}
-                onTouchTap={()=>this.createButton()}
+                onTouchTap={createButton.bind(this)}
             />,
         ];
 
@@ -81,8 +88,11 @@ class CreateNewScheduleModal extends React.Component {
         function handleTimeSlotChoices(period, choiceType, event, key, payload){
             let update = {};
             let updateContent = Object.assign({}, this.state[period]);
+            if(choiceType.localeCompare("blendName")==0)
+                updateContent["blend"] = blends[key].oils_encoded;
             updateContent[choiceType] = payload;
             update[period] = updateContent;
+            console.warn(update);
             this.setState(update);
         }
         function handleTimeSelector(period, date) {
@@ -124,12 +134,26 @@ class CreateNewScheduleModal extends React.Component {
                             Timeslot
                         </Col>
                         <Col md={12}>
-                            <TimeSlotSelector period="AM" timeChoice={this.state.AM.startTime} blendChoice={this.state.AM.blend} durationChoice={this.state.AM.duration}
-                                              blends={blends} handleTimeSlotChoices={handleTimeSlotChoices.bind(this)} handleTimeSelector={handleTimeSelector.bind(this)} />
-                            <TimeSlotSelector period="PM" timeChoice={this.state.PM.startTime} blendChoice={this.state.PM.blend} durationChoice={this.state.PM.duration}
-                                              blends={blends} handleTimeSlotChoices={handleTimeSlotChoices.bind(this)} handleTimeSelector={handleTimeSelector.bind(this)} />
-                            <TimeSlotSelector period="Night" timeChoice={this.state.Night.startTime} blendChoice={this.state.Night.blend} durationChoice={this.state.Night.duration}
-                                              blends={blends} handleTimeSlotChoices={handleTimeSlotChoices.bind(this)} handleTimeSelector={handleTimeSelector.bind(this)} />
+                            <TimeSlotSelector period="AM" timeChoice={this.state.AM.startTime}
+                                              blendChoice={this.state.AM.blendName}
+                                              durationChoice={this.state.AM.duration}
+                                              blends={blends}
+                                              handleTimeSlotChoices={handleTimeSlotChoices.bind(this)}
+                                              handleTimeSelector={handleTimeSelector.bind(this)} />
+
+                            <TimeSlotSelector period="PM" timeChoice={this.state.PM.startTime}
+                                              blendChoice={this.state.PM.blendName}
+                                              durationChoice={this.state.PM.duration}
+                                              blends={blends}
+                                              handleTimeSlotChoices={handleTimeSlotChoices.bind(this)}
+                                              handleTimeSelector={handleTimeSelector.bind(this)} />
+
+                            <TimeSlotSelector period="Night" timeChoice={this.state.Night.startTime}
+                                              blendChoice={this.state.Night.blendName}
+                                              durationChoice={this.state.Night.duration}
+                                              blends={blends}
+                                              handleTimeSlotChoices={handleTimeSlotChoices.bind(this)}
+                                              handleTimeSelector={handleTimeSelector.bind(this)} />
                         </Col>
                     </Row>
                 </Dialog>

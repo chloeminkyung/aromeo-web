@@ -36,7 +36,7 @@ class SchedulePaper extends React.PureComponent {
                             return (
                                 <Row>
                                     <Col md={5}><b>{self.timestampToClockTimeFormat(timeslot.startTime)}</b></Col>
-                                    <Col md={7}><p> {timeslot.blend}</p></Col>
+                                    <Col md={7}><p> {timeslot.blendName}</p></Col>
                                 </Row>
                             )
                         })
