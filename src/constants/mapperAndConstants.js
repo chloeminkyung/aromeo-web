@@ -31,3 +31,19 @@ export function durationNumToDurationString(durationNum){
     let hr = Math.floor(durationNum / 60);
     return hr + " hr " + min + " min";
 }
+
+const oilToOilPosition = {
+    'Lavender': 1,
+    'Peppermint': 2,
+    'Lemon': 3,
+    'YlangYlang': 4,
+    'Bergamot': 5
+}
+
+// TODO later stage, when more than 5 oils are being used. Will be more complicated
+export function oilToOilPositionMapper(oilName){
+    return oilToOilPosition[oilName];
+}
+export function encodedBlendCreator(){
+
+}

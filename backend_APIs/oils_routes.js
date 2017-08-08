@@ -32,8 +32,8 @@ var init = function(app, pool) {
 
   /*****************Blend*****************/
   app.post('/api/createBlend', function(req, res, next) {
-    pool.query('INSERT INTO blends(hotel_id, blend_name, description, oils) values($1, $2, $3, $4)',
-    [req.body.hotel_id, req.body.blend_name, req.body.description, req.body.oils]);
+    pool.query('INSERT INTO blends(hotel_id, blend_name, description, oils, oils_encoded) values($1, $2, $3, $4, $5)',
+    [req.body.hotel_id, req.body.blend_name, req.body.description, req.body.oils, req.body.oils_encoded ]);
     res.send('Create Blend Successful!')
   })
 

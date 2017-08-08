@@ -35,7 +35,7 @@ class SchedulePaper extends React.PureComponent {
                         schedule.timeslots.map(function(timeslot){
                             return (
                                 <Row>
-                                    <Col md={5}><b>{self.timestampToClockTimeFormat(timeslot.startTime)}</b>: </Col>
+                                    <Col md={5}><b>{self.timestampToClockTimeFormat(timeslot.startTime)}</b></Col>
                                     <Col md={7}><p> {timeslot.blend}</p></Col>
                                 </Row>
                             )

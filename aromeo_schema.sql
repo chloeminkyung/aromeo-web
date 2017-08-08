@@ -27,8 +27,8 @@ CREATE TABLE aromeos (
   name TEXT,
   power_on BOOLEAN,
   diffusion_strength SMALLINT,
-  schedule_id INTEGER,
-  schedulingInfo JSON[]
+  schedule_id INTEGER
+--   schedulingInfo JSON[]
 );
 
 CREATE TABLE blends (
@@ -36,7 +36,8 @@ CREATE TABLE blends (
   hotel_id INTEGER,
   blend_name TEXT,
   description TEXT,
-  oils JSON[]
+  oils JSON[],
+  oils_encoded SMALLINT[]
 );
 
 CREATE TABLE deviceOils (

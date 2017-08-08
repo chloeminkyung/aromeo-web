@@ -91,7 +91,7 @@ class FilterToolbar extends React.Component {
                         <ToolbarSeparator />
                         <div style={styles.totalCountContainer}>
                             <p style={styles.totalText}>Total</p>
-                            <OilStatus runningOut={10} ranOut={5} />
+                            <OilStatus runningOut={4} ranOut={2} />
                         </div>
                         <ToolbarSeparator />
                         <RaisedButton

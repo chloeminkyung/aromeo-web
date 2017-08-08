@@ -32,7 +32,7 @@ class CreateNewBlendModal extends React.Component {
     }
 
     createBlend() {
-        //blend_id, hotel_id, blend_name, description, oils
+        //blend_id, hotel_id, blend_name, description, oils, oils_encoded
 
         var body = {
             "hotel_id": 1,
@@ -59,9 +59,9 @@ class CreateNewBlendModal extends React.Component {
                     "oil_product_id": 5,
                     "ratio": this.state[5]
                 }
-            ]
+            ],
+            "oils_encoded": [this.state[1], this.state[2], this.state[3], this.state[4], this.state[5]]
         };
-
         this.props.createBlend(body);
         this.reset();
     }
