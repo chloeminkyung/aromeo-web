@@ -15,7 +15,7 @@ class HelpContainer extends React.Component {
             <div>
                 <Row>
                     <Col>
-                        <p>This will be Help Page why is this not working?? </p>
+                        <p>This will be Help Page</p>
                     </Col>
                 </Row>
             </div>

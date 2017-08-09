@@ -21,13 +21,13 @@ export default class NavigationComponent extends React.Component{
                         <NavItem eventKey={1}>Control</NavItem>
                     </LinkContainer>
                     <LinkContainer to="/scheduling">
-                        <NavItem eventKey={1}>Scheduling</NavItem>
+                        <NavItem eventKey={2}>Scheduling</NavItem>
                     </LinkContainer>
                     <LinkContainer to="/order">
-                        <NavItem eventKey={1}>Order</NavItem>
+                        <NavItem eventKey={3}>Order</NavItem>
                     </LinkContainer>
                     <LinkContainer to="/help">
-                        <NavItem eventKey={1}>Help</NavItem>
+                        <NavItem eventKey={4}>Help</NavItem>
                     </LinkContainer>
                 </Nav>
             </Navbar>
