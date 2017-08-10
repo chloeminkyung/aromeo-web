@@ -81,7 +81,6 @@ class TempControlContainer extends React.Component {
                                     }
                                 </SelectField>
                             </Col>
-
                             <RaisedButton label="Start Now" style={styles.button} />
                             <RaisedButton label="Stop" style={styles.button} />
                         </Paper>
@@ -107,16 +106,18 @@ const styles = {
         textAlign: 'center'
     },
     paper: {
-        height: 200,
+        height: 250,
         padding: 15
     },
     button: {
-        margin: 12,
+        margin: '2.5%',
         width: '45%'
     },
     dropdown: {
         width: '50%',
         marginLeft: '25%',
-        marginRight: '25%'
+        marginRight: '25%',
+        marginTop: '5%',
+        marginBottom: '5%',
     }
 }
