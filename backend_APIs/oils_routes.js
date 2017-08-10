@@ -31,10 +31,17 @@ var init = function(app, pool) {
   })
 
   /*****************Blend*****************/
-  app.post('/api/createBlend', function(req, res, next) {
-    pool.query('INSERT INTO blends(hotel_id, blend_name, description, oils, oils_encoded) values($1, $2, $3, $4, $5)',
-    [req.body.hotel_id, req.body.blend_name, req.body.description, req.body.oils, req.body.oils_encoded ]);
-    res.send(req.body);
+  app.post('/api/createBlend', function(req, result, next) {
+    pool.query('INSERT INTO blends(hotel_id, blend_name, description, oils, oils_encoded) values($1, $2, $3, $4, $5) RETURNING *',
+    [req.body.hotel_id, req.body.blend_name, req.body.description, req.body.oils, req.body.oils_encoded], function(err, res){
+          if(err) {
+            done(err);
+            return console.error('error running query', err);
+          }else{
+            console.log(res.rows[0]);
+            result.send(res.rows[0]);
+          }
+        });
   })
 
   app.get('/api/getBlend/:blendID', function(req, result, next) {

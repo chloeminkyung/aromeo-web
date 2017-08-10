@@ -2,21 +2,23 @@ var pg = require('pg');
 
 var init = function(app, pool) {
   /*****************Schedule*****************/
-  app.post('/api/createSchedule', function(req, res, next) {
+  app.post('/api/createSchedule', function(req, result, next) {
 
     pool.connect(function(err, client, done) {
       if(err) {
         return console.error('error fetching client from pool', err);
       }
-      client.query('INSERT INTO schedules(hotel_id, schedule_name, description, timeslots) values($1, $2, $3, $4) RETURNING schedule_name',
+      client.query('INSERT INTO schedules(hotel_id, schedule_name, description, timeslots) values($1, $2, $3, $4) RETURNING *',
         [req.body.hotel_id, req.body.schedule_name, req.body.description, req.body.timeslots], function(err, res){
           if(err) {
             done(err);
             return console.error('error running query', err);
+          }else{
+            console.log(res.rows[0]);
+            result.send(res.rows[0]);
           }
         });
     });
-    res.send(req.body);
   });
 
   app.get('/api/getAllSchedules', function(req, result, next) {
