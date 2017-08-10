@@ -55,7 +55,6 @@ class CreateNewScheduleModal extends React.Component {
         }
 
         function requestBodyGenerate() {
-            console.warn("called body generation")
             let body = {
                 hotel_id: "1",
                 schedule_name: self.state.schedule_name,
@@ -64,7 +63,6 @@ class CreateNewScheduleModal extends React.Component {
             }
 
             self.props.createSchedule(body);
-            console.warn(body)
         }
 
         const action = [
@@ -92,7 +90,6 @@ class CreateNewScheduleModal extends React.Component {
                 updateContent["blend"] = blends[key].oils_encoded;
             updateContent[choiceType] = payload;
             update[period] = updateContent;
-            console.warn(update);
             this.setState(update);
         }
         function handleTimeSelector(period, date) {

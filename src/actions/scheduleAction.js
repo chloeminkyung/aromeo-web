@@ -47,10 +47,15 @@ function success(json){
     }
 }
 
-function createBlendSuccess(json,body){
-    console.warn(json)
+function createBlendSuccess(json){
     return {
         type: 'SUCCESS_CREATE_BLEND',
+        json: json
+    }
+}
+function createScheduleSuccess(json){
+    return {
+        type: 'SUCCESS_CREATE_SCHEDULE',
         json: json
     }
 }
@@ -59,7 +64,7 @@ export function createBlend(body) {
     return dispatch=>{
         dispatch(fetchingData());
         return axios.post(createBlendRoute, body)
-            .then((json)=>dispatch(createBlendSuccess(json, body)))
+            .then((json)=>dispatch(createBlendSuccess(json)))
             .catch(err=>dispatch(requestFail(err)))
     }
 }
@@ -83,7 +88,7 @@ export function createSchedule(body) {
     return dispatch=>{
         dispatch(fetchingData());
         return axios.post(createScheduleRoute, body)
-            .then((json)=>dispatch(success(json)))
+            .then((json)=>dispatch(createScheduleSuccess(json)))
             .catch(err=>dispatch(requestFail(err)))
     }
 }

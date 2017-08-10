@@ -8,19 +8,16 @@ var init = function(app, pool) {
       if(err) {
         return console.error('error fetching client from pool', err);
       }
-
       client.query('INSERT INTO schedules(hotel_id, schedule_name, description, timeslots) values($1, $2, $3, $4) RETURNING schedule_name',
         [req.body.hotel_id, req.body.schedule_name, req.body.description, req.body.timeslots], function(err, res){
           if(err) {
             done(err);
             return console.error('error running query', err);
           }
-        }).on('end', (res) => {
-          console.log("Successfully created " + res.rows[0].schedule_name + " schedule");
-          done();
         });
     });
-  })
+    res.send(req.body);
+  });
 
   app.get('/api/getAllSchedules', function(req, result, next) {
     pool.connect(function(err, client, done) {

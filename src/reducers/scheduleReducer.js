@@ -34,6 +34,11 @@ export default function schedule(state = initialState, action) {
             if(action.json.status==200)
                 newBlend.push(action.json.data);
             return {...state, isNetworking: false, blends: newBlend};
+        case 'SUCCESS_CREATE_SCHEDULE':
+            var newSchedule = state.schedules.slice();
+            if(action.json.status==200)
+                newSchedule.push(action.json.data);
+            return {...state, isNetworking: false, schedules: newSchedule};
 
         case 'TOGGLE_CREATE_DEFAULT_SCHEDULE':
             return {...state, isCreateScheduleModalOpen: action.isOpen};
