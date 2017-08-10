@@ -26,19 +26,19 @@ class CreateNewScheduleModal extends React.Component {
             AM: {
                 startTime: defaultDate,
                 blendName: "Not Selected",
-                blend: -1,
+                blend: [0,0,0,0,0],
                 duration: 0
             },
             PM: {
                 startTime: defaultDate,
                 blendName: "Not Selected",
-                blend: -1,
+                blend: [0,0,0,0,0],
                 duration: 0
             },
             Night: {
                 startTime: defaultDate,
                 blendName: "Not Selected",
-                blend: -1,
+                blend: [0,0,0,0,0],
                 duration: 0
             }
         }
