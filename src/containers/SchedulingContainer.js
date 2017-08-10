@@ -16,9 +16,12 @@ class SchedulingContainer extends React.Component {
     }
 
     componentWillMount(){
-        this.props.getAllSchedules();
-        this.props.getAllBlends();
+        if(this.props.blends==null)
+            this.props.getAllBlends();
+        if(this.props.schedules==null)
+            this.props.getAllSchedules();
     }
+
     render() {
         const {blends, schedules, targetId, toggleRemoveBlend, toggleRemoveSchedule, isFetchingBlends, isFetchingSchedules} = this.props;
         return (

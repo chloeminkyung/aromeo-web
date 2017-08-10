@@ -19,8 +19,10 @@ class TempControlContainer extends React.Component {
     }
 
     componentDidMount(){
-        this.props.getAllBlends();
-        this.props.getAllSchedules();
+        if(this.props.blends==null)
+            this.props.getAllBlends();
+        if(this.props.schedules==null)
+            this.props.getAllSchedules();
     }
 
     handleChange(event, index, value){
