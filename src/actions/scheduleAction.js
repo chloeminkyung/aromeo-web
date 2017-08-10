@@ -47,11 +47,19 @@ function success(json){
     }
 }
 
+function createBlendSuccess(json,body){
+    console.warn(json)
+    return {
+        type: 'SUCCESS_CREATE_BLEND',
+        json: json
+    }
+}
+
 export function createBlend(body) {
     return dispatch=>{
         dispatch(fetchingData());
         return axios.post(createBlendRoute, body)
-            .then((json)=>dispatch(success(json)))
+            .then((json)=>dispatch(createBlendSuccess(json, body)))
             .catch(err=>dispatch(requestFail(err)))
     }
 }
