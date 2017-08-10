@@ -36,13 +36,11 @@ var init = function(app, pool) {
     });
   })
 
-  app.get('/api/deleteSchedule/:scheduleID', function(req, res, next) {
+  app.get('/api/deleteSchedule/:scheduleID', function(req, result, next) {
     pool.connect(function(err, client, done) {
       if(err) {
         return console.error('error fetching client from pool', err);
       }
-
-      // 1. delete schedule and obtain timeslot id
       client.query('DELETE FROM schedules WHERE schedule_id = $1 RETURNING schedule_name',
         [req.params.scheduleID], function(err, res){
           if(err) {
@@ -51,11 +49,11 @@ var init = function(app, pool) {
           }
         }).on('end', (res) => {
           console.log("Successfully deleted " + res.rows[0].schedule_name);
+          result.send(res.rows[0].schedule_name);
           done();
         });
     });
-    res.send("Done");
-  })
+  });
 
   /*****************Aromeo Scheduling *****************/
   app.post('/api/applyScheduleToOne', function(req, res, next) {

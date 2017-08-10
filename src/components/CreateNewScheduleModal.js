@@ -44,8 +44,6 @@ class CreateNewScheduleModal extends React.Component {
         }
     }
 
-
-
     render() {
         const {blends} = this.props;
         const self = this;

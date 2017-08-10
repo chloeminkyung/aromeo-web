@@ -77,13 +77,13 @@ var init = function(app, pool) {
       if(err) {
         return console.error('error fetching client from pool', err);
       }
-      client.query('DELETE FROM blends WHERE blend_id = $1;', [req.params.blendId], function(err, res) {
+      client.query('DELETE FROM blends WHERE blend_id = $1 RETURNING blend_name;', [req.params.blendId], function(err, res) {
         if(err) {
           done(err);
           return console.error('error running query', err);
         }
       }).on('end', (res) => {
-        return result.json(res.rows);
+        return result.json(res.rows[0].blend_name);
         done();
       });
     });

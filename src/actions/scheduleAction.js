@@ -60,6 +60,19 @@ function createScheduleSuccess(json){
     }
 }
 
+function deleteBlendSuccess(json){
+    return {
+        type: 'SUCCESS_DELETE_BLEND',
+        json: json
+    }
+}
+function deleteScheduleSuccess(json){
+    return {
+        type: 'SUCCESS_DELETE_SCHEDULE',
+        json: json
+    }
+}
+
 export function createBlend(body) {
     return dispatch=>{
         dispatch(fetchingData());
@@ -80,7 +93,8 @@ export function removeBlend(blendId) {
     var api = deleteBlendRoute.replace('(blendId)', blendId);
     return dispatch=>{
         dispatch(fetchingData());
-        return axios.get(api).then((json)=>dispatch(success(json))).catch(err=>dispatch(requestFail(err)))
+        return axios.get(api).then((json)=>dispatch(deleteBlendSuccess(json)))
+            .catch(err=>dispatch(requestFail(err)))
     }
 }
 
@@ -104,7 +118,7 @@ export function removeSchedule(scheduleId) {
     var api = deleteScheduleRoute.replace('(scheduleId)', scheduleId);
     return dispatch=>{
         dispatch(fetchingData());
-        return axios.get(api).then((json)=>dispatch(success(json))).catch(err=>dispatch(requestFail(err)))
+        return axios.get(api).then((json)=>dispatch(deleteScheduleSuccess(json))).catch(err=>dispatch(requestFail(err)))
     }
 }
 

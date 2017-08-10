@@ -40,6 +40,22 @@ export default function schedule(state = initialState, action) {
                 newSchedule.push(action.json.data);
             return {...state, isNetworking: false, schedules: newSchedule};
 
+        case 'SUCCESS_DELETE_BLEND':
+            var newBlend = state.blends.slice();
+            if(action.json.status==200)
+                newBlend = newBlend.filter(function(blend){
+                    return blend.blend_name.toString().localeCompare(action.json.data.toString()) != 0;
+                });
+            return {...state, isNetworking: false, blends: newBlend};
+
+        case 'SUCCESS_DELETE_SCHEDULE':
+            var newSchedule = state.schedules.slice();
+            if(action.json.status==200)
+                newSchedule = newSchedule.filter(function(schedule){
+                    return schedule.schedule_name.toString().localeCompare(action.json.data.toString()) != 0;
+                });
+            return {...state, isNetworking: false, schedules: newSchedule};
+
         case 'TOGGLE_CREATE_DEFAULT_SCHEDULE':
             return {...state, isCreateScheduleModalOpen: action.isOpen};
         case 'TOGGLE_CREATE_BLEND':
