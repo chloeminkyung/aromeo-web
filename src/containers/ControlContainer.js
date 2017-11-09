@@ -40,7 +40,7 @@ class ControlContainer extends React.Component {
         const {aromeoStatus, schedules, filteredDataList, isManageMode,
             filterWithText, updateAromeoStatusValue, updateAromeoScheduleValue} = this.props;
 
-        console.warn(filteredDataList)
+        // console.warn(filteredDataList)
 
         return (
             <div>
