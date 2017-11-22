@@ -16,8 +16,8 @@ export default (
     <Route path='/'>
         <IndexRedirect to='control'/>
         <Route path='' component={Appp}>
-            {/*<Route path='control' component={TempControlContainer} />*/}
-            <Route path='control' component={ControlContainer} />
+            <Route path='control' component={TempControlContainer} />
+            {/*<Route path='control' component={ControlContainer} />*/}
             <Route path='scheduling' component={SchedulingContainer} />
             <Route path='order' component={OrderContainer} />
             <Route path='help' component={HelpContainer}/>
