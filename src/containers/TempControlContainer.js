@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import {getAllBlends, getAllSchedules} from '../actions/scheduleAction'
+import {getAllAromeoStatus} from '../actions/controlAction'
 import {Row, Col, Glyphicon, Button, Modal} from 'react-bootstrap'
 
 import Paper from 'material-ui/Paper';
@@ -15,6 +16,7 @@ class TempControlContainer extends React.Component {
         this.state = {
             schedule: 0,
             blend: 0,
+            aromeo: 0
         }
     }
 
@@ -25,12 +27,16 @@ class TempControlContainer extends React.Component {
             this.props.getAllSchedules();
     }
 
-    handleChange(event, index, value){
-        this.setState({value});
+    handleBlendChange(event, index, value){
+        this.setState({blend: index});
+    }
+
+    handleScheduleChange(event, index, value){
+        this.setState({schedule: index});
     }
 
     render() {
-        const {blends, schedules} = this.props;
+        const {blends, schedules, aromeos} = this.props;
 
         console.warn(blends);
 
@@ -45,30 +51,7 @@ class TempControlContainer extends React.Component {
                             <Col md={12}>
                                 <SelectField
                                     value={this.state.schedule}
-                                    onChange={this.handleChange}
-                                    style={styles.dropdown}
-                                >
-                                    {
-                                        blends!=null?
-                                            blends.map(function(blend, index){
-                                                return (
-                                                    <MenuItem value={index} primaryText={blend.blend_name} />
-                                                )
-                                            }):null
-                                    }
-                                </SelectField>
-                            </Col>
-                            <RaisedButton label="Apply" style={styles.button} />
-                            <RaisedButton label="Reset" style={styles.button} />
-                        </Paper>
-                    </Col>
-                    <Col md={6}>
-                        <Paper style={styles.paper}>
-                            <h4 style={styles.textCentered}>Start Blend Diffusion Now </h4>
-                            <Col md={12}>
-                                <SelectField
-                                    value={this.state.blend}
-                                    onChange={this.handleChange}
+                                    onChange={this.handleScheduleChange.bind(this)}
                                     style={styles.dropdown}
                                 >
                                     {
@@ -81,11 +64,52 @@ class TempControlContainer extends React.Component {
                                     }
                                 </SelectField>
                             </Col>
+                            <RaisedButton
+                                label="Apply"
+                                style={styles.button} />
+                            <RaisedButton label="Reset" style={styles.button} />
+                        </Paper>
+                    </Col>
+                    <Col md={6}>
+                        <Paper style={styles.paper}>
+                            <h4 style={styles.textCentered}>Start Blend Diffusion Now </h4>
+                            <Col md={12}>
+                                <SelectField
+                                    value={this.state.blend}
+                                    onChange={this.handleBlendChange.bind(this)}
+                                    style={styles.dropdown}
+                                >
+                                    {
+                                        blends!=null?
+                                            blends.map(function(blend, index){
+                                                return (
+                                                    <MenuItem value={index} primaryText={blend.blend_name} />
+                                                )
+                                            }):null
+                                    }
+                                </SelectField>
+                            </Col>
                             <RaisedButton label="Start Now" style={styles.button} />
                             <RaisedButton label="Stop" style={styles.button} />
                         </Paper>
                     </Col>
                 </Row>
+
+                <Row>
+                    <br/>
+                    <Paper style={styles.paper}>
+                        <h4 style={styles.textCentered}>Aromeo</h4>
+                            {
+                                schedules!=null?
+                                    schedules.map(function(schedule, index){
+                                        return (
+                                            <MenuItem value={index} primaryText={schedule.schedule_name} />
+                                        )
+                                    }):null
+                            }
+                    </Paper>
+                </Row>
+
             </div>
         );
     }
@@ -95,9 +119,10 @@ export default connect(
     state => ({
         blends: state.schedule.blends,
         schedules: state.schedule.schedules,
+        aromeos: state.control.aromeoStatus
     }),
     {
-        getAllBlends, getAllSchedules
+        getAllBlends, getAllSchedules, getAllAromeoStatus
     }
 )(TempControlContainer)
 
