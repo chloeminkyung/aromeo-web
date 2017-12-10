@@ -1,12 +1,30 @@
 import React from 'react';
+import {render} from 'react-dom';
+import {connect} from 'react-redux';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import { Link } from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
 
+import {setToggleId} from '../actions/adminAction';
+
 import {aromeo_logo} from '../constants/ImageHandler'
 
-export default class NavigationComponent extends React.Component{
-    render() {
+class NavigationComponent extends React.Component{
+
+    handleSelect(toggleId, setToggleId) {
+        console.warn(toggleId)
+        event.preventDefault();
+        setToggleId(toggleId);
+    }
+
+    handleChange(event, index, value){
+        this.setState({value});
+    }
+
+   render() {
+       //console.log(this.props.toggleId)
+        console.warn(this.props.toggleId)
+
         return (
             <Navbar inverse>
                 <Navbar.Header>
@@ -29,8 +47,36 @@ export default class NavigationComponent extends React.Component{
                     <LinkContainer to="/help">
                         <NavItem eventKey={4}>Help</NavItem>
                     </LinkContainer>
+                    <NavDropdown eventKey="5" title= {this.props.toggleId == 0? "Hotel List": this.props.toggleId} id="nav-dropdown" onSelect={(x)=>this.handleSelect(x,this.props.setToggleId)}>
+                        <MenuItem eventKey="5.1">Hotel1</MenuItem>
+                        <MenuItem eventKey="5.2">Hotel2</MenuItem>
+                        <MenuItem eventKey="5.3">Hotel3</MenuItem>
+                        <MenuItem divider />
+                        <MenuItem eventKey="5.4">Summary</MenuItem>
+
+
+                        {/*{*/}
+                            {/*if(accounts!= null){*/}
+                            {/*accounts.map(function(blend, index){*/}
+                                {/*return (*/}
+                                    {/*<MenuItem value={index} primaryText={account.blend_name} />*/}
+                                {/*)}*/}
+                            {/*}else{*/}
+                                {/*null;*/}
+                            {/*}*/}
+                        {/*}*/}
+                    </NavDropdown>
                 </Nav>
             </Navbar>
         );
     }
 }
+
+export default connect(
+    state => ({
+        toggleId: state.admin.toggleId
+    }),
+    {
+        setToggleId
+    }
+)(NavigationComponent)

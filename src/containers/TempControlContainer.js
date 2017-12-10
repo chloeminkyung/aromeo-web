@@ -16,7 +16,7 @@ class TempControlContainer extends React.Component {
         this.state = {
             schedule: 0,
             blend: 0,
-            aromeo: 0
+            aromeo: 0,
         }
     }
 
@@ -36,12 +36,21 @@ class TempControlContainer extends React.Component {
     }
 
     render() {
-        const {blends, schedules, aromeos} = this.props;
-
+        const {blends, schedules, aromeos, admin} = this.props;
+        console.log("its connected" + this.props.toggleId)
         console.warn(blends);
 
         return (
             <div>
+                <Row>
+                    {
+                        this.props.toggleId == 5.1?
+                            <p>1</p>:
+                            this.props.toggleId == 5.2?
+                                <p>2</p>:
+                                    <p>3</p>
+                    }
+                </Row>
                 <Row>
                     <h1 style={styles.textCentered}>Temporary Control Page</h1>
                     <br/>
@@ -119,7 +128,8 @@ export default connect(
     state => ({
         blends: state.schedule.blends,
         schedules: state.schedule.schedules,
-        aromeos: state.control.aromeoStatus
+        aromeos: state.control.aromeoStatus,
+        toggleId: state.admin.toggleId
     }),
     {
         getAllBlends, getAllSchedules, getAllAromeoStatus
