@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import {getAllBlends, getAllSchedules} from '../actions/scheduleAction'
+import {getAllHotels} from '../actions/adminAction'
 import {getAllAromeoStatus} from '../actions/controlAction'
 import {Row, Col, Glyphicon, Button, Modal} from 'react-bootstrap'
 
@@ -37,18 +38,25 @@ class TempControlContainer extends React.Component {
 
     render() {
         const {blends, schedules, aromeos, admin} = this.props;
-        console.log("its connected" + this.props.toggleId)
+       // console.log("its connected" + this.props.toggleId);
+       // console.log("hotel id is " + this.props.hotels.account_id);
         console.warn(blends);
+
 
         return (
             <div>
                 <Row>
                     {
-                        this.props.toggleId == 5.1?
-                            <p>1</p>:
-                            this.props.toggleId == 5.2?
-                                <p>2</p>:
-                                    <p>3</p>
+                        // this.props.toggleId == 5.1?
+                        //     <p>1</p>:
+                        //     this.props.toggleId == 5.2?
+                        //         <p>2</p>:
+                        //             <p>3</p>
+
+                        this.props.hotelId == null?
+                            <p>it is nullll</p>:
+                            <p>Control Page for {this.props.hotelId}</p>
+
                     }
                 </Row>
                 <Row>
@@ -129,10 +137,12 @@ export default connect(
         blends: state.schedule.blends,
         schedules: state.schedule.schedules,
         aromeos: state.control.aromeoStatus,
-        toggleId: state.admin.toggleId
+        toggleId: state.admin.toggleId,
+        hotels:state.admin.hotels,
+        hotelId: state.admin.hotelId
     }),
     {
-        getAllBlends, getAllSchedules, getAllAromeoStatus
+        getAllBlends, getAllSchedules, getAllHotels, getAllAromeoStatus
     }
 )(TempControlContainer)
 

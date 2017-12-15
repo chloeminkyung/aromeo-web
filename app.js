@@ -52,3 +52,4 @@ app.get('/hello', function(req, res, next) {
 require("./backend_APIs/oils_routes.js").init(app, pool);
 require("./backend_APIs/device_routes.js").init(app, pool);
 require("./backend_APIs/schedule_routes.js").init(app, pool);
+require("./backend_APIs/accounts_routes.js").init(app, pool);
