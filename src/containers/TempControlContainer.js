@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
-import {getAllBlends, getAllSchedules} from '../actions/scheduleAction'
-import {getAllAromeoStatus} from '../actions/controlAction'
+import {applyScheduleToOne, getAllBlends, getAllSchedules} from '../actions/scheduleAction'
+import {getAromeoStatus} from '../actions/controlAction'
 import {Row, Col, Glyphicon, Button, Modal} from 'react-bootstrap'
 
 import Paper from 'material-ui/Paper';
@@ -21,10 +21,14 @@ class TempControlContainer extends React.Component {
     }
 
     componentDidMount(){
+        this.props.getAromeoStatus(1);
+
         if(this.props.blends==null)
             this.props.getAllBlends();
         if(this.props.schedules==null)
             this.props.getAllSchedules();
+        if(this.props.aromeos==null)
+            this.props.getAromeoStatus();
     }
 
     handleBlendChange(event, index, value){
@@ -39,6 +43,7 @@ class TempControlContainer extends React.Component {
         const {blends, schedules, aromeos} = this.props;
 
         console.warn(blends);
+        console.warn(aromeos);
 
         return (
             <div>
@@ -66,7 +71,8 @@ class TempControlContainer extends React.Component {
                             </Col>
                             <RaisedButton
                                 label="Apply"
-                                style={styles.button} />
+                                style={styles.button}
+                                onClick={applyScheduleToOne(index, aromeo_id)} />
                             <RaisedButton label="Reset" style={styles.button} />
                         </Paper>
                     </Col>
@@ -100,10 +106,10 @@ class TempControlContainer extends React.Component {
                     <Paper style={styles.paper}>
                         <h4 style={styles.textCentered}>Aromeo</h4>
                             {
-                                schedules!=null?
-                                    schedules.map(function(schedule, index){
+                                aromeos!=null?
+                                    aromeos.map(function(aromeo, index){
                                         return (
-                                            <MenuItem value={index} primaryText={schedule.schedule_name} />
+                                            <MenuItem value={index} primaryText={aromeo.schedule_id} />
                                         )
                                     }):null
                             }
@@ -119,10 +125,10 @@ export default connect(
     state => ({
         blends: state.schedule.blends,
         schedules: state.schedule.schedules,
-        aromeos: state.control.aromeoStatus
+        aromeos: state.control.filteredDataList
     }),
     {
-        getAllBlends, getAllSchedules, getAllAromeoStatus
+        getAllBlends, getAllSchedules, getAromeoStatus, applyScheduleToOne
     }
 )(TempControlContainer)
 

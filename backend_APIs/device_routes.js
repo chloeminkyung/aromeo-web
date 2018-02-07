@@ -36,17 +36,18 @@ var init = function(app, pool) {
   })
 
   /***************** Status Tracking *****************/
-  app.get('/api/getAllAromeoStatus/:hotelId', function(req, result, next) {
+  app.get('/api/getAllAromeoStatus', function(req, result, next) {
     pool.connect(function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }
       // TODO not considering Oil Status yet......
-      client.query('select aromeo_id,name,power_on,diffusion_strength, a.schedule_id, schedule_name from aromeos a LEFT OUTER JOIN schedules s ON a.schedule_id=s.schedule_id WHERE a.hotel_id=$1', [req.params.hotelId], function(err, res) {
+      client.query('SELECT * FROM aromeos', [], function(err, res) {
         if(err) { done(err); return console.error('error running query', err); }
       }).on('end', (res) => {
         return result.json(res.rows);
         done();
       });
     });
+    // result.send("lala")
   })
 
   app.get('/api/getAromeoStatus/:aromeoID', function(req, res, next) {

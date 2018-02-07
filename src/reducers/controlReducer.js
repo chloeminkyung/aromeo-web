@@ -15,7 +15,7 @@ const initialState = {
     isManageMode: false,
     isAddAromeo: false,
     isRemoveAromeo: false,
-    aromeoStatus: [],
+    aromeoStatus: []
 };
 
 export default function control(state = initialState, action) {
@@ -42,8 +42,9 @@ export default function control(state = initialState, action) {
             return {...state, isFetching: false};
 
         case 'RECEIVED_AROMEO_STATUS_DATA':
-            console.warn(action.data)
-            return {...state, isFetching:false, filteredDataList: action.data};
+            console.warn("received aromeo status")
+            // return {...state, isFetching:false, filteredDataList: action.data};
+            return {...state, isFetching:false, filteredDataList: action.aromeos};
 
         case 'UPDATE_AROMEO_STATUS_VALUE':
             let newFilteredDataList = state.filteredDataList.slice();

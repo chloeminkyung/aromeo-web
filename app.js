@@ -1,5 +1,5 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -7,9 +7,10 @@ const bodyParser = require('body-parser');
 const pg = require('pg');
 const path = require('path');
 const pool = require('./lib/db');
+const format = require('pg-format');
 
-const indexPath = path.join(__dirname, 'index.html')
-const publicPath = express.static(path.join(__dirname, 'public'))
+const indexPath = path.join(__dirname, 'index.html');
+const publicPath = express.static(path.join(__dirname, 'public'));
 
 //////////////////////////////////////////////////////////
 // initialize app

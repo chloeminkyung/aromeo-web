@@ -1,18 +1,19 @@
 var axios = require('axios');
-const getAllAromeoStatusRoute = '/api/getAllAromeoStatus/(hotelId)';
+const getAllAromeoStatusRoute = '/api/getAllAromeoStatus';
 
-export function getAromeoStatus(hotelId) {
-    const api = getAllAromeoStatusRoute.replace('(hotelId)',hotelId);
+export function getAromeoStatus() {
     return dispatch=>{
         dispatch(fetchingData());
-        return axios.get(api).then(json=>dispatch(receiveAromeoStatusData(json))).catch(err=>dispatch(requestFail(err)))
+        return axios.get(getAllAromeoStatusRoute)
+            .then(json=>dispatch(receiveAromeoStatusData(json)))
+            .catch(err=>dispatch(requestFail(err)))
     }
 }
 
 function receiveAromeoStatusData(json){
     return{
         type: 'RECEIVED_AROMEO_STATUS_DATA',
-        data: json.data
+        aromeos: json.data
     }
 }
 
