@@ -3,7 +3,6 @@ var pg = require('pg');
 var init = function(app, pool) {
   /*****************Schedule*****************/
   app.post('/api/createSchedule', function(req, result, next) {
-
     pool.connect(function(err, client, done) {
       if(err) {
         return console.error('error fetching client from pool', err);
@@ -69,7 +68,6 @@ var init = function(app, pool) {
   })
 
   app.get('/api/getDeviceSchedule/:aromeo_id', function(req, result, next) {
-
     pool.connect(function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }
 

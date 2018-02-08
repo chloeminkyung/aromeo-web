@@ -69,9 +69,11 @@ class TempControlContainer extends React.Component {
                                     }
                                 </SelectField>
                             </Col>
+
                             <RaisedButton
                                 label="Apply"
                                 style={styles.button} />
+
                             <RaisedButton label="Reset" style={styles.button} />
                         </Paper>
                     </Col>

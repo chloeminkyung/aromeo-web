@@ -55,8 +55,7 @@ export default function control(state = initialState, action) {
         case 'UPDATE_AROMEO_SCHEDULE_VALUE':
             let newFilteredDataWithNewSchedule = state.filteredDataList.slice();
             newFilteredDataWithNewSchedule[action.index]["schedule_id"] = action.schedule_id;
-            newFilteredDataWithNewSchedule[action.index]["schedule_name"] = action.schedule_name;
-
+            // newFilteredDataWithNewSchedule[action.index]["schedule_name"] = action.schedule_name;
             // console.warn(newFilteredDataWithNewSchedule)
             return {...state, filteredDataList: newFilteredDataWithNewSchedule};
 

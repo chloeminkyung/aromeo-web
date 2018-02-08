@@ -1,5 +1,6 @@
 var axios = require('axios');
 const getAllAromeoStatusRoute = '/api/getAllAromeoStatus';
+const updateAromeoScheduleValueRoute = '/api/updateAromeoScheduleValueToAll';
 
 export function getAromeoStatus() {
     return dispatch=>{
@@ -7,7 +8,6 @@ export function getAromeoStatus() {
         return axios.get(getAllAromeoStatusRoute)
             .then(json=>dispatch(receiveAromeoStatusData(json)))
             .catch(err=>dispatch(requestFail(err)))
-
     }
 }
 
@@ -40,12 +40,12 @@ export function updateAromeoStatusValue(index, columnKey, value){
     }
 }
 
-export function updateAromeoScheduleValue(index, schedule_id, schedule_name){
+export function updateAromeoScheduleValue(index, schedule_id){
     return {
         type: 'UPDATE_AROMEO_SCHEDULE_VALUE',
         index: index,
-        schedule_id: schedule_id,
-        schedule_name: schedule_name,
+        schedule_id: schedule_id
+        // schedule_name: schedule_name,
     }
 
 }
