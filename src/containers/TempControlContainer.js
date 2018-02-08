@@ -3,6 +3,8 @@ import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import {getAllBlends, getAllSchedules} from '../actions/scheduleAction'
 import {getAromeoStatus} from '../actions/controlAction'
+import {getAllHotels} from '../actions/adminAction'
+
 import {Row, Col, Glyphicon, Button, Modal} from 'react-bootstrap'
 
 import Paper from 'material-ui/Paper';
@@ -40,13 +42,20 @@ class TempControlContainer extends React.Component {
     }
 
     render() {
-        const {blends, schedules, aromeos} = this.props;
+        const {blends, schedules, aromeos, admin} = this.props;
 
         console.warn(blends);
         console.warn(aromeos);
 
         return (
             <div>
+                <Row>
+                    {
+                        this.props.hotelId == null?
+                        <p>it is nullll</p>:
+                        <p>Control Page for {this.props.hotelId}</p>
+                    }
+                </Row>
                 <Row>
                     <h1 style={styles.textCentered}>Temporary Control Page</h1>
                     <br/>
@@ -148,10 +157,15 @@ export default connect(
     state => ({
         blends: state.schedule.blends,
         schedules: state.schedule.schedules,
-        aromeos: state.control.filteredDataList
+        aromeos: state.control.filteredDataList,
+
+        toggleId: state.admin.toggleId,
+        hotels:state.admin.hotels,
+        hotelId: state.admin.hotelId
+
     }),
     {
-        getAllBlends, getAllSchedules, getAromeoStatus
+        getAllBlends, getAllSchedules, getAllHotels, getAromeoStatus
     }
 )(TempControlContainer)
 
