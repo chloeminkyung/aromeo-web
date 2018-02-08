@@ -82,7 +82,6 @@ class BlendPaper extends React.PureComponent {
 
     render() {
         const {blend,toggleRemoveBlend} = this.props;
-        console.log(blend)
         var oilArray = this.blendRatioChartTallyFormatter(blend.oils)
 
         return (

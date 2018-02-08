@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
-import {applyScheduleToOne, getAllBlends, getAllSchedules} from '../actions/scheduleAction'
+import {getAllBlends, getAllSchedules} from '../actions/scheduleAction'
 import {getAromeoStatus} from '../actions/controlAction'
 import {Row, Col, Glyphicon, Button, Modal} from 'react-bootstrap'
 
@@ -71,8 +71,7 @@ class TempControlContainer extends React.Component {
                             </Col>
                             <RaisedButton
                                 label="Apply"
-                                style={styles.button}
-                                onClick={applyScheduleToOne(index, aromeo_id)} />
+                                style={styles.button} />
                             <RaisedButton label="Reset" style={styles.button} />
                         </Paper>
                     </Col>
@@ -105,6 +104,17 @@ class TempControlContainer extends React.Component {
                     <br/>
                     <Paper style={styles.paper}>
                         <h4 style={styles.textCentered}>Aromeo</h4>
+                        <Col md={4}>
+                            {
+                                aromeos!=null?
+                                    aromeos.map(function(aromeo, index){
+                                        return (
+                                            <MenuItem value={index} primaryText={aromeo.name} />
+                                        )
+                                    }):null
+                            }
+                        </Col>
+                        <Col md={4}>
                             {
                                 aromeos!=null?
                                     aromeos.map(function(aromeo, index){
@@ -113,6 +123,17 @@ class TempControlContainer extends React.Component {
                                         )
                                     }):null
                             }
+                        </Col>
+                        <Col md={4}>
+                            {
+                                aromeos!=null?
+                                    aromeos.map(function(aromeo, index){
+                                        return (
+                                            <MenuItem value={index} primaryText={aromeo.power_on.toString()} />
+                                        )
+                                    }):null
+                            }
+                        </Col>
                     </Paper>
                 </Row>
 
@@ -128,7 +149,7 @@ export default connect(
         aromeos: state.control.filteredDataList
     }),
     {
-        getAllBlends, getAllSchedules, getAromeoStatus, applyScheduleToOne
+        getAllBlends, getAllSchedules, getAromeoStatus
     }
 )(TempControlContainer)
 

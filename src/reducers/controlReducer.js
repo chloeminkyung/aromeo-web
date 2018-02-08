@@ -42,9 +42,9 @@ export default function control(state = initialState, action) {
             return {...state, isFetching: false};
 
         case 'RECEIVED_AROMEO_STATUS_DATA':
-            console.warn("received aromeo status")
-            // return {...state, isFetching:false, filteredDataList: action.data};
+            console.warn("received aromeo status");
             return {...state, isFetching:false, filteredDataList: action.aromeos};
+            // return {...state, isFetching:false, filteredDataList: action.data};
 
         case 'UPDATE_AROMEO_STATUS_VALUE':
             let newFilteredDataList = state.filteredDataList.slice();

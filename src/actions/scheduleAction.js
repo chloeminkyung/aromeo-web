@@ -7,7 +7,6 @@ const deleteBlendRoute = '/api/deleteBlend/(blendId)';
 const createScheduleRoute = '/api/createSchedule';
 const getAllSchedulesRoute = '/api/getAllSchedules';
 const deleteScheduleRoute = '/api/deleteSchedule/(scheduleId)';
-const applyScheduleToOneRoute = '/api/applyScheduleToOne/1/(scheduleId)'
 
 function fetchingData(){
     return{
@@ -123,20 +122,6 @@ export function removeSchedule(scheduleId) {
     }
 }
 
-export function applyScheduleToOne(scheduleId) {
-    var api = applyScheduleToOneRoute.replace('(scheduleId)', scheduleId);
-    return dispatch=>{
-        dispatch(fetchingData());
-        return axios.get(api).then((json)=>dispatch(applyScheduleToOneSuccess(json))).catch(err=>dispatch(requestFail(err)))
-    }
-}
-
-export function applyScheduleToOneSuccess(json) {
-    return {
-        type: 'APPLY_SCHEDULE_TO_ONE',
-        json: json
-    }
-}
 
 export function toggleCreateDefaultSchedule(isOpen) {
     return {

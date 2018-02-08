@@ -4,7 +4,6 @@ const initialState = {
     isNetworking: false,
     isFetchingBlends: false,
     isFetchingSchedules: false,
-    scheduleId: null,
     targetId: null,
     isCreateScheduleModalOpen: false,
     isCreateBlendModalOpen: false,
@@ -65,13 +64,6 @@ export default function schedule(state = initialState, action) {
             return {...state, isRemoveBlendModalOpen: action.isOpen, targetId: action.targetId};
         case 'TOGGLE_REMOVE_SCHEDULE':
             return {...state, isRemoveScheduleModalOpen: action.isOpen, targetId: action.targetId};
-        case 'APPLY_SCHEDULE_TO_ONE':
-            var newSchedule = state.aromeos.slice();
-            if(action.json.status==200)
-                newSchedule = newSchedule.filter(function(aromeo){
-                    return aromeo.schedule_id.toString().localCompare(action.json.data.toString()) != 0;
-                })
-            return {...state, isNetworking: false, aromeos.schedule_id: newSchedule};
 
         case 'EDIT_DEFAULT_SCHEDULE':
             return state;

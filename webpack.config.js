@@ -8,9 +8,6 @@ module.exports = {
     'react-hot-loader/patch',
     './src/index'
   ],
-  devServer: {
-    contentBase: './public'
-  },
 
   output: {
     path: path.join(__dirname, 'public'),

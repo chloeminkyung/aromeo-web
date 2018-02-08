@@ -58,23 +58,11 @@ var init = function(app, pool) {
   });
 
   /*****************Aromeo Scheduling *****************/
-  app.post('/api/applyScheduleToOne/1/:scheduleID', function(req, res, next) {
-    pool.connect(function(err, client, done) {
-      if(err) {
-        return console.error('error fetching client from pool', err);
-      }
-      client.query('UPDATE aromeos SET schedule_id = $1 WHERE aromeo_id = 1 RETURNING *',
-        [req.params.scheduleID], function(err, res){
-          if(err) {
-            done(err);
-            return console.error('error running query', err);
-          }else{
-            console.log(res.rows[0]);
-            result.send(res.rows[0]);
-          }
-        });
-    });
-  });
+  app.post('/api/applyScheduleToOne', function(req, res, next) {
+    pool.query('INSERT INTO deviceScheduling(aromeo_id, schedule_id, schedulingInfo) values($1, $2, $3)',
+    [req.body.aromeo_id, req.body.schedule_id, req.body.schedulingInfo]);
+    res.send('Apply Schedule Successful!')
+  })
 
   app.post('/api/applyScheduleToMany', function(req, res, next) {
 

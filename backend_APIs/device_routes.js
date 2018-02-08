@@ -47,7 +47,6 @@ var init = function(app, pool) {
         done();
       });
     });
-    // result.send("lala")
   })
 
   app.get('/api/getAromeoStatus/:aromeoID', function(req, res, next) {

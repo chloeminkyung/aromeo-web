@@ -7,6 +7,7 @@ export function getAromeoStatus() {
         return axios.get(getAllAromeoStatusRoute)
             .then(json=>dispatch(receiveAromeoStatusData(json)))
             .catch(err=>dispatch(requestFail(err)))
+
     }
 }
 
