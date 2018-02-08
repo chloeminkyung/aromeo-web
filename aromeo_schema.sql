@@ -81,14 +81,16 @@ CREATE TABLE accounts (
   address TEXT,
   telephone	VARCHAR(40),
   aromeoCount INTEGER,
-  oilSet_id INTEGER
+  oilSet_id INTEGER,
+  password VARCHAR(15),
+  name VARCHAR(40)
 );
   
 CREATE TABLE hotelManagers (
   manager_id SERIAL PRIMARY KEY,
   manager_account VARCHAR(20),
   -- password
-  account_id INTEGERb,
+  account_id INTEGER,
   position INTEGER
 );
   
