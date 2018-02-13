@@ -1,12 +1,31 @@
 var axios = require('axios');
 const getAllAromeoStatusRoute = '/api/getAllAromeoStatus';
-const updateAromeoScheduleValueRoute = '/api/updateAromeoScheduleValueToAll';
+const updateAllAromeoScheduleRoute = '/api/updateAromeoSchedule/:schedule_id';
+const turnOnAromeoRoute = '/api/updateAromeoPowerOn/:power_on';
 
 export function getAromeoStatus() {
     return dispatch=>{
         dispatch(fetchingData());
         return axios.get(getAllAromeoStatusRoute)
             .then(json=>dispatch(receiveAromeoStatusData(json)))
+            .catch(err=>dispatch(requestFail(err)))
+    }
+}
+
+export function updateAllAromeoSchedule(schedule_id) {
+    return dispatch=>{
+        dispatch(fetchingData());
+        return axios.put(updateAllAromeoScheduleRoute)
+            .then((schedule_id)=>dispatch(updateAromeoScheduleInProgress(schedule_id)))
+            .catch(err=>dispatch(requestFail(err)))
+    }
+}
+
+export function turnOnAromeo(power_on) {
+    return dispatch=>{
+        dispatch(fetchingData());
+        return axios.put(turnOnAromeoRoute)
+            .then(power_on=>dispatch(updateAromeoPowerOnInProgress(power_on)))
             .catch(err=>dispatch(requestFail(err)))
     }
 }
@@ -40,15 +59,29 @@ export function updateAromeoStatusValue(index, columnKey, value){
     }
 }
 
-export function updateAromeoScheduleValue(index, schedule_id){
+export function updateAromeoScheduleValue(schedule_id){
     return {
         type: 'UPDATE_AROMEO_SCHEDULE_VALUE',
-        index: index,
         schedule_id: schedule_id
         // schedule_name: schedule_name,
     }
-
 }
+
+// by chloe
+export function updateAromeoScheduleInProgress(schedule_id){
+    return {
+        type: 'UPDATE_AROMEO_SCHEDULE',
+        schedule_id: schedule_id
+    }
+}
+
+export function updateAromeoPowerOnInProgress(power_on){
+    return {
+        type: 'TURN_ON_AROMEO',
+        power_on: power_on
+    }
+}
+// done
 
 export function filterWithText(text) {
     return {

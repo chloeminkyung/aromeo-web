@@ -14,12 +14,12 @@ var init = function(app, pool) {
     res.send('Updated device to name to: ' + req.body.name)
   })
 
-// schedule update for aromeo
-  app.post('/api/updateAromeoScheduleValueToAll', function(req, res, next) {
-    pool.query('UPDATE aromeos SET schedule_id = $1',
-      [req.body.schedule_id]);
-    res.send('Updated all aromeo schedule to: ' + req.body.schedule_id)
-  })
+// schedule update for all aromeo
+  // app.post('/api/updateAromeoScheduleValueToAll', function(req, res, next) {
+  //   pool.query('UPDATE aromeos SET schedule_id = $1',
+  //     [req.body.schedule_id]);
+  //   res.send('Updated all aromeo schedule to: ' + req.body.schedule_id)
+  // })
 // schedule update for aromeo done
 
   app.delete('/api/deleteDevice/:aromeoID', function(req, res, next) {

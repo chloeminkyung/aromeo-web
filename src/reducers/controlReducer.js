@@ -52,12 +52,12 @@ export default function control(state = initialState, action) {
 
             return {...state, filteredDataList: newFilteredDataList}
 
-        case 'UPDATE_AROMEO_SCHEDULE_VALUE':
-            let newFilteredDataWithNewSchedule = state.filteredDataList.slice();
-            newFilteredDataWithNewSchedule[action.index]["schedule_id"] = action.schedule_id;
-            // newFilteredDataWithNewSchedule[action.index]["schedule_name"] = action.schedule_name;
-            // console.warn(newFilteredDataWithNewSchedule)
-            return {...state, filteredDataList: newFilteredDataWithNewSchedule};
+        // case 'UPDATE_AROMEO_SCHEDULE_VALUE':
+        //     let newFilteredDataWithNewSchedule = state.filteredDataList.slice();
+        //     newFilteredDataWithNewSchedule[action.index]["schedule_id"] = action.schedule_id;
+        //     // newFilteredDataWithNewSchedule[action.index]["schedule_name"] = action.schedule_name;
+        //     // console.warn(newFilteredDataWithNewSchedule)
+        //     return {...state, filteredDataList: newFilteredDataWithNewSchedule};
 
         case 'RESET_FILTER_OPTIONS':
             const defaultFilter = Object.assign({}, defaultFilterOptions);
@@ -71,6 +71,18 @@ export default function control(state = initialState, action) {
 
         case 'TOGGLE_REMOVE_AROMEO_DEVICE':
             return {...state, isRemoveAromeo: action.value};
+
+        // by chloe
+        case 'UPDATE_AROMEO_SCHEDULE':
+            const newFilteredDataWithNewSchedule = state.filteredDataList.slice();
+            newFilteredDataWithNewSchedule[action.index].schedule_id = action.schedule_id;
+            return {...state, filteredDataList: newFilteredDataWithNewSchedule}
+
+        case 'TURN_ON_AROMEO':
+            const newFilteredDataWithPowerOn = state.filteredDataList.slice();
+            newFilteredDataWithPowerOn[action.index].power_on = action.power_on;
+            return {...state, filteredDataList: newFilteredDataWithPowerOn}
+        // done
 
         default:
             return state;

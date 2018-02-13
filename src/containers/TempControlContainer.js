@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
 import {getAllBlends, getAllSchedules} from '../actions/scheduleAction'
-import {getAromeoStatus} from '../actions/controlAction'
+import {getAromeoStatus, updateAllAromeoSchedule, turnOnAromeo} from '../actions/controlAction'
 import {getAllHotels} from '../actions/adminAction'
 
 import {Row, Col, Glyphicon, Button, Modal} from 'react-bootstrap'
@@ -23,14 +23,16 @@ class TempControlContainer extends React.Component {
     }
 
     componentDidMount(){
-        this.props.getAromeoStatus(1);
+        this.props.getAromeoStatus();
+        this.props.getAllBlends();
+        this.props.getAllSchedules();
 
-        if(this.props.blends==null)
-            this.props.getAllBlends();
-        if(this.props.schedules==null)
-            this.props.getAllSchedules();
-        if(this.props.aromeos==null)
-            this.props.getAromeoStatus();
+        // if(this.props.blends==null)
+        //     this.props.getAllBlends();
+        // if(this.props.schedules==null)
+        //     this.props.getAllSchedules();
+        // if(this.props.aromeos==null)
+        //     this.props.getAromeoStatus();
     }
 
     handleBlendChange(event, index, value){
@@ -41,9 +43,19 @@ class TempControlContainer extends React.Component {
         this.setState({schedule: index});
     }
 
+    handleApplyClick(event, index, value) {
+        this.props.updateAllAromeoSchedule(this.state.schedule);
+        // this.setState({});
+    }
+
+    handleStartNowClick(event, index, value) {
+        this.props.turnOnAromeo(true);
+        // this.setState({});
+    }
+
+
     render() {
         const {blends, schedules, aromeos, admin} = this.props;
-
         console.warn(blends);
         console.warn(aromeos);
 
@@ -81,7 +93,8 @@ class TempControlContainer extends React.Component {
 
                             <RaisedButton
                                 label="Apply"
-                                style={styles.button} />
+                                style={styles.button}
+                                onClick={this.handleApplyClick.bind(this)} />
 
                             <RaisedButton label="Reset" style={styles.button} />
                         </Paper>
@@ -105,7 +118,10 @@ class TempControlContainer extends React.Component {
                                     }
                                 </SelectField>
                             </Col>
-                            <RaisedButton label="Start Now" style={styles.button} />
+                            <RaisedButton
+                                label="Start Now"
+                                style={styles.button}
+                                onClick={this.handleStartNowClick.bind(this)} />
                             <RaisedButton label="Stop" style={styles.button} />
                         </Paper>
                     </Col>
@@ -165,7 +181,7 @@ export default connect(
 
     }),
     {
-        getAllBlends, getAllSchedules, getAllHotels, getAromeoStatus
+        getAllBlends, getAllSchedules, getAllHotels, getAromeoStatus, updateAllAromeoSchedule, turnOnAromeo
     }
 )(TempControlContainer)
 
