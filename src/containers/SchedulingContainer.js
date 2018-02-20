@@ -24,6 +24,8 @@ class SchedulingContainer extends React.Component {
 
     render() {
         const {blends, schedules, targetId, toggleRemoveBlend, toggleRemoveSchedule, isFetchingBlends, isFetchingSchedules} = this.props;
+        console.log(blends);
+
         return (
             <div>
                 <h1>Scheduling Container</h1>

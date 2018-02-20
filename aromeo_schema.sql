@@ -26,15 +26,7 @@ CREATE TABLE cautions (
   applicable BOOLEAN
 );
 
-CREATE TABLE aromeos (
-  account_id INTEGER,
-  aromeo_id VARCHAR(40),
-  name VARCHAR(40),
-  power_on BOOLEAN,
-  diffusion_strength SMALLINT,
-  schedule_id INTEGER
-);
-
+-- oilSets 은 order 용으로만 사용
 CREATE TABLE oilSets (
 	oilSet_id SERIAL PRIMARY KEY,
   oils INTEGER[]
@@ -42,48 +34,67 @@ CREATE TABLE oilSets (
 
 CREATE TABLE deviceOils (
   aromeo_id VARCHAR(40),
-  oil_position SMALLINT,
-  oil_quantity INTEGER  -- ?
+  oil_quantity INTEGER[]
 );
 
 CREATE TABLE blends (
   blend_id SERIAL PRIMARY KEY,
+  hotel_id SERIAL,
   blend_name TEXT,
-  description TEXT,
   oilSet_id INTEGER,
   oilPortion SMALLINT[],
-  oils INTEGER[],
-  oils_encoded SMALLINT[] -- ?
+  description TEXT,
+  oils INTEGER[]  -- position
 );
 
-CREATE TABLE schedules (
-  schedule_id SERIAL PRIMARY KEY,
-  account_id INTEGER,
+CREATE TABLE aromeos (
+  aromeo_id VARCHAR(40) PRIMARY KEY,
+  hotel_id INTEGER,
+  name VARCHAR(40),
+  power_on BOOLEAN,
+  diffusion_strength SMALLINT,
+
+  -- default = NULL (no schedule set). When user choose schedule,
+  -- these fields will be updated with the values from 'schedules' table.
   schedule_name VARCHAR(40),
   description TEXT,
-  isCustom BOOLEAN,
+
+  -- timeslots_ids will be modified, if timeslots get customized by hotel guests.
   timeslot_ids INTEGER[]
 );
 
-CREATE TABLE timeslots (
-  timeslot_id SERIAL PRIMARY KEY,
-  account_id INTEGER,
-  blend_id INTEGER,
-  start_time TIME,
-  duration TIME,	-- time or smallint ?
-  isCustom BOOLEAN
+-- default schedules for each hotels. won't get deleted easily. reference schedule information that
+-- will be used by multiple aromeos.
+CREATE TABLE schedules (
+  schedule_id SERIAL PRIMARY KEY,
+  hotel_id INTEGER,
+  schedule_name VARCHAR(40),
+  description TEXT,
+  timeslot_ids INTEGER[]
 );
 
-CREATE TABLE accounts (
-  account_id SERIAL PRIMARY KEY,
-  account_name VARCHAR(40),
-  isPersonal BOOLEAN,
+-- will have both default timeslots set by hotels, and temporary&custom timeslots modified by guests.
+CREATE TABLE timeslots (
+  timeslot_id SERIAL PRIMARY KEY,
+  schedule_id SERIAL,
+  hotel_id INTEGER,
+  blend_id INTEGER,
+  start_time TIME,
+  duration TIME,
+  is_custom BOOLEAN -- for identifying default vs custom.
+);
+
+CREATE TABLE hotelAccounts (
+  hotel_id SERIAL PRIMARY KEY,
+  hotel_username VARCHAR(40), -- hotel id
+  hotel_password VARCHAR(15),
+  hotel_name VARCHAR(40), -- for identifying hotels for aromeo
+  hotel_email VARCHAR(60),
   address TEXT,
   telephone	VARCHAR(40),
+
   aromeoCount INTEGER,
-  oilSet_id INTEGER,
-  password VARCHAR(15),
-  name VARCHAR(40)
+--   oilSet_ids INTEGER[]
 );
   
 CREATE TABLE hotelManagers (

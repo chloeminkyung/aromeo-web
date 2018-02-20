@@ -1,6 +1,10 @@
 .idea/
 node_modules
 *.iml
+public/bundle.js
+package-lock.json
+npm-debug.log
+lib/db.js
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

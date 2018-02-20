@@ -9,7 +9,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
     "start": "node app.js",
-    "dev": "webpack-dev-server --hot --history-api-fallback --open"
+    "dev": "webpack-dev-server --inline --hot"
   },
   "repository": {
     "type": "git",
@@ -51,6 +51,7 @@
     "node-libs-browser": "^1.0.0",
     "path": "^0.12.7",
     "pg": "^6.4.0",
+    "pg-format": "^1.0.4",
     "raw-loader": "^0.5.1",
     "react": "15.3.2",
     "react-addons-test-utils": "^15.3.1",

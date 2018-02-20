@@ -32,10 +32,11 @@ var init = function(app, pool) {
 
   /*****************Blend*****************/
   app.post('/api/createBlend', function(req, result, next) {
+    console.log(req.body)
     pool.query('INSERT INTO blends(hotel_id, blend_name, description, oils, oils_encoded) values($1, $2, $3, $4, $5) RETURNING *',
     [req.body.hotel_id, req.body.blend_name, req.body.description, req.body.oils, req.body.oils_encoded], function(err, res){
           if(err) {
-            done(err);
+            // done(err);
             return console.error('error running query', err);
           }else{
             console.log(res.rows[0]);
@@ -63,6 +64,7 @@ var init = function(app, pool) {
   })
 
   app.get('/api/getAllBlends', function(req, result, next) {
+    console.log("get all blends")
     pool.connect(function(err, client, done) {
       if(err) {
         return console.error('error fetching client from pool', err);

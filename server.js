@@ -10,6 +10,7 @@ module.exports = {
     app.use('/public', publicPath)
     app.get('/', function (_, res) { res.sendFile(indexPath) })
 
+
     return app
   }
 }
