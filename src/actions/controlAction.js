@@ -1,7 +1,7 @@
 var axios = require('axios');
 const getAllAromeoStatusRoute = '/api/getAllAromeoStatus';
-const updateAllAromeoScheduleRoute = '/api/updateAromeoSchedule/:schedule_id';
-const turnOnAromeoRoute = '/api/updateAromeoPowerOn/:power_on';
+const updateAllAromeoScheduleRoute = '/api/updateAromeoSchedule/';
+const turnOnAromeoRoute = '/api/updateAromeoPowerOn/';
 
 export function getAromeoStatus() {
     return dispatch=>{
@@ -13,18 +13,20 @@ export function getAromeoStatus() {
 }
 
 export function updateAllAromeoSchedule(schedule_id) {
+    // console.log(schedule_id);
     return dispatch=>{
         dispatch(fetchingData());
-        return axios.put(updateAllAromeoScheduleRoute)
+        return axios.put(updateAllAromeoScheduleRoute + schedule_id)
             .then((schedule_id)=>dispatch(updateAromeoScheduleInProgress(schedule_id)))
             .catch(err=>dispatch(requestFail(err)))
     }
 }
 
 export function turnOnAromeo(power_on) {
+    // console.log(power_on);
     return dispatch=>{
         dispatch(fetchingData());
-        return axios.put(turnOnAromeoRoute)
+        return axios.put(turnOnAromeoRoute + power_on)
             .then(power_on=>dispatch(updateAromeoPowerOnInProgress(power_on)))
             .catch(err=>dispatch(requestFail(err)))
     }

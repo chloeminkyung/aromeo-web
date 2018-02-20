@@ -92,9 +92,8 @@ CREATE TABLE hotelAccounts (
   hotel_email VARCHAR(60),
   address TEXT,
   telephone	VARCHAR(40),
-
-  aromeoCount INTEGER,
---   oilSet_ids INTEGER[]
+  
+  aromeoCount INTEGER
 );
   
 CREATE TABLE hotelManagers (
@@ -104,7 +103,3 @@ CREATE TABLE hotelManagers (
   account_id INTEGER,
   position INTEGER
 );
-  
-
--- CREATE TABLE order (
--- );
