@@ -26,6 +26,7 @@ class TempControlContainer extends React.Component {
         this.props.getAromeoStatus();
         this.props.getAllBlends();
         this.props.getAllSchedules();
+        // console.log(aromeos);
 
         // if(this.props.blends==null)
         //     this.props.getAllBlends();
@@ -43,15 +44,23 @@ class TempControlContainer extends React.Component {
         this.setState({schedule: index});
     }
 
-    handleApplyClick(event) {
+    handleApplyClick(event, index, value) {
         // console.log(this.state.schedule);
         this.props.updateAllAromeoSchedule(this.state.schedule+1);
-        this.setState({ aromeos : this.state.schedule });
+        // for (var i=0; i < this.props.aromeos.length; i++) {
+        //     this.setState( this.props.aromeos[i].schedule_id );
+        // }
+        // this.setState({ schedule_id : this.state.schedule+1 });
     }
 
     handleStartNowClick(event, index, value) {
         this.props.turnOnAromeo(true);
-        this.setState({ aromeos : this.state.power_on });
+        // this.setState({ power_on : this.state.power_on });
+    }
+
+    handleStopNowClick(event, index, value) {
+        this.props.turnOnAromeo(false);
+        // this.setState({ power_on : this.state.power_on });
     }
 
 
@@ -123,7 +132,10 @@ class TempControlContainer extends React.Component {
                                 label="Start Now"
                                 style={styles.button}
                                 onClick={this.handleStartNowClick.bind(this)} />
-                            <RaisedButton label="Stop" style={styles.button} />
+                            <RaisedButton
+                                label="Stop"
+                                style={styles.button}
+                                onClick={this.handleStopNowClick.bind(this)} />
                         </Paper>
                     </Col>
                 </Row>
