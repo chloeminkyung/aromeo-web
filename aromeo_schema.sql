@@ -43,7 +43,7 @@ CREATE TABLE oilSets (
 CREATE TABLE deviceOils (
   aromeo_id VARCHAR(40),
   oil_position SMALLINT,
-  oil_quantity INTEGER  -- ?
+  -- oil_quantity INTEGER  -- ?
 );
 
 CREATE TABLE blends (
@@ -52,8 +52,8 @@ CREATE TABLE blends (
   description TEXT,
   oilSet_id INTEGER,
   oilPortion SMALLINT[],
-  oils INTEGER[],
-  oils_encoded SMALLINT[] -- ?
+  -- oils INTEGER[],
+  -- oils_encoded SMALLINT[] -- ?
 );
 
 CREATE TABLE schedules (

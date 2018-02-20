@@ -64,7 +64,7 @@ var init = function(app, pool) {
         // console.log('error1');
         return console.error('error fetching client from pool', err);
       }
-      client.query('UPDATE aromeos SET schedule_id = ($1)',
+      client.query('UPDATE aromeos SET schedule_id = $1',
         [req.params.schedule_id], function(err, res) {
           if(err) {
             // console.log('error2');
@@ -85,7 +85,7 @@ var init = function(app, pool) {
       if(err) {
         return console.error('error fetching client from pool', err);
       }
-      client.query('UPDATE aromeos SET power_on = ($1)',
+      client.query('UPDATE aromeos SET power_on = $1',
         [req.params.power_on], function(err, res) {
           if(err) {
             done(err);

@@ -74,6 +74,7 @@ export default function control(state = initialState, action) {
 
         // by chloe
         case 'UPDATE_AROMEO_SCHEDULE':
+            // console.log(state.filteredDataList);
             const newFilteredDataWithNewSchedule = state.filteredDataList.slice();
             newFilteredDataWithNewSchedule[action.index].schedule_id = action.schedule_id;
             return {...state, filteredDataList: newFilteredDataWithNewSchedule}

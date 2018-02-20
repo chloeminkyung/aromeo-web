@@ -43,14 +43,15 @@ class TempControlContainer extends React.Component {
         this.setState({schedule: index});
     }
 
-    handleApplyClick(event, index, value) {
-        this.props.updateAllAromeoSchedule(this.state.schedule);
-        // this.setState({});
+    handleApplyClick(event) {
+        // console.log(this.state.schedule);
+        this.props.updateAllAromeoSchedule(this.state.schedule+1);
+        this.setState({ aromeos : this.state.schedule });
     }
 
     handleStartNowClick(event, index, value) {
         this.props.turnOnAromeo(true);
-        // this.setState({});
+        this.setState({ aromeos : this.state.power_on });
     }
 
 
