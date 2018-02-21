@@ -16,7 +16,7 @@ CREATE TABLE oils (
   uses TEXT,
   olfactive_family VARCHAR(40),
   description TEXT,
-  cautions INTEGER[]  -- 1: young 2: pregnancy 3: respiratory patients
+  cautions INTEGER[]
 );
 
 CREATE TABLE cautions (
@@ -25,7 +25,6 @@ CREATE TABLE cautions (
   applicable BOOLEAN
 );
 
--- oilSets 은 order 용으로만 사용
 CREATE TABLE oilSets (
 	oilSet_id SERIAL PRIMARY KEY,
   oils INTEGER[]
@@ -52,17 +51,13 @@ CREATE TABLE aromeos (
   power_on BOOLEAN,
   diffusion_strength SMALLINT,
 
-  -- default = NULL (no schedule set). When user choose schedule,
-  -- these fields will be updated with the values from 'schedules' table.
   schedule_name VARCHAR(40),
   description TEXT,
 
-  timeslot_ids INTEGER[], -- timeslots_ids will be modified, if timeslots get customized by hotel guests.
-  check_out_date DATE -- until when to repeat applied schedule.
+  timeslot_ids INTEGER[],
+  check_out_date DATE
 );
 
--- default schedules for each hotels. won't get deleted easily. reference schedule information that
--- will be used by multiple aromeos.
 CREATE TABLE schedules (
   schedule_id SERIAL PRIMARY KEY,
   hotel_id INTEGER,
@@ -71,7 +66,6 @@ CREATE TABLE schedules (
   timeslot_ids INTEGER[]
 );
 
--- will have both default timeslots set by hotels, and temporary&custom timeslots modified by guests.
 CREATE TABLE timeslots (
   timeslot_id SERIAL PRIMARY KEY,
   schedule_id SERIAL,
@@ -79,25 +73,53 @@ CREATE TABLE timeslots (
   blend_id INTEGER,
   start_time TIME,
   duration TIME,
-  is_custom BOOLEAN -- for identifying default vs custom.
+  is_custom BOOLEAN
 );
 
 CREATE TABLE hotelAccounts (
   hotel_id SERIAL PRIMARY KEY,
-  hotel_username VARCHAR(40), -- hotel id
+  hotel_username VARCHAR(40),
   hotel_password VARCHAR(15),
-  hotel_name VARCHAR(40), -- for identifying hotels for aromeo
+  hotel_name VARCHAR(40),
   hotel_email VARCHAR(60),
   address TEXT,
   telephone	VARCHAR(40),
 
   aromeoCount INTEGER
 );
-  
+
 CREATE TABLE hotelManagers (
   manager_id SERIAL PRIMARY KEY,
   manager_account VARCHAR(20),
-  -- password
   account_id INTEGER,
   position INTEGER
 );
+
+INSERT INTO oils (oil_product_id,name, botanical_name,uses, olfactive_family, description, cautions)
+VALUES
+  (1, 'Chamomile', 'Anthemis nobilis', 'Bright, crisp, sweet, fruity, herbaceous.',
+  'herbal', 'Abscesses, allergies, arthritis, boils, colic, cuts, cystitis, dermatitis, dysmenorrhea, earache, flatulence, hair, headache, inflamed skin, insect bites, insomnia, nausea, neuralgia, PMS, rheumatism, sores, sprains, strains, stress, wounds.', NULL),
+  (2, 'Cypress', 'Cupressus sempervirens', 'Fresh, herbaceous, slightly woody, evergreen aroma', 'woody',
+  'Excessive perspiration, hemorrhoids, menorrhagia, oily skin, rheumatism, vericse veins.', NULL);
+
+INSERT INTO blends (blend_id,hotel_id,blend_name,oilSet_id,description,oils)
+VALUES
+  (1, 1, 'Calming Blend', 1, 'Helpful for stress relief and relaxiation', [2,2,0,0,1]),
+  (2, 1, 'Focus Blend', 1, 'Helpful for concentration. Boost up work efficiency', [0,1,2,0,1]),
+  (3, 1, 'Waking Blend', 1, 'Helpful for refreshing morning', [0,1,2,0,1]) -- grapefruit, lemon
+
+
+INSERT INTO aromeos (aromeo_id,hotel_id,name,power_on,diffusion_strength,schedule_name,description,timeslot_ids,check_out_date)
+VALUES
+  (1, 1, '501', FALSE, 2, NULL, NULL, NULL, NULL),
+  (2, 1, '1001', FALSE, 2, NULL, NULL, NULL, NULL),
+
+INSERT INTO schedules (schedule_id,hotel_id,schedule_name,description, timeslot_ids)
+VALUES
+  (1, 1, 'Business Schedule', 'For business people who needs to work and rest well', [1,2,3])
+
+INSERT INTO timeslots (timeslot_id,schedule_id,hotel_id,blend_id,start_time,duration,is_custom)
+VALUES
+  (1, 1, 1, 3, '8:30', 60, FALSE),
+  (2, 1, 1, 2, '18:00', 45, FALSE),
+  (3, 1, 1, 1, '23:30', 60, FALSE)
