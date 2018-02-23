@@ -72,7 +72,7 @@ CREATE TABLE timeslots (
   hotel_id INTEGER,
   blend_id INTEGER,
   start_time TIME,
-  duration TIME,
+  duration INTEGER,
   is_custom BOOLEAN
 );
 
@@ -104,22 +104,22 @@ VALUES
 
 INSERT INTO blends (blend_id,hotel_id,blend_name,oilSet_id,description,oils)
 VALUES
-  (1, 1, 'Calming Blend', 1, 'Helpful for stress relief and relaxiation', [2,2,0,0,1]),
-  (2, 1, 'Focus Blend', 1, 'Helpful for concentration. Boost up work efficiency', [0,1,2,0,1]),
-  (3, 1, 'Waking Blend', 1, 'Helpful for refreshing morning', [0,1,2,0,1]) -- grapefruit, lemon
+  (1, 1, 'Calming Blend', 1, 'Helpful for stress relief and relaxiation', '{2,2,0,0,1}'),
+  (2, 1, 'Focus Blend', 1, 'Helpful for concentration. Boost up work efficiency', '{0,1,2,0,1}'),
+  (3, 1, 'Waking Blend', 1, 'Helpful for refreshing morning', '{0,1,2,0,1}');
 
 
 INSERT INTO aromeos (aromeo_id,hotel_id,name,power_on,diffusion_strength,schedule_name,description,timeslot_ids,check_out_date)
 VALUES
   (1, 1, '501', FALSE, 2, NULL, NULL, NULL, NULL),
-  (2, 1, '1001', FALSE, 2, NULL, NULL, NULL, NULL),
+  (2, 1, '1001', FALSE, 2, NULL, NULL, NULL, NULL);
 
 INSERT INTO schedules (schedule_id,hotel_id,schedule_name,description, timeslot_ids)
 VALUES
-  (1, 1, 'Business Schedule', 'For business people who needs to work and rest well', [1,2,3])
+  (1, 1, 'Business Schedule', 'For business people who needs to work and rest well', '{1,2,3}');
 
 INSERT INTO timeslots (timeslot_id,schedule_id,hotel_id,blend_id,start_time,duration,is_custom)
 VALUES
   (1, 1, 1, 3, '8:30', 60, FALSE),
   (2, 1, 1, 2, '18:00', 45, FALSE),
-  (3, 1, 1, 1, '23:30', 60, FALSE)
+  (3, 1, 1, 1, '23:30', 60, FALSE);

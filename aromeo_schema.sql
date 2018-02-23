@@ -78,7 +78,7 @@ CREATE TABLE timeslots (
   hotel_id INTEGER,
   blend_id INTEGER,
   start_time TIME,
-  duration TIME,
+  duration INTEGER,
   is_custom BOOLEAN -- for identifying default vs custom.
 );
 
