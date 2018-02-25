@@ -28,7 +28,7 @@ CREATE TABLE cautions (
 -- oilSets 은 order 용으로만 사용
 CREATE TABLE oilSets (
 	oilSet_id SERIAL PRIMARY KEY,
-  oils INTEGER[]
+  oils INTEGER[]  -- oil_product_id array
 );
 
 CREATE TABLE deviceOils (
@@ -74,8 +74,6 @@ CREATE TABLE schedules (
 -- will have both default timeslots set by hotels, and temporary&custom timeslots modified by guests.
 CREATE TABLE timeslots (
   timeslot_id SERIAL PRIMARY KEY,
-  schedule_id SERIAL,
-  hotel_id INTEGER,
   blend_id INTEGER,
   start_time TIME,
   duration INTEGER,

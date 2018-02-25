@@ -10,7 +10,7 @@ DROP TABLE if exists accounts cascade;
 DROP TABLE if exists hotelManagers cascade;
 
 CREATE TABLE oils (
-  oil_product_id SERIAL PRIMARY KEY,
+  oil_product_id SERIAL,
   name VARCHAR(40) not null,
   botanical_name TEXT not null,
   uses TEXT,
@@ -68,8 +68,6 @@ CREATE TABLE schedules (
 
 CREATE TABLE timeslots (
   timeslot_id SERIAL PRIMARY KEY,
-  schedule_id SERIAL,
-  hotel_id INTEGER,
   blend_id INTEGER,
   start_time TIME,
   duration INTEGER,
@@ -95,31 +93,41 @@ CREATE TABLE hotelManagers (
   position INTEGER
 );
 
-INSERT INTO oils (oil_product_id,name, botanical_name,uses, olfactive_family, description, cautions)
+INSERT INTO oils (name, botanical_name,uses, olfactive_family, description, cautions)
 VALUES
-  (1, 'Chamomile', 'Anthemis nobilis', 'Bright, crisp, sweet, fruity, herbaceous.',
+  ('Chamomile', 'Anthemis nobilis', 'Bright, crisp, sweet, fruity, herbaceous.',
   'herbal', 'Abscesses, allergies, arthritis, boils, colic, cuts, cystitis, dermatitis, dysmenorrhea, earache, flatulence, hair, headache, inflamed skin, insect bites, insomnia, nausea, neuralgia, PMS, rheumatism, sores, sprains, strains, stress, wounds.', NULL),
-  (2, 'Cypress', 'Cupressus sempervirens', 'Fresh, herbaceous, slightly woody, evergreen aroma', 'woody',
-  'Excessive perspiration, hemorrhoids, menorrhagia, oily skin, rheumatism, vericse veins.', NULL);
+  ('Cypress', 'Cupressus sempervirens', 'Fresh, herbaceous, slightly woody, evergreen aroma', 'woody',
+  'Excessive perspiration, hemorrhoids, menorrhagia, oily skin, rheumatism, vericse veins.', NULL),
+  ('Lavender', 'Cupressus sempervirens', 'Fresh, herbaceous, slightly woody, evergreen aroma', 'woody',
+      'Excessive perspiration, hemorrhoids, menorrhagia, oily skin, rheumatism, vericse veins.', NULL),
+  ('Lemon', 'Cupressus sempervirens', 'Fresh, herbaceous, slightly woody, evergreen aroma', 'woody',
+      'Excessive perspiration, hemorrhoids, menorrhagia, oily skin, rheumatism, vericse veins.', NULL),
+  ('YlangYlang', 'Cupressus sempervirens', 'Fresh, herbaceous, slightly woody, evergreen aroma', 'woody',
+   'Excessive perspiration, hemorrhoids, menorrhagia, oily skin, rheumatism, vericse veins.', NULL);
 
-INSERT INTO blends (blend_id,hotel_id,blend_name,oilSet_id,description,oils)
+INSERT INTO blends (hotel_id,blend_name,oilSet_id,description,oils)
 VALUES
-  (1, 1, 'Calming Blend', 1, 'Helpful for stress relief and relaxiation', '{2,2,0,0,1}'),
-  (2, 1, 'Focus Blend', 1, 'Helpful for concentration. Boost up work efficiency', '{0,1,2,0,1}'),
-  (3, 1, 'Waking Blend', 1, 'Helpful for refreshing morning', '{0,1,2,0,1}');
+  (1, 'Calming Blend', 1, 'Helpful for stress relief and relaxiation', '{2,2,0,0,1}'),
+  (1, 'Focus Blend', 1, 'Helpful for concentration. Boost up work efficiency', '{0,1,2,0,1}'),
+  (1, 'Waking Blend', 1, 'Helpful for refreshing morning', '{0,1,2,0,1}');
 
 
 INSERT INTO aromeos (aromeo_id,hotel_id,name,power_on,diffusion_strength,schedule_name,description,timeslot_ids,check_out_date)
-VALUES
-  (1, 1, '501', FALSE, 2, NULL, NULL, NULL, NULL),
-  (2, 1, '1001', FALSE, 2, NULL, NULL, NULL, NULL);
+  VALUES
+    (1, 1, '501', TRUE, 2, 'Business Schedule', 'For business people who needs to work and rest well', '{1,2,3}', '2018-02-24'),
+    (2, 1, '1001', FALSE, 2, NULL, NULL, NULL, NULL);
 
-INSERT INTO schedules (schedule_id,hotel_id,schedule_name,description, timeslot_ids)
+INSERT INTO schedules (hotel_id,schedule_name,description, timeslot_ids)
 VALUES
-  (1, 1, 'Business Schedule', 'For business people who needs to work and rest well', '{1,2,3}');
+  (1, 'Business Schedule', 'For business people who needs to work and rest well', '{1,2,3}');
 
-INSERT INTO timeslots (timeslot_id,schedule_id,hotel_id,blend_id,start_time,duration,is_custom)
+INSERT INTO timeslots (blend_id,start_time,duration,is_custom)
 VALUES
-  (1, 1, 1, 3, '8:30', 60, FALSE),
-  (2, 1, 1, 2, '18:00', 45, FALSE),
-  (3, 1, 1, 1, '23:30', 60, FALSE);
+  (3, '8:30', 60, FALSE),
+  (2, '18:00', 45, FALSE),
+  (1, '23:30', 60, FALSE);
+
+INSERT INTO oilSets (oils)
+    VALUES
+      ('{2,1,4,3,5}')

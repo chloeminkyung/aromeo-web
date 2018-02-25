@@ -20,6 +20,8 @@ var init = function(app, pool) {
     });
   });
 
+
+
   app.get('/api/getAllSchedules', function(req, result, next) {
     pool.connect(function(err, client, done) {
       if(err) {
@@ -100,26 +102,71 @@ var init = function(app, pool) {
   // done
 
 
+  // TODO For Murcul - GET /devices/:deviceId/schedules
   app.get('/api/getDeviceSchedule/:aromeo_id', function(req, result, next) {
     pool.connect(function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }
 
-      client.query('SELECT schedule_name, strength, timeslots FROM deviceScheduling WHERE aromeo_id = $1', [req.params.aromeo_id], function(err, res) {
+      client.query('SELECT * FROM aromeos WHERE aromeo_id = $1', [req.params.aromeo_id], function(err, res) {
         if(err) { done(err); return console.error('error running query', err); }
       }).on('end', (res) => {
-        return result.json(res.rows);
+        client.query('SELECT * FROM timeslots WHERE timeslot_id = ANY (($1)::int[])', [res.rows[0].timeslot_ids],
+            function(err, res2) {
+              if(err) { done(err); return console.error('error running query', err); }
+              else{
+                res.rows.forEach(function(row){
+                  row['timeslot'] = res2.rows;
+                  delete row['timeslot_ids']
+                })
+                return result.json(res.rows);
+              }
+            })
         done();
       });
     });
   });
 
-//   app.get('/api/resetSchedule/:aromeo_id', function(req, res, next) {
+  app.post('/api/createSchedule', function(req, result, next) {
+    pool.connect(function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query('INSERT INTO schedules(hotel_id, schedule_name, description, timeslots) values($1, $2, $3, $4) RETURNING *',
+          [req.body.hotel_id, req.body.schedule_name, req.body.description, req.body.timeslots], function(err, res){
+            if(err) {
+              done(err);
+              return console.error('error running query', err);
+            }else{
+              console.log(res.rows[0]);
+              result.send(res.rows[0]);
+            }
+          });
+    });
+  });
 
-//   })
+  // TODO For Murcul - POST /devices/:deviceId/schedules
+  app.post('/api/updateDeviceSchedule/', function(req, result, next) {
+    pool.connect(function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query('WITH ROWS AS (INSERT INTO timeslots (blend_id,start_time,duration,is_custom)' +
+          'VALUES ($1, $2, $3, TRUE) RETURNING timeslot_id)' +
+          'UPDATE aromeos SET timeslot_ids = array_replace(timeslot_ids, $4, (SELECT timeslot_id FROM rows)) ' +
+          'WHERE aromeo_id=$5 RETURNING (SELECT timeslot_id FROM rows);',
+          [req.body.blend_id, req.body.start_time, req.body.duration, req.body.timeslot_id, req.body.aromeo_id], function(err, res){
+            if(err) {
+              done(err);
+              return console.error('error running query', err);
+            }else{
+              var returnArr = Object.assign({},req.body);
+              returnArr['timeslot_id'] = res.rows[0]['timeslot_id'];
+              result.send(returnArr);
+            }
+          });
+    });
+  });
 
-//   app.post('/api/modifySchedule/', function(req, res, next) {
-
-//   })
 }
 
 module.exports.init = init;
