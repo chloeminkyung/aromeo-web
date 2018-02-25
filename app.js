@@ -43,7 +43,6 @@ app.get('/', function (_, res) { res.sendFile(indexPath) })
 
 app.get('/hello', function(req, res, next) {
     res.send('Hello')
-    done();
 })
 
 

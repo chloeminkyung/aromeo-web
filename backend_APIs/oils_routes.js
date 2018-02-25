@@ -2,23 +2,25 @@ var pg = require('pg');
 
 var init = function(app, pool) {
   /*****************Oil***************/
-  app.get('/api/getAllOilProducts', function(req, result, response) {
+  // TODO Murcul - GET /oils
+  app.get('/api/getOilSet/:oilSetID', function(req, result, response) {
     pool.connect(function(err, client, done) {
       if(err) {
         return console.error('error fetching client from pool', err);
       }
-      client.query('SELECT * FROM oils', [], function(err, res) {
-        //call `done(err)` to release the client back to the pool (or destroy it if there is an error)
-        if(err) {
-          done(err);
-          return console.error('error running query', err);
-        }
-      }).on('end', (res) => {
+      client.query('SELECT * FROM oils WHERE oil_product_id = ANY ((SELECT oils FROM oilSets WHERE oilSet_id = $1)::int[])',
+          [req.params.oilSetID], function(err, res) {
+            if(err) {
+              done(err);
+              return console.error('error running query', err);
+            }
+          }).on('end', (res) => {
         done();
         return result.json(res.rows);
       });
     });
   })
+
   app.post('/api/addOilProduct', function(req, res, next) {
     pool.query('INSERT INTO oils(name, botanical_name, origin, description, uses, olfactive_family, cautions) values($1, $2, $3, $4, $5, $6, $7)',
     [req.body.name, req.body.botanical_name, req.body.origin, req.body.description, req.body.uses, req.body.olfactive_family, req.body.cautions],
@@ -29,6 +31,7 @@ var init = function(app, pool) {
     });
     return res.send("Add Oil Product");
   })
+
 
   /*****************Blend*****************/
   app.post('/api/createBlend', function(req, result, next) {
@@ -63,13 +66,14 @@ var init = function(app, pool) {
     });
   })
 
-  app.get('/api/getAllBlends', function(req, result, next) {
-    console.log("get all blends")
+  // TODO Murcul - GET /blends
+  app.get('/api/getAllBlends/:hotelID', function(req, result, next) {
+    console.log("get all blends of " +req.params.hotelID)
     pool.connect(function(err, client, done) {
       if(err) {
         return console.error('error fetching client from pool', err);
       }
-      client.query('SELECT * FROM blends', [], function(err, res) {
+      client.query('SELECT * FROM blends WHERE hotel_id = $1', [req.params.hotelID], function(err, res) {
         if(err) {
           done(err);
           return console.error('error running query', err);

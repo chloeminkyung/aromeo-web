@@ -28,7 +28,7 @@ CREATE TABLE cautions (
 -- oilSets 은 order 용으로만 사용
 CREATE TABLE oilSets (
 	oilSet_id SERIAL PRIMARY KEY,
-  oils INTEGER[]
+  oils INTEGER[]  -- oil_product_id array
 );
 
 CREATE TABLE deviceOils (
@@ -74,8 +74,6 @@ CREATE TABLE schedules (
 -- will have both default timeslots set by hotels, and temporary&custom timeslots modified by guests.
 CREATE TABLE timeslots (
   timeslot_id SERIAL PRIMARY KEY,
-  schedule_id SERIAL,
-  hotel_id INTEGER,
   blend_id INTEGER,
   start_time TIME,
   duration INTEGER,
@@ -85,7 +83,7 @@ CREATE TABLE timeslots (
 CREATE TABLE hotelAccounts (
   hotel_id SERIAL PRIMARY KEY,
   hotel_username VARCHAR(40), -- hotel id
-  hotel_password VARCHAR(15),
+  hotel_password VARCHAR(25),
   hotel_name VARCHAR(40), -- for identifying hotels for aromeo
   hotel_email VARCHAR(60),
   address TEXT,
@@ -97,7 +95,7 @@ CREATE TABLE hotelAccounts (
 CREATE TABLE hotelManagers (
   manager_id SERIAL PRIMARY KEY,
   manager_account VARCHAR(20),
-  -- password
-  account_id INTEGER,
+  password VARCHAR(25),
+  hotel_id INTEGER,
   position INTEGER
 );
