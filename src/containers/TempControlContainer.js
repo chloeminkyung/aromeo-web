@@ -26,14 +26,6 @@ class TempControlContainer extends React.Component {
         this.props.getAromeoStatus();
         this.props.getAllBlends();
         this.props.getAllSchedules();
-        // console.log(aromeos);
-
-        // if(this.props.blends==null)
-        //     this.props.getAllBlends();
-        // if(this.props.schedules==null)
-        //     this.props.getAllSchedules();
-        // if(this.props.aromeos==null)
-        //     this.props.getAromeoStatus();
     }
 
     handleBlendChange(event, index, value){
@@ -45,22 +37,15 @@ class TempControlContainer extends React.Component {
     }
 
     handleApplyClick(event, index, value) {
-        // console.log(this.state.schedule);
-        this.props.updateAllAromeoSchedule(this.state.schedule+1);
-        // for (var i=0; i < this.props.aromeos.length; i++) {
-        //     this.setState( this.props.aromeos[i].schedule_id );
-        // }
-        // this.setState({ schedule_id : this.state.schedule+1 });
+        this.props.updateAllAromeoSchedule(this.state.schedule+1).then(schedule_id => this.setState({ schedule_id }));
     }
 
     handleStartNowClick(event, index, value) {
-        this.props.turnOnAromeo(true);
-        // this.setState({ power_on : this.state.power_on });
+        this.props.turnOnAromeo(true).then(power_on => this.setState({ power_on }));
     }
 
     handleStopNowClick(event, index, value) {
-        this.props.turnOnAromeo(false);
-        // this.setState({ power_on : this.state.power_on });
+        this.props.turnOnAromeo(false).then(power_on => this.setState({ power_on }));
     }
 
 

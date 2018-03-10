@@ -137,7 +137,7 @@ var init = function(app, pool) {
               done(err);
               return console.error('error running query', err);
             }else{
-              console.log(res.rows[0]);
+              // console.log(res.rows[0]);
               result.send(res.rows[0]);
             }
           });
