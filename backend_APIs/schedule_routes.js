@@ -63,19 +63,16 @@ var init = function(app, pool) {
   app.put('/api/updateAromeoSchedule/:schedule_id', function(req, result, next) {
     pool.connect(function(err, client, done) {
       if(err) {
-        // console.log('error1');
         return console.error('error fetching client from pool', err);
       }
-      client.query('UPDATE aromeos SET schedule_id = $1',
+      client.query('UPDATE aromeos SET schedule_id = $1 RETURNING schedule_id',
         [req.params.schedule_id], function(err, res) {
           if(err) {
-            // console.log('error2');
             done(err);
             return console.error('error running query', err);
           }
         }).on('end', (res) => {
-          result.send('update aromeo schedule successfully');
-          // console.log(result);
+          result.send(res.rows);
           done();
         });
     });
@@ -87,14 +84,14 @@ var init = function(app, pool) {
       if(err) {
         return console.error('error fetching client from pool', err);
       }
-      client.query('UPDATE aromeos SET power_on = $1',
+      client.query('UPDATE aromeos SET power_on = $1 RETURNING power_on',
         [req.params.power_on], function(err, res) {
           if(err) {
             done(err);
             return console.error('error running query', err);
           }
         }).on('end', (res) => {
-          result.send('turn on aromeo successfully');
+          result.send(res.rows);
           done();
         });
     });

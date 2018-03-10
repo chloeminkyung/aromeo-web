@@ -73,14 +73,14 @@ export function updateAromeoScheduleValue(schedule_id){
 export function updateAromeoScheduleInProgress(schedule_id){
     return {
         type: 'UPDATE_AROMEO_SCHEDULE',
-        schedule_id: schedule_id
+        schedule_id: schedule_id.data
     }
 }
 
 export function updateAromeoPowerOnInProgress(power_on){
     return {
         type: 'TURN_ON_AROMEO',
-        power_on: power_on
+        power_on: power_on.data
     }
 }
 // done
