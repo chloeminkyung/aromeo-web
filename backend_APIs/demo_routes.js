@@ -2,33 +2,34 @@ var state = { "pump": false, "aromaNo": 4};
 
 var init = function(app) {
     app.get('/demoAPI/getState', function(req, res, next) {
-	res.send(state);
+	return res.json(state);
     });
 
     app.post('/demoAPI/setState', function(req, res, next) {
 	s = req.body;
-
+	console.log("[demoAPI]: Updating state to " + JSON.stringify(s));
+	
 	// Check if pump variable is a boolean
-	if (typeof(s.pump) === typeof(true)) {
-	    state.pump = s.pump;
+	if (s.pump == 'true' || s.pump == 'false') {
+	    state.pump = (s.pump == 'true' ? true : false);
 	}
 	else {
 	    console.error("[demoAPI] Error: Invalid pump state");
-	    res.send("Error: Invalid pump state");
-	    done();
+	    return res.sendStatus(400);
 	}
 	
 	// Check if aromaNo variable is an int
-	if (typeof(s.aromaNo) === typeof(0)) {
-	    state.aromaNo = s.aromaNo;
+	if (parseInt(s.aromaNo) !== NaN) {
+	    state.aromaNo = parseInt(s.aromaNo);
 	}
 	else {
 	    console.error("[demoAPI] Error: Invalid aroma number");
-	    res.send("Error: Invalid aroma number");
+	    return res.sendStatus(400);
 	}
 
-	console.log("[demoAPI] Updating state to " + JSON.stringify(state));
-	res.send("State Updated");
-	done();
+	console.log("[demoAPI] Updated state");
+	return res.sendStatus(200);
     });	   
 }
+
+module.exports.init = init;

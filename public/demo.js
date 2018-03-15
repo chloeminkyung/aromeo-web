@@ -1,4 +1,5 @@
 var state = {"pump": true, "aromaNo": 2}
+var newPump = false;
 //var baseURL = "https://cors-anywhere.herokuapp.com/https://aromeo-manager-app.herokuapp.com";
 var baseURL = ""
 
@@ -21,15 +22,27 @@ function setState(s) {
 
 function updateState() {
     var s = {}
-    s.pump = true;
+    s.pump = newPump;
     s.aromaNo = parseInt($("#aromaSelect").val());
     setState(s);
     updateView();
 }
 
 function setView() {
-    $("#btnEnable").prop('disabled', state.pump);
-    $("#aromaSelect").val(state.aromaNo);
+    $("#btnEnable").removeClass();
+    $("#aromaSelect").prop("disabled", state.pump);
+
+    if (!state.pump) {
+	$("#btnEnable").addClass("btn btn-success");
+	$("#btnEnable").val("Enable Aromeo");
+	newPump = true;
+    }
+    else {
+	$("#aromaSelect").val(state.aromaNo);
+	$("#btnEnable").addClass("btn btn-danger");
+	$("#btnEnable").val("Disable Aromeo");
+	newPump = false;
+    }
 }
 
 function updateView() {
@@ -38,6 +51,6 @@ function updateView() {
 }
 
 $(function() {
-    //updateView();
-    //setInterval(updateView, 1000);
+    updateView();
+    setInterval(updateView, 1000);
 });
