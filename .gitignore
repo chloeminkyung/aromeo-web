@@ -4,7 +4,6 @@ node_modules
 public/bundle.js
 package-lock.json
 npm-debug.log
-lib/db.js
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

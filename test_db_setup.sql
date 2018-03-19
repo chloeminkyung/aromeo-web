@@ -1,13 +1,10 @@
 DROP TABLE if exists oils cascade;
-DROP TABLE if exists cautions cascade;
-DROP TABLE if exists aromeos cascade;
 DROP TABLE if exists oilSets cascade;
-DROP TABLE if exists deviceOils cascade;
 DROP TABLE if exists blends cascade;
+DROP TABLE if exists aromeos cascade;
 DROP TABLE if exists schedules cascade;
 DROP TABLE if exists timeslots cascade;
-DROP TABLE if exists accounts cascade;
-DROP TABLE if exists hotelManagers cascade;
+DROP TABLE if exists hotelAccounts cascade;
 
 CREATE TABLE oils (
   oil_product_id SERIAL,
@@ -19,20 +16,9 @@ CREATE TABLE oils (
   cautions INTEGER[]
 );
 
-CREATE TABLE cautions (
-  caution_id SERIAL PRIMARY KEY,
-  caution_name VARCHAR(40) not null,
-  applicable BOOLEAN
-);
-
 CREATE TABLE oilSets (
-	oilSet_id SERIAL PRIMARY KEY,
+  oilSet_id SERIAL PRIMARY KEY,
   oils INTEGER[]
-);
-
-CREATE TABLE deviceOils (
-  aromeo_id VARCHAR(40),
-  oil_quantity INTEGER[]
 );
 
 CREATE TABLE blends (
@@ -50,6 +36,9 @@ CREATE TABLE aromeos (
   name VARCHAR(40),
   power_on BOOLEAN,
   diffusion_strength SMALLINT,
+
+  oilSet_id SERIAL,
+  oil_quantity INTEGER[],
 
   schedule_name VARCHAR(40),
   description TEXT,
@@ -83,15 +72,8 @@ CREATE TABLE hotelAccounts (
   address TEXT,
   telephone	VARCHAR(40),
 
-  aromeoCount INTEGER
-);
-
-CREATE TABLE hotelManagers (
-  manager_id SERIAL PRIMARY KEY,
-  manager_account VARCHAR(20),
-  password VARCHAR(25),
-  hotel_id INTEGER,
-  position INTEGER
+  aromeoCount INTEGER,
+  oilSet_ids INTEGER[]
 );
 
 INSERT INTO oils (name, botanical_name,uses, olfactive_family, description, cautions)
@@ -114,10 +96,10 @@ VALUES
   (1, 'Waking Blend', 1, 'Helpful for refreshing morning', '{0,1,2,0,1}');
 
 
-INSERT INTO aromeos (aromeo_id,hotel_id,name,power_on,diffusion_strength,schedule_name,description,timeslot_ids,check_out_date)
+INSERT INTO aromeos (aromeo_id,hotel_id,name,power_on,diffusion_strength,oilSet_id, oil_quantity, schedule_name,description,timeslot_ids,check_out_date)
   VALUES
-    (1, 1, '501', TRUE, 2, 'Business Schedule', 'For business people who needs to work and rest well', '{1,2,3}', '2018-02-24'),
-    (2, 1, '1001', FALSE, 2, NULL, NULL, NULL, NULL);
+    (1, 1, '501', TRUE, 2, 1, '{100,100,100,100,100}', 'Business Schedule', 'For business people who needs to work and rest well', '{1,2,3}', '2018-02-24'),
+    (2, 1, '1001', FALSE, 2, 1, '{100,100,100,100,100}', NULL, NULL, NULL, NULL);
 
 INSERT INTO schedules (hotel_id,schedule_name,description, timeslot_ids)
 VALUES
