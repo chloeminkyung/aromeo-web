@@ -1,5 +1,6 @@
 var pg = require('pg');
 
+
 var init = function(app, pool) {
   /*****************Oil***************/
   // TODO Murcul - GET /oils
@@ -19,6 +20,11 @@ var init = function(app, pool) {
         return result.json(res.rows);
       });
     });
+  })
+
+  app.get('/api/testing_1', function(req, result, response) {
+    console.log("testing worked");
+    return result.send("Add Oil Product");
   })
 
   app.post('/api/addOilProduct', function(req, res, next) {
