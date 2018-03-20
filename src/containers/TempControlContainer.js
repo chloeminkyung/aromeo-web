@@ -25,7 +25,7 @@ class TempControlContainer extends React.Component {
     componentDidMount(){
         // this.props.getAromeoStatus(hotelId);
         // this.props.getAllBlends(hotelId);
-        this.props.getAllHotels();
+        // this.props.getAllHotels();
         this.props.getAllSchedules();
     }
 
