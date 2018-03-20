@@ -1,7 +1,8 @@
 var axios = require('axios');
 /* blends */
 const createBlendRoute = '/api/createBlend';
-const getAllBlendsRoute = '/api/getAllBlends';
+// const getAllBlendsRoute = '/api/getAllBlends';
+const gethotelBlendsRoute = '/api/getAllBlends/';
 const deleteBlendRoute = '/api/deleteBlend/(blendId)';
 /* schedules */
 const createScheduleRoute = '/api/createSchedule';
@@ -81,10 +82,18 @@ export function createBlend(body) {
             .catch(err=>dispatch(requestFail(err)))
     }
 }
-export function getAllBlends() {
+// export function getAllBlends() {
+//     return dispatch=>{
+//         dispatch(fetchingBlendData());
+//         return axios.get(getAllBlendsRoute)
+//             .then((json)=>dispatch(receiveAllBlends(json)))
+//             .catch(err=>dispatch(requestFail(err)))
+//     }
+// }
+export function gethotelBlends(account_id) {
     return dispatch=>{
         dispatch(fetchingBlendData());
-        return axios.get(getAllBlendsRoute)
+        return axios.get(gethotelBlendsRoute + account_id)
             .then((json)=>dispatch(receiveAllBlends(json)))
             .catch(err=>dispatch(requestFail(err)))
     }

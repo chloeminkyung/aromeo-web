@@ -66,14 +66,32 @@ var init = function(app, pool) {
     });
   })
 
+  // app.get('/api/getAllBlends', function(req, result, next) {
+  //   console.log("get all blends")
+  //   pool.connect(function(err, client, done) {
+  //     if(err) {
+  //       return console.error('error fetching client from pool', err);
+  //     }
+  //     client.query('SELECT * FROM blends', [], function(err, res) {
+  //       if(err) {
+  //         done(err);
+  //         return console.error('error running query', err);
+  //       }
+  //     }).on('end', (res) => {
+  //       return result.json(res.rows);
+  //       done();
+  //     });
+  //   });
+  // })
+
   // TODO Murcul - GET /blends
-  app.get('/api/getAllBlends/:hotelID', function(req, result, next) {
-    console.log("get all blends of " +req.params.hotelID)
+  app.get('/api/getAllBlends/:account_id', function(req, result, next) {
+    console.log("get all blends of " +req.params.account_id)
     pool.connect(function(err, client, done) {
       if(err) {
         return console.error('error fetching client from pool', err);
       }
-      client.query('SELECT * FROM blends WHERE hotel_id = $1', [req.params.hotelID], function(err, res) {
+      client.query('SELECT * FROM blends WHERE oilset_id = (SELECT oilset_id FROM accounts WHERE account_id = $1)', [req.params.account_id], function(err, res) {
         if(err) {
           done(err);
           return console.error('error running query', err);

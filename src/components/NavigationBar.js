@@ -5,6 +5,8 @@ import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import { Link } from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
 
+import {gethotelBlends} from '../actions/scheduleAction';
+import {gethotelAromeoStatus} from '../actions/controlAction';
 import {setToggleId, setHotelId, getAllHotels} from '../actions/adminAction';
 
 import {aromeo_logo} from '../constants/ImageHandler'
@@ -14,7 +16,7 @@ class NavigationComponent extends React.Component{
     constructor(props){
         super(props);
         this.state= {
-            hotel:0,
+            hotel: 0,
             hotelId: null
         }
     }
@@ -26,11 +28,15 @@ class NavigationComponent extends React.Component{
     componentDidMount(){
         if(this.props.hotels==null)
             this.props.getAllHotels();
+            // this.props.gethotelBlends(hotelId);
+            // this.props.gethotelAromeoStatus(hotelId);
     }
 
     handleHotelSelect(hotelId, setHotelId) {
         event.preventDefault();
         setHotelId(hotelId);
+        this.props.gethotelBlends(hotelId);
+        this.props.gethotelAromeoStatus(hotelId);
     }
 
 
@@ -82,10 +88,10 @@ class NavigationComponent extends React.Component{
 
 export default connect(
     state => ({
-        hotels: state.admin.hotels, ////// I AM NOT SURE!!!!!!!!!
+        hotels: state.admin.hotels,
         toggleId: state.admin.toggleId
     }),
     {
-        setToggleId,setHotelId, getAllHotels
+        setToggleId,setHotelId, getAllHotels, gethotelBlends, gethotelAromeoStatus
     }
 )(NavigationComponent)

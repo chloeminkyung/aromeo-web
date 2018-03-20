@@ -1,12 +1,22 @@
 var axios = require('axios');
-const getAllAromeoStatusRoute = '/api/getAllAromeoStatus';
+// const getAllAromeoStatusRoute = '/api/getAllAromeoStatus';
+const gethotelAromeoStatusRoute = '/api/getAllAromeoStatus/';
 const updateAllAromeoScheduleRoute = '/api/updateAromeoSchedule/';
 const turnOnAromeoRoute = '/api/updateAromeoPowerOn/';
 
-export function getAromeoStatus() {
+// export function getAromeoStatus() {
+//     return dispatch=>{
+//         dispatch(fetchingData());
+//         return axios.get(getAllAromeoStatusRoute)
+//             .then(json=>dispatch(receiveAromeoStatusData(json)))
+//             .catch(err=>dispatch(requestFail(err)))
+//     }
+// }
+
+export function gethotelAromeoStatus(account_id) {
     return dispatch=>{
         dispatch(fetchingData());
-        return axios.get(getAllAromeoStatusRoute)
+        return axios.get(gethotelAromeoStatusRoute + account_id)
             .then(json=>dispatch(receiveAromeoStatusData(json)))
             .catch(err=>dispatch(requestFail(err)))
     }

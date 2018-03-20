@@ -44,11 +44,24 @@ var init = function(app, pool) {
   })
 
   /***************** Status Tracking *****************/
-  app.get('/api/getAllAromeoStatus', function(req, result, next) {
+  // app.get('/api/getAllAromeoStatus', function(req, result, next) {
+  //   pool.connect(function(err, client, done) {
+  //     if(err) { return console.error('error fetching client from pool', err); }
+  //     // TODO not considering Oil Status yet......
+  //     client.query('SELECT * FROM aromeos', [], function(err, res) {
+  //       if(err) { done(err); return console.error('error running query', err); }
+  //     }).on('end', (res) => {
+  //       return result.json(res.rows);
+  //       done();
+  //     });
+  //   });
+  // })
+
+  app.get('/api/getAllAromeoStatus/:account_id', function(req, result, next) {
     pool.connect(function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }
       // TODO not considering Oil Status yet......
-      client.query('SELECT * FROM aromeos', [], function(err, res) {
+      client.query('SELECT * FROM aromeos WHERE account_id = $1', [req.params.account_id], function(err, res) {
         if(err) { done(err); return console.error('error running query', err); }
       }).on('end', (res) => {
         return result.json(res.rows);
@@ -56,6 +69,7 @@ var init = function(app, pool) {
       });
     });
   })
+
 
   app.get('/api/getAromeoStatus/:aromeoID', function(req, res, next) {
 

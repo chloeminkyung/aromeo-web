@@ -23,8 +23,9 @@ class TempControlContainer extends React.Component {
     }
 
     componentDidMount(){
-        this.props.getAromeoStatus();
-        this.props.getAllBlends();
+        // this.props.getAromeoStatus(hotelId);
+        // this.props.getAllBlends(hotelId);
+        this.props.getAllHotels();
         this.props.getAllSchedules();
     }
 
@@ -51,15 +52,15 @@ class TempControlContainer extends React.Component {
 
     render() {
         const {blends, schedules, aromeos, admin} = this.props;
-        console.warn(blends);
-        console.warn(aromeos);
+        // console.warn(blends);
+        // console.warn(aromeos);
 
         return (
             <div>
                 <Row>
                     {
                         this.props.hotelId == null?
-                        <p>it is nullll</p>:
+                        <p>Control Page for null</p>:
                         <p>Control Page for {this.props.hotelId}</p>
                     }
                 </Row>
