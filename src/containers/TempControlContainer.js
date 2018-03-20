@@ -65,7 +65,7 @@ class TempControlContainer extends React.Component {
                     }
                 </Row>
                 <Row>
-                    <h1 style={styles.textCentered}>Temporary Control Page</h1>
+                    <h1 style={styles.textCentered}>Temporary Control Page workingggggg???? </h1>
                     <br/>
                     <Col md={6}>
                         <Paper style={styles.paper}>

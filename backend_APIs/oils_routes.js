@@ -21,6 +21,11 @@ var init = function(app, pool) {
     });
   })
 
+  app.get('/api/testing_1', function(req, result, response) {
+    console.log("testing worked");
+    return result.send("Add Oil Product");
+  })
+
   app.post('/api/addOilProduct', function(req, res, next) {
     pool.query('INSERT INTO oils(name, botanical_name, origin, description, uses, olfactive_family, cautions) values($1, $2, $3, $4, $5, $6, $7)',
     [req.body.name, req.body.botanical_name, req.body.origin, req.body.description, req.body.uses, req.body.olfactive_family, req.body.cautions],
