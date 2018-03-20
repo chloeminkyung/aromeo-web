@@ -1,12 +1,22 @@
 var axios = require('axios');
-const getAllAromeoStatusRoute = '/api/getAllAromeoStatus';
+// const getAllAromeoStatusRoute = '/api/getAllAromeoStatus';
+const gethotelAromeoStatusRoute = '/api/getAllAromeoStatus/';
 const updateAllAromeoScheduleRoute = '/api/updateAromeoSchedule/';
 const turnOnAromeoRoute = '/api/updateAromeoPowerOn/';
 
-export function getAromeoStatus() {
+// export function getAromeoStatus() {
+//     return dispatch=>{
+//         dispatch(fetchingData());
+//         return axios.get(getAllAromeoStatusRoute)
+//             .then(json=>dispatch(receiveAromeoStatusData(json)))
+//             .catch(err=>dispatch(requestFail(err)))
+//     }
+// }
+
+export function gethotelAromeoStatus(account_id) {
     return dispatch=>{
         dispatch(fetchingData());
-        return axios.get(getAllAromeoStatusRoute)
+        return axios.get(gethotelAromeoStatusRoute + account_id)
             .then(json=>dispatch(receiveAromeoStatusData(json)))
             .catch(err=>dispatch(requestFail(err)))
     }
@@ -73,14 +83,14 @@ export function updateAromeoScheduleValue(schedule_id){
 export function updateAromeoScheduleInProgress(schedule_id){
     return {
         type: 'UPDATE_AROMEO_SCHEDULE',
-        schedule_id: schedule_id
+        schedule_id: schedule_id.data
     }
 }
 
 export function updateAromeoPowerOnInProgress(power_on){
     return {
         type: 'TURN_ON_AROMEO',
-        power_on: power_on
+        power_on: power_on.data
     }
 }
 // done

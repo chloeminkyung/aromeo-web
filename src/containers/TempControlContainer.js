@@ -23,17 +23,10 @@ class TempControlContainer extends React.Component {
     }
 
     componentDidMount(){
-        this.props.getAromeoStatus();
-        this.props.getAllBlends();
+        // this.props.getAromeoStatus(hotelId);
+        // this.props.getAllBlends(hotelId);
+        // this.props.getAllHotels();
         this.props.getAllSchedules();
-        // console.log(aromeos);
-
-        // if(this.props.blends==null)
-        //     this.props.getAllBlends();
-        // if(this.props.schedules==null)
-        //     this.props.getAllSchedules();
-        // if(this.props.aromeos==null)
-        //     this.props.getAromeoStatus();
     }
 
     handleBlendChange(event, index, value){
@@ -45,36 +38,29 @@ class TempControlContainer extends React.Component {
     }
 
     handleApplyClick(event, index, value) {
-        // console.log(this.state.schedule);
-        this.props.updateAllAromeoSchedule(this.state.schedule+1);
-        // for (var i=0; i < this.props.aromeos.length; i++) {
-        //     this.setState( this.props.aromeos[i].schedule_id );
-        // }
-        // this.setState({ schedule_id : this.state.schedule+1 });
+        this.props.updateAllAromeoSchedule(this.state.schedule+1)
     }
 
     handleStartNowClick(event, index, value) {
-        this.props.turnOnAromeo(true);
-        // this.setState({ power_on : this.state.power_on });
+        this.props.turnOnAromeo(true)
     }
 
     handleStopNowClick(event, index, value) {
-        this.props.turnOnAromeo(false);
-        // this.setState({ power_on : this.state.power_on });
+        this.props.turnOnAromeo(false)
     }
 
 
     render() {
         const {blends, schedules, aromeos, admin} = this.props;
-        console.warn(blends);
-        console.warn(aromeos);
+        // console.warn(blends);
+        // console.warn(aromeos);
 
         return (
             <div>
                 <Row>
                     {
                         this.props.hotelId == null?
-                        <p>it is nullll</p>:
+                        <p>Control Page for null</p>:
                         <p>Control Page for {this.props.hotelId}</p>
                     }
                 </Row>

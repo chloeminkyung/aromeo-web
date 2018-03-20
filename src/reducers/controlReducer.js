@@ -74,14 +74,18 @@ export default function control(state = initialState, action) {
 
         // by chloe
         case 'UPDATE_AROMEO_SCHEDULE':
-            const newFilteredDataWithNewSchedule = state.filteredDataList.slice();
-            newFilteredDataWithNewSchedule[action.index].schedule_id = action.schedule_id;
-            return {...state, filteredDataList: newFilteredDataWithNewSchedule}
+            var newFilteredDataWithNewSchedule = state.filteredDataList.slice();
+            for (var i = 0; i < Object.keys(newFilteredDataWithNewSchedule).length; i++) {
+                newFilteredDataWithNewSchedule[i].schedule_id = action.schedule_id[i].schedule_id;
+            }
+            return {...state, filteredDataList: newFilteredDataWithNewSchedule};
 
         case 'TURN_ON_AROMEO':
-            const newFilteredDataWithPowerOn = state.filteredDataList.slice();
-            newFilteredDataWithPowerOn[action.index].power_on = action.power_on;
-            return {...state, filteredDataList: newFilteredDataWithPowerOn}
+            var newFilteredDataWithPowerOn = state.filteredDataList.slice();
+            for (var i = 0; i < Object.keys(newFilteredDataWithPowerOn).length; i++) {
+                newFilteredDataWithPowerOn[i].power_on = (action.power_on[i].power_on);
+            }
+            return {...state, filteredDataList: newFilteredDataWithPowerOn};
         // done
 
         default:
