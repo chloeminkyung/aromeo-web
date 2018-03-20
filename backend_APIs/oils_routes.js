@@ -1,6 +1,5 @@
 var pg = require('pg');
 
-
 var init = function(app, pool) {
   /*****************Oil***************/
   // TODO Murcul - GET /oils
