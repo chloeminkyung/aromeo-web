@@ -5,10 +5,12 @@ var baseURL = ""
 
 function getState() {
     $.get(baseURL + "/demoAPI/getState", function(data) {
-	console.log("Received State");
-	console.log(data);
-	state.pump = data.pump;
-	state.aromaNo = data.aromaNo;
+	if (data != state) {
+	    console.log("Received State");
+	    console.log(data);
+	    state.pump = data.pump;
+	    state.aromaNo = data.aromaNo;
+	}
     });
 }
 
