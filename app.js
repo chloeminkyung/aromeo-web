@@ -10,8 +10,8 @@ const pool = require('./lib/db');
 const format = require('pg-format');
 
 const indexPath = path.join(__dirname, 'index.html');
+const demoPath = path.join(__dirname, 'demo.html')
 const publicPath = express.static(path.join(__dirname, 'public'));
-
 
 //////////////////////////////////////////////////////////
 // initialize app
@@ -40,6 +40,7 @@ if(pool.runningOnLocal){
 // app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public', publicPath)
 app.get('/', function (_, res) { res.sendFile(indexPath) })
+app.get('/demo', function (_, res) { res.sendFile(demoPath) })
 
 app.get('/hello', function(req, res, next) {
     res.send('Hello')
@@ -54,3 +55,4 @@ require("./backend_APIs/oils_routes.js").init(app, pool);
 require("./backend_APIs/device_routes.js").init(app, pool);
 require("./backend_APIs/schedule_routes.js").init(app, pool);
 require("./backend_APIs/accounts_routes.js").init(app, pool);
+require("./backend_APIs/demo_routes.js").init(app);
