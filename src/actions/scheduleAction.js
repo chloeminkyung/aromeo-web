@@ -90,10 +90,10 @@ export function createBlend(body) {
 //             .catch(err=>dispatch(requestFail(err)))
 //     }
 // }
-export function gethotelBlends(account_id) {
+export function gethotelBlends(hotel_id) {
     return dispatch=>{
         dispatch(fetchingBlendData());
-        return axios.get(gethotelBlendsRoute + account_id)
+        return axios.get(gethotelBlendsRoute + hotel_id)
             .then((json)=>dispatch(receiveAllBlends(json)))
             .catch(err=>dispatch(requestFail(err)))
     }

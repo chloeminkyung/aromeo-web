@@ -145,7 +145,7 @@ class TempControlContainer extends React.Component {
                                 aromeos!=null?
                                     aromeos.map(function(aromeo, index){
                                         return (
-                                            <MenuItem value={index} primaryText={aromeo.schedule_id} />
+                                            <MenuItem value={index} primaryText={aromeo.schedule_name} />
                                         )
                                     }):null
                             }
