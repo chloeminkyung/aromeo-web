@@ -32,11 +32,11 @@ class SchedulingContainer extends React.Component {
                 <Panel header={<h3>Default Schedules</h3>}>
                     <Row>
                         {
-                            schedules!=null && !isFetchingSchedules?
-                                schedules.map(function(schedule){
-                                    return <Col md={3}><SchedulePaper schedule={schedule} toggleRemoveSchedule={toggleRemoveSchedule} /></Col>
-                                })
-                                :<p>Fetching...</p>
+                            // schedules!=null && !isFetchingSchedules?
+                            //     schedules.map(function(schedule){
+                            //         return <Col md={3}><SchedulePaper schedule={schedule} toggleRemoveSchedule={toggleRemoveSchedule} /></Col>
+                            //     })
+                            //     :<p>Fetching...</p>
                         }
                         <CreateButtonPaper onClickHandler={this.props.toggleCreateDefaultSchedule} title={"Create New Schedule"} />
                         <CreateNewScheduleModal blends={blends} />
@@ -46,11 +46,11 @@ class SchedulingContainer extends React.Component {
                 <Panel header={<h3>Blends</h3>}>
                     <Row>
                         {
-                            blends!=null && !isFetchingBlends?
-                                blends.map(function(blend){
-                                    return <Col md={3}><BlendPaper blend={blend} toggleRemoveBlend={toggleRemoveBlend}/></Col>
-                                })
-                                :<p>Fetching...</p>
+                            // blends!=null && !isFetchingBlends?
+                            //     blends.map(function(blend){
+                            //         return <Col md={3}><BlendPaper blend={blend} toggleRemoveBlend={toggleRemoveBlend}/></Col>
+                            //     })
+                            //     :<p>Fetching...</p>
                         }
                         <CreateButtonPaper onClickHandler={this.props.toggleCreateBlend} title={"Create New Blending"} />
                         <CreateNewBlendModal />
