@@ -81,6 +81,7 @@ export function updateAromeoScheduleValue(schedule_id){
 
 // by chloe
 export function updateAromeoScheduleInProgress(schedule_id){
+    console.log(schedule_id.data)
     return {
         type: 'UPDATE_AROMEO_SCHEDULE',
         schedule_id: schedule_id.data

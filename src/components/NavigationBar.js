@@ -33,6 +33,7 @@ class NavigationComponent extends React.Component{
     }
 
     handleHotelSelect(hotelId, setHotelId) {
+
         event.preventDefault();
         setHotelId(hotelId);
         this.props.gethotelBlends(hotelId);
@@ -43,6 +44,7 @@ class NavigationComponent extends React.Component{
    render() {
        const {hotels, admin} = this.props;
        console.warn(hotels);
+
        console.warn("to check hotel id"+ this.props.hotelId);
 
         return (
@@ -74,7 +76,7 @@ class NavigationComponent extends React.Component{
                         {
                             hotels != null ?  hotels.map(function(hotel, index){
                                 return (
-                                    <MenuItem eventKey={hotel.account_id} value={hotel.account_id}>{hotel.account_name}</MenuItem>
+                                    <MenuItem eventKey={hotel.hotel_id} value={hotel.hotel_id}>{hotel.hotel_name}</MenuItem>
                                 )
                             }):   null
                         }

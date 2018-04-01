@@ -65,7 +65,7 @@ class TempControlContainer extends React.Component {
                     }
                 </Row>
                 <Row>
-                    <h1 style={styles.textCentered}>Temporary Control Page workingggggg???? </h1>
+                    <h1 style={styles.textCentered}>Temporary Control Page working </h1>
                     <br/>
                     <Col md={6}>
                         <Paper style={styles.paper}>
@@ -145,7 +145,7 @@ class TempControlContainer extends React.Component {
                                 aromeos!=null?
                                     aromeos.map(function(aromeo, index){
                                         return (
-                                            <MenuItem value={index} primaryText={aromeo.schedule_id} />
+                                            <MenuItem value={index} primaryText={aromeo.schedule_name} />
                                         )
                                     }):null
                             }
