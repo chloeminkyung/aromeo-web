@@ -8,6 +8,14 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import configureStore from './store/configureStore';
 import routes from './routes';
 
+import WebFont from 'webfontloader';
+
+WebFont.load({
+    google: {
+        families: ['Quicksand Web:300,400,700', 'sans-serif']
+    }
+});
+
 const store = configureStore();
 
 injectTapEventPlugin();
