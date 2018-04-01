@@ -65,13 +65,14 @@ var init = function(app, pool) {
       if(err) {
         return console.error('error fetching client from pool', err);
       }
-      client.query('UPDATE aromeos SET schedule_id = $1 RETURNING schedule_id',
+      client.query('UPDATE aromeos SET schedule_name = (SELECT schedule_name from schedules WHERE schedule_id = $1), timeslot_ids = (SELECT timeslot_ids from schedules WHERE schedule_id = $1), description = (SELECT description from schedules WHERE schedule_id = $1) RETURNING schedule_name',
         [req.params.schedule_id], function(err, res) {
           if(err) {
             done(err);
             return console.error('error running query', err);
           }
         }).on('end', (res) => {
+          // console.log(res.rows);
           result.send(res.rows);
           done();
         });

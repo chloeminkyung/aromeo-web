@@ -90,13 +90,13 @@ var init = function(app, pool) {
   // })
 
   // TODO Murcul - GET /blends
-  app.get('/api/getAllBlends/:account_id', function(req, result, next) {
-    console.log("get all blends of " +req.params.account_id)
+  app.get('/api/getAllBlends/:hotel_id', function(req, result, next) {
+    console.log("get all blends of " +req.params.hotel_id)
     pool.connect(function(err, client, done) {
       if(err) {
         return console.error('error fetching client from pool', err);
       }
-      client.query('SELECT * FROM blends WHERE oilset_id = (SELECT oilset_id FROM accounts WHERE account_id = $1)', [req.params.account_id], function(err, res) {
+      client.query('SELECT * FROM blends WHERE oilset_id = ANY ((SELECT oilset_ids FROM hotelaccounts WHERE hotel_id = $1)::INT[])', [req.params.hotel_id], function(err, res) {
         if(err) {
           done(err);
           return console.error('error running query', err);
