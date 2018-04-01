@@ -72,7 +72,7 @@ export default function control(state = initialState, action) {
         case 'TOGGLE_REMOVE_AROMEO_DEVICE':
             return {...state, isRemoveAromeo: action.value};
 
-        // by chloe
+        // by chloe (updated with new db)
         case 'UPDATE_AROMEO_SCHEDULE':
             var newFilteredDataWithNewSchedule = state.filteredDataList.slice();
             // console.log(newFilteredDataWithNewSchedule);
