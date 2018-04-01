@@ -75,8 +75,11 @@ export default function control(state = initialState, action) {
         // by chloe
         case 'UPDATE_AROMEO_SCHEDULE':
             var newFilteredDataWithNewSchedule = state.filteredDataList.slice();
+            // console.log(newFilteredDataWithNewSchedule);
+            // console.log(action.schedule_id);
+            // console.log(action.schedule_id[i].schedule_id);
             for (var i = 0; i < Object.keys(newFilteredDataWithNewSchedule).length; i++) {
-                newFilteredDataWithNewSchedule[i].schedule_id = action.schedule_id[i].schedule_id;
+                newFilteredDataWithNewSchedule[i].schedule_name = action.schedule_id[i].schedule_name;
             }
             return {...state, filteredDataList: newFilteredDataWithNewSchedule};
 
