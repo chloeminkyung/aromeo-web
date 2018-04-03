@@ -12,5 +12,25 @@ body, div, h4{
 .subheading {
     font-weight: 300;
 }
+.h1 {
+    font-weight: 500;
+}
 
+image{
 
+}
+.icons {
+    display: inline-block;
+    padding: 0 ;
+    margin-right: 20px;
+    width:20px;
+    height:20px;
+}
+/*icon_color = #B67E6E*/
+
+div{
+
+}
+.cus_color{
+    background-color: #f2eceb;
+}
