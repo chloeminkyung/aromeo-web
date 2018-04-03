@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react';
 import {render} from 'react-dom';
 import {connect} from 'react-redux';
-import {getAllBlends, getAllSchedules} from '../actions/scheduleAction'
-import {getAromeoStatus, updateAllAromeoSchedule, turnOnAromeo} from '../actions/controlAction'
+import {gethotelBlends, getAllSchedules} from '../actions/scheduleAction'
+import {gethotelAromeoStatus, updateAllAromeoSchedule, turnOnAromeo} from '../actions/controlAction'
 import {getAllHotels} from '../actions/adminAction'
 
 import {Row, Col, Glyphicon, Button, Modal} from 'react-bootstrap'
@@ -23,10 +23,10 @@ class TempControlContainer extends React.Component {
     }
 
     componentDidMount(){
-        this.props.getAromeoStatus(1);
-        this.props.gethotelBlends(1);
         // this.props.getAllHotels();
         this.props.getAllSchedules();
+        this.props.gethotelAromeoStatus(1);
+        this.props.gethotelBlends(1);
     }
 
     handleBlendChange(event, index, value){
@@ -173,7 +173,7 @@ export default connect(
 
     }),
     {
-        getAllBlends, getAllSchedules, getAllHotels, getAromeoStatus, updateAllAromeoSchedule, turnOnAromeo
+        gethotelBlends, getAllSchedules, getAllHotels, gethotelAromeoStatus, updateAllAromeoSchedule, turnOnAromeo
     }
 )(TempControlContainer)
 
