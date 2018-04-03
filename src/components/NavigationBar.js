@@ -17,7 +17,7 @@ class NavigationComponent extends React.Component{
         super(props);
         this.state= {
             hotel: 0,
-            hotelId: null
+            hotelId: 1
         }
     }
 
@@ -26,18 +26,17 @@ class NavigationComponent extends React.Component{
     }
 
     componentDidMount(){
-        if(this.props.hotels==null)
+        // if(this.props.hotels==1)
             this.props.getAllHotels();
+            this.props.gethotelBlends(1);
+            this.props.gethotelAromeoStatus(1);
             // this.props.gethotelBlends(hotelId);
             // this.props.gethotelAromeoStatus(hotelId);
     }
 
     handleHotelSelect(hotelId, setHotelId) {
-
-        event.preventDefault();
+        event.preventDefault(); 
         setHotelId(hotelId);
-        this.props.gethotelBlends(hotelId);
-        this.props.gethotelAromeoStatus(hotelId);
     }
 
 

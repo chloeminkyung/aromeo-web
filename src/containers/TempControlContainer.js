@@ -58,13 +58,6 @@ class TempControlContainer extends React.Component {
         return (
             <div>
                 <Row>
-                    {
-                        this.props.hotelId == null?
-                        <p>Control Page for null</p>:
-                        <p>Control Page for {this.props.hotelId}</p>
-                    }
-                </Row>
-                <Row>
                     <h1 style={styles.textCentered}>Temporary Control Page working </h1>
                     <br/>
                     <Col md={6}>

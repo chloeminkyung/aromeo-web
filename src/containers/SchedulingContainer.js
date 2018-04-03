@@ -7,8 +7,9 @@ import {SchedulePaper, CreateButtonPaper, BlendPaper} from '../components/Schedu
 import CreateNewScheduleModal from '../components/CreateNewScheduleModal'
 import CreateNewBlendModal from '../components/CreateNewBlendModal'
 import RemoveModal from '../components/RemoveModal'
-import {toggleCreateDefaultSchedule, toggleCreateBlend, getAllBlends, getAllSchedules,
+import {toggleCreateDefaultSchedule, toggleCreateBlend, gethotelBlends, getAllSchedules,
     toggleRemoveBlend, toggleRemoveSchedule, removeBlend, removeSchedule} from '../actions/scheduleAction'
+import {getAllHotels} from '../actions/adminAction'
 
 class SchedulingContainer extends React.Component {
     constructor(props){
@@ -19,7 +20,8 @@ class SchedulingContainer extends React.Component {
         // if(this.props.blends==null)
         //     this.props.getAllBlends();
         // if(this.props.schedules==null)
-        //     this.props.getAllSchedules();
+        this.props.getAllSchedules();
+        this.props.gethotelBlends(1);
     }
 
     render() {
@@ -73,7 +75,7 @@ export default connect(
         isFetchingSchedules: state.schedule.isFetchingSchedules
     }),
     {
-        toggleCreateDefaultSchedule, toggleCreateBlend, getAllBlends, getAllSchedules,
+        toggleCreateDefaultSchedule, toggleCreateBlend, gethotelBlends, getAllSchedules,
         toggleRemoveBlend, toggleRemoveSchedule, removeBlend, removeSchedule
 
     }

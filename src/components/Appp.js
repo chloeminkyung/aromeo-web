@@ -33,7 +33,7 @@ export default function App({children}){
         <MuiThemeProvider muiTheme={aromeoTheme}>
             <div>
                 <Sidebar margin={20} width={260} background={'#232733'} content={items}>
-                <NavigationComponent />
+                {/*<NavigationComponent />*/}
                 <div style={containerDivStyle}>
                     {children}
                 </div>
