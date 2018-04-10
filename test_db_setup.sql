@@ -103,7 +103,8 @@ INSERT INTO aromeos (aromeo_id,hotel_id,name,power_on,diffusion_strength,oilSet_
 
 INSERT INTO schedules (hotel_id,schedule_name,description, timeslot_ids)
 VALUES
-  (1, 'Business Schedule', 'For business people who needs to work and rest well', '{1,2,3}');
+  (1, 'Business Schedule', 'For business people who needs to work and rest well', '{1,2,3}'),
+  (2, 'Couple Schedule', 'For couples wanting romantic mood', '{1,2,3}');
 
 INSERT INTO timeslots (blend_id,start_time,duration,is_custom)
 VALUES
@@ -113,4 +114,8 @@ VALUES
 
 INSERT INTO oilSets (oils)
     VALUES
-      ('{2,1,4,3,5}')
+      ('{2,1,4,3,5}');
+
+INSERT INTO hotelAccounts (hotel_id, hotel_username,hotel_password,hotel_name,hotel_email,address,telephone,aromeoCount,oilSet_ids)
+VALUES
+  (1, 'conrad',12345,'conrad','conrad@gmail.com','address of conrad hk',63157737,10,'{1}');

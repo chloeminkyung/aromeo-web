@@ -31,6 +31,7 @@ function requestFail(error){
     }
 }
 function receiveAllBlends(json){
+    console.log(json.data)
     return{
         type: 'RECEIVE_ALL_BLENDS',
         blends: json.data

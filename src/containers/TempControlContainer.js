@@ -18,15 +18,15 @@ class TempControlContainer extends React.Component {
         this.state = {
             schedule: 0,
             blend: 0,
-            aromeo: 0
+            aromeo: 0,
+            tempHotelId: 1
         }
     }
 
     componentDidMount(){
-        // this.props.getAllHotels();
         this.props.getAllSchedules();
-        this.props.gethotelAromeoStatus(1);
-        this.props.gethotelBlends(1);
+        this.props.gethotelAromeoStatus(this.state.tempHotelId);
+        this.props.gethotelBlends(this.state.tempHotelId);
     }
 
     handleBlendChange(event, index, value){
@@ -52,8 +52,8 @@ class TempControlContainer extends React.Component {
 
     render() {
         const {blends, schedules, aromeos, admin} = this.props;
-        // console.warn(blends);
-        // console.warn(aromeos);
+
+        console.warn(blends)
 
         return (
             <div>

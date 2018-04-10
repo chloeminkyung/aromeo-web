@@ -71,24 +71,6 @@ var init = function(app, pool) {
     });
   })
 
-  // app.get('/api/getAllBlends', function(req, result, next) {
-  //   console.log("get all blends")
-  //   pool.connect(function(err, client, done) {
-  //     if(err) {
-  //       return console.error('error fetching client from pool', err);
-  //     }
-  //     client.query('SELECT * FROM blends', [], function(err, res) {
-  //       if(err) {
-  //         done(err);
-  //         return console.error('error running query', err);
-  //       }
-  //     }).on('end', (res) => {
-  //       return result.json(res.rows);
-  //       done();
-  //     });
-  //   });
-  // })
-
   // TODO Murcul - GET /blends
   app.get('/api/getAllBlends/:hotel_id', function(req, result, next) {
     console.log("get all blends of " +req.params.hotel_id)
