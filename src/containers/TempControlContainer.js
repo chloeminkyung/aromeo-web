@@ -128,7 +128,7 @@ class TempControlContainer extends React.Component {
                                 aromeos!=null?
                                     aromeos.map(function(aromeo, index){
                                         return (
-                                            <MenuItem value={index} primaryText={aromeo.name} />
+                                            <MenuItem value={index} primaryText={"Room " + aromeo.name} />
                                         )
                                     }):null
                             }
@@ -148,7 +148,9 @@ class TempControlContainer extends React.Component {
                                 aromeos!=null?
                                     aromeos.map(function(aromeo, index){
                                         return (
-                                            <MenuItem value={index} primaryText={aromeo.power_on.toString()} />
+                                            aromeo.power_on.toString() == 'true' ?
+                                                <MenuItem value={index} primaryText={'ON'}/> :
+                                                <MenuItem value={index} primaryText={'OFF'}/>
                                         )
                                     }):null
                             }
